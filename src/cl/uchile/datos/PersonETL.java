@@ -13,8 +13,6 @@ import javax.xml.stream.XMLStreamException;
  *
  */
 public class PersonETL extends AbstractETL {
-	
-	
 
 	/**
 	 * @throws XMLStreamException 
@@ -24,20 +22,25 @@ public class PersonETL extends AbstractETL {
 	public PersonETL(String filename) throws XMLStreamException, FileNotFoundException {
 		super(filename);
 		System.out.println("super");
-		
-		String tagContent;
+
+		boolean bool = false;
 
 		while(reader.hasNext()){
 			int event = reader.next();
-			
-			boolean isMarcEntry = false;
 
 			switch(event){
-			case XMLStreamConstants.START_ELEMENT: 
+			case XMLStreamConstants.START_ELEMENT:
+				String str = reader.getAttributeValue("", "tag");
+				if(str != null && str.equals("100")) {
+					bool = true;
+				}
 				break;
 
 			case XMLStreamConstants.CHARACTERS:
-				System.out.println(reader.getText().trim());
+				if (bool) {
+					System.out.println(reader.getText().trim());
+					bool = false;
+				}
 				break;
 
 			case XMLStreamConstants.END_ELEMENT:
@@ -45,8 +48,10 @@ public class PersonETL extends AbstractETL {
 
 			case XMLStreamConstants.START_DOCUMENT:
 				break;
-			}
 
+			case XMLStreamConstants.ATTRIBUTE:
+				break;
+			}
 		}
 	}
 
