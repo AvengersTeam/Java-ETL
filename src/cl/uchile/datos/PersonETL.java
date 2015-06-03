@@ -3,62 +3,51 @@
  */
 package cl.uchile.datos;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
+import java.io.FileNotFoundException;
+
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
 
 /**
  * @author Fernando
  *
  */
 public class PersonETL extends AbstractETL {
+	
+	
 
 	/**
+	 * @throws XMLStreamException 
+	 * @throws FileNotFoundException 
 	 * 
 	 */
-	public PersonETL() {
-		super();
+	public PersonETL(String filename) throws XMLStreamException, FileNotFoundException {
+		super(filename);
+		System.out.println("super");
 		
-		// Anonymous Sub-classing 
-		this.handler = new DefaultHandler() {
+		String tagContent;
 
-			boolean bmentry = false;
+		while(reader.hasNext()){
+			int event = reader.next();
 			
-			// Here we make our buffer, somehow we need to write this into an xml file
-			// We cant just build the entire tree in memory
-			// TODO: investigate how to write large XML file
-			
-			// Maybe we use this?
-			// StringBuffer elementContent = new StringBuffer();
-			
+			boolean isMarcEntry = false;
 
-			public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+			switch(event){
+			case XMLStreamConstants.START_ELEMENT: 
+				break;
 
-				//Here we say when to read a value
-				if (qName.equalsIgnoreCase("MARCENTRY") && attributes.getValue("tag").equals("100")) {
-					bmentry = true;
-					System.out.println(qName);
-				}
+			case XMLStreamConstants.CHARACTERS:
+				System.out.println(reader.getText().trim());
+				break;
 
+			case XMLStreamConstants.END_ELEMENT:
+				break;
+
+			case XMLStreamConstants.START_DOCUMENT:
+				break;
 			}
 
-			public void endElement(String uri, String localName, String qName) throws SAXException {
-
-			}
-
-			public void characters(char ch[], int start, int length) throws SAXException {
-
-				// TODO: filter this shit
-				if (bmentry) {
-					System.out.println("A marc entry : " + new String(ch, start, length));
-					bmentry = false;
-					// here this content should be writen in an XML well formed document
-					//
-				}
-
-			}
-
-		};
+		}
 	}
 
 }

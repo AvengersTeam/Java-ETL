@@ -3,9 +3,9 @@
  */
 package cl.uchile.datos;
 
-import java.io.IOException;
+import java.io.FileNotFoundException;
 
-import org.xml.sax.SAXException;
+import javax.xml.stream.XMLStreamException;
 
 /**
  * @author SISIB
@@ -15,20 +15,13 @@ public class Migrator {
 
 	/**
 	 * @param args
+	 * @throws XMLStreamException 
+	 * @throws FileNotFoundException 
 	 */
-	public static void main(String[] args) {
-		PersonETL p = new PersonETL();
-		String filename = "C:\\Users\\SISIB\\Downloads\\Autoridades-personales-hasta2005-con-subcampos_2015-04-17.xml";
-		try {
-			p.getSaxParser().parse(filename, p.getHandler());
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+	public static void main(String[] args) throws XMLStreamException, FileNotFoundException {
+		String filename = "C:/Users/SISIB/Downloads/Autoridades-personales-hasta2005-con-subcampos_2015-04-17.xml";
+		System.out.println("asdsad");
+		PersonETL p = new PersonETL(filename);
 	}
 
 }

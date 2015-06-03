@@ -3,12 +3,12 @@
  */
 package cl.uchile.datos;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
-import org.xml.sax.helpers.DefaultHandler;
-import org.xml.sax.SAXException;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 /**
  * @author SISIB
@@ -16,65 +16,17 @@ import org.xml.sax.SAXException;
  */
 public abstract class AbstractETL {
 	
-	SAXParserFactory factory;
-	SAXParser saxParser;
-	DefaultHandler handler;
+	XMLInputFactory factory;
+	XMLStreamReader reader;
 	
 	/**
+	 * @throws XMLStreamException 
+	 * @throws FileNotFoundException 
 	 * 
 	 */
-	public AbstractETL() {
-		this.factory = SAXParserFactory.newInstance();
-		try {
-			this.saxParser = this.factory.newSAXParser();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public AbstractETL(String filename) throws XMLStreamException, FileNotFoundException {
+		this.factory = XMLInputFactory.newInstance();
+		this.reader = factory.createXMLStreamReader(new FileInputStream(filename));
 	}
 
-	/**
-	 * @return the factory
-	 */
-	public SAXParserFactory getFactory() {
-		return factory;
-	}
-
-	/**
-	 * @param factory the factory to set
-	 */
-	public void setFactory(SAXParserFactory factory) {
-		this.factory = factory;
-	}
-
-	/**
-	 * @return the saxParser
-	 */
-	public SAXParser getSaxParser() {
-		return saxParser;
-	}
-
-	/**
-	 * @param saxParser the saxParser to set
-	 */
-	public void setSaxParser(SAXParser saxParser) {
-		this.saxParser = saxParser;
-	}
-
-	/**
-	 * @return the handler
-	 */
-	public DefaultHandler getHandler() {
-		return handler;
-	}
-
-	/**
-	 * @param handler the handler to set
-	 */
-	public void setHandler(DefaultHandler handler) {
-		this.handler = handler;
-	}
 }
