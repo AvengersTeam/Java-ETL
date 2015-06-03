@@ -22,7 +22,8 @@ public class PersonETL extends AbstractETL {
 	public PersonETL( String filename ) throws XMLStreamException, FileNotFoundException {
 		super( filename );
 		String id = ""; String tagname;
-		while( reader.hasNext() && reader.next() == XMLStreamConstants.START_ELEMENT ) {
+		while( reader.hasNext() ) {
+			if( reader.next() != XMLStreamConstants.START_ELEMENT ) continue;
 			tagname = reader.getName().toString();
 			if( ! tagname.equals( "marcEntry" ) && ! tagname.equals( "authorityID" ) ) continue;
 			String str = reader.getAttributeValue( "", "tag" );
