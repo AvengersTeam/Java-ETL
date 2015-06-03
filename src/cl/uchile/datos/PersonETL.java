@@ -27,10 +27,11 @@ public class PersonETL extends AbstractETL {
 
 		while(reader.hasNext()){
 			int event = reader.next();
+			String str;
 
 			switch(event){
 			case XMLStreamConstants.START_ELEMENT:
-				String str = reader.getAttributeValue("", "tag");
+				str = reader.getAttributeValue("", "tag");
 				if(str != null && str.equals("100")) {
 					bool = true;
 				}
@@ -38,7 +39,11 @@ public class PersonETL extends AbstractETL {
 
 			case XMLStreamConstants.CHARACTERS:
 				if (bool) {
-					System.out.println(reader.getText().trim());
+					str = reader.getText().trim();
+					if (str.contains("|a")) {
+						System.out.println(str);
+						
+					}
 					bool = false;
 				}
 				break;
