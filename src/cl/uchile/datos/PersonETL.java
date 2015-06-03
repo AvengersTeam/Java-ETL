@@ -19,30 +19,37 @@ public class PersonETL extends AbstractETL {
 	 * @throws FileNotFoundException
 	 * 
 	 */
-	public PersonETL( String filename ) throws XMLStreamException, FileNotFoundException {
+	public PersonETL( String filename ) throws FileNotFoundException, XMLStreamException {
 		super( filename );
-		String id = ""; String tagname;
-		while( reader.hasNext() ) {
-			if( reader.next() != XMLStreamConstants.START_ELEMENT ) continue;
-			tagname = reader.getName().toString();
-			if( ! tagname.equals( "marcEntry" ) && ! tagname.equals( "authorityID" ) ) continue;
-			String str = reader.getAttributeValue( "", "tag" );
-			reader.next();
-			id = tagname.equals( "authorityID" ) ? reader.getText() : id;
-			if( str == null ) continue;
-			
-			if( str.equals( "111" ) ) {
-				System.out.println( reader.getText() );
-			}
-			else if( str.equals( "005" ) ) {
-				
-				
-			}
-			
-			
+	}
 
+	/**
+	 * @throws XMLStreamException 
+	 * 
+	 */
+	public void parse() throws XMLStreamException {
+		// TODO Auto-generated method stub
+		String id = ""; String tagname;
+		while( this.reader.hasNext() ) {
+			if ( this.reader.next() != XMLStreamConstants.START_ELEMENT ) continue; 
+			tagname = this.reader.getName().toString();
+			if( ! tagname.equals( "marcEntry" ) && ! tagname.equals( "authorityID" ) ) continue;
+			String attributeValue = this.reader.getAttributeValue( "", "tag" );
+			this.reader.next();
+			id = tagname.equals( "authorityID" ) ? this.reader.getText() : id;
+			
+			if( attributeValue == null ) continue;
+			
+			if( attributeValue.equals( "100" ) && this.reader.getText().contains("|a") ) {
+				String text = this.reader.getText();
+				String[] textArray = text.split("\\|");
+				for (int i = 0; i < textArray.length; i++) {
+					if (textArray[i].equals("")) continue;
+					if (textArray[i].substring(0,1).equals("a")) System.out.println( "Nombre: " + textArray[i].substring(1) );
+					else if (textArray[i].substring(0,1).equals("d")) System.out.println( "Fecha: " + textArray[i].substring(1) );
+				}
+			}
 		}
-		System.out.println(  "termine"  );
 	}
 
 }
