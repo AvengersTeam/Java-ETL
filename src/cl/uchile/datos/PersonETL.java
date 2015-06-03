@@ -34,18 +34,22 @@ public class PersonETL extends AbstractETL {
 			if ( this.reader.next() != XMLStreamConstants.START_ELEMENT ) continue; 
 			tagname = this.reader.getName().toString();
 			if( ! tagname.equals( "marcEntry" ) && ! tagname.equals( "authorityID" ) ) continue;
-			String str = this.reader.getAttributeValue( "", "tag" );
+			String attributeValue = this.reader.getAttributeValue( "", "tag" );
 			this.reader.next();
 			id = tagname.equals( "authorityID" ) ? this.reader.getText() : id;
 			
-			if( str == null ) continue;
+			if( attributeValue == null ) continue;
 			
-			if( str.equals( "100" ) ) {
-				System.out.println( this.reader.getText() );
+			if( attributeValue.equals( "100" ) && this.reader.getText().contains("|a") ) {
+				String text = this.reader.getText();
+				String[] textArray = text.split("\\|");
+				for (int i = 0; i < textArray.length; i++) {
+					if (textArray[i].equals("")) continue;
+					if (textArray[i].substring(0,1).equals("a")) System.out.println( "Nombre: " + textArray[i].substring(1) );
+					else if (textArray[i].substring(0,1).equals("d")) System.out.println( "Fecha: " + textArray[i].substring(1) );
+				}
 			}
-			else if( str.equals( "005" ) ) {}
 		}
-		System.out.println(  "termine"  );
 	}
 
 }
