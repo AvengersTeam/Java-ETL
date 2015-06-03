@@ -49,16 +49,18 @@ public class PrimitiveWork {
 		str += "<rdf:type rdf:resource=\"frbrer:C1001\"/>";
 		for( String s : attrs.keySet() ) {
 			if( s.equals( "language" ) ) {
+				/* Asumiendo que los atributos se van revisando en orden */
 				str += "</owl:NamedIndividual><owl:NamedIndividual rdf:about=\""+url+"/expresion/"+id+"\">";
 				str += "<rdf:type rdf:resource=\"frbrer:C1002\"/>";
 				str += getTriple( s );
 				str += "</owl:NamedIndividual><owl:NamedIndividual rdf:about=\""+url+"/manifestacion/"+id+"\">";
 				str += "<rdf:type rdf:resource=\"frbrer:C1003\"/>";
+				continue;
 			}
 			str += getTriple( s );
-			if( s.equals( "" ) ) str += "</owl:NamedIndividual>";
 		}
-
+		str += "</owl:NamedIndividual>";
+		
 		saveContent( str );
 	}
 
