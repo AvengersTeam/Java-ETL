@@ -19,27 +19,31 @@ public class PersonETL extends AbstractETL {
 	 * @throws FileNotFoundException
 	 * 
 	 */
-	public PersonETL( String filename ) throws XMLStreamException, FileNotFoundException {
+	public PersonETL( String filename ) throws FileNotFoundException, XMLStreamException {
 		super( filename );
+	}
+
+	/**
+	 * @throws XMLStreamException 
+	 * 
+	 */
+	public void parse() throws XMLStreamException {
+		// TODO Auto-generated method stub
 		String id = ""; String tagname;
-		while( reader.hasNext() && reader.next() == XMLStreamConstants.START_ELEMENT ) {
-			tagname = reader.getName().toString();
+		while( this.reader.hasNext() ) {
+			if ( this.reader.next() != XMLStreamConstants.START_ELEMENT ) continue; 
+			tagname = this.reader.getName().toString();
 			if( ! tagname.equals( "marcEntry" ) && ! tagname.equals( "authorityID" ) ) continue;
-			String str = reader.getAttributeValue( "", "tag" );
-			reader.next();
-			id = tagname.equals( "authorityID" ) ? reader.getText() : id;
+			String str = this.reader.getAttributeValue( "", "tag" );
+			this.reader.next();
+			id = tagname.equals( "authorityID" ) ? this.reader.getText() : id;
+			
 			if( str == null ) continue;
 			
-			if( str.equals( "111" ) ) {
-				System.out.println( reader.getText() );
+			if( str.equals( "100" ) ) {
+				System.out.println( this.reader.getText() );
 			}
-			else if( str.equals( "005" ) ) {
-				
-				
-			}
-			
-			
-
+			else if( str.equals( "005" ) ) {}
 		}
 		System.out.println(  "termine"  );
 	}
