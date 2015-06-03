@@ -19,7 +19,7 @@ public class PersonETL extends AbstractETL {
 	public PersonETL() {
 		super();
 		
-		// Anonymous Sub-classing
+		// Anonymous Sub-classing 
 		this.handler = new DefaultHandler() {
 
 			boolean bmentry = false;
@@ -35,7 +35,6 @@ public class PersonETL extends AbstractETL {
 			public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
 				//Here we say when to read a value
-				
 				if (qName.equalsIgnoreCase("MARCENTRY") && attributes.getValue("tag").equals("100")) {
 					bmentry = true;
 					System.out.println(qName);
