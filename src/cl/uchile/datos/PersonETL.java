@@ -9,7 +9,7 @@ import javax.xml.stream.XMLStreamException;
 
 
 /**
- * @author Fernando
+ * @author Avengers
  *
  */
 public class PersonETL extends AbstractETL {
@@ -44,6 +44,8 @@ public class PersonETL extends AbstractETL {
 		this.writer.writeNamespace("foaf", foafUri);
 		this.writer.writeNamespace("bio", bioUri);
 		this.writer.writeNamespace("rdf", rdfUri);
+		
+		boolean isFirst = true;
 	
 		while(this.reader.hasNext()) {
 			if (this.reader.next() != XMLStreamConstants.START_ELEMENT) continue; 
@@ -55,13 +57,15 @@ public class PersonETL extends AbstractETL {
 
 			if (tagname.equals("authorityID")) {
 				id = this.reader.getText();
+				// We should not close the parent element
+				if (!isFirst) this.writer.writeEndElement();
+				isFirst = false;
 				// Write buffered element, this can be optimized
-				this.writer.writeEndElement();
 				this.writer.flush();
 				// New guy starts here
 				this.writer.setPrefix("owl", owlUri);
 				this.writer.writeStartElement(owlUri, "NamedIndividual");
-				this.writer.writeAttribute(rdfUri, "about", base_uri + id);
+				this.writer.writeAttribute(rdfUri, "about", base_uri + "autoridad/" + id);
 			}
 			
 			if(attributeValue == null) continue;
@@ -80,13 +84,26 @@ public class PersonETL extends AbstractETL {
 					}
 					else if (textArray[i].substring(0,1).equals("d")) {
 						System.out.println("Fecha: " + textArray[i].substring(1));
+						String[] birthArray = textArray[i].substring(1).split("\\-");
+						this.writer.setPrefix("bio", bioUri);
+						this.writer.writeEmptyElement(bioUri, "event");
+						this.writer.writeAttribute(rdfUri, "resource", base_uri + "nacimiento/" + birthArray[0]);
+						if (birthArray.length == 2) {
+							this.writer.setPrefix("bio", bioUri);
+							this.writer.writeEmptyElement(bioUri, "event");
+							this.writer.writeAttribute(rdfUri, "resource", base_uri + "muerte/" + birthArray[1]);
+						}
 					}
 				}
 			}
 		}
 		
-		writer.writeEndElement();
-		writer.writeEndDocument();
+		// end the last guy
+		this.writer.writeEndElement();
+		// end the rdf descriptions
+		this.writer.writeEndElement();
+		this.writer.writeEndDocument();
+		this.writer.close();
 
 	}
 

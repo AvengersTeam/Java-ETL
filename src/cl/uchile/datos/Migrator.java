@@ -4,15 +4,10 @@
 package cl.uchile.datos;
 
 import java.io.FileNotFoundException;
-
-import javax.xml.stream.XMLOutputFactory;
-import java.io.FileOutputStream;
-import javax.xml.stream.XMLStreamWriter;
-
 import javax.xml.stream.XMLStreamException;
 
 /**
- * @author SISIB
+ * @author Avengers
  *
  */
 public class Migrator {
