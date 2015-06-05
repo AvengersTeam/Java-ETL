@@ -4,14 +4,17 @@
 package cl.uchile.datos;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 
-import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamWriter;
 
 /**
- * @author SISIB
+ * @author Avengers
  *
  */
 public abstract class AbstractETL {
@@ -29,8 +32,8 @@ public abstract class AbstractETL {
 	public AbstractETL(String inputFilename, String outputFilename) throws XMLStreamException, FileNotFoundException {
 		this.inputFactory = XMLInputFactory.newInstance();
 		this.outputFactory = XMLOutputFactory.newInstance();
-		this.reader = this.inputFactory.createXMLStreamReader(new FileInputStream(inputFilename));
-		this.writer = this.outputFactory.createXMLStreamWriter(new FileInputStream(outputFilename));
+		this.reader = this.inputFactory.createXMLStreamReader(new FileInputStream(inputFilename), "UTF8");
+		this.writer = this.outputFactory.createXMLStreamWriter(new FileOutputStream(outputFilename), "UTF8");
 	}
 
 }
