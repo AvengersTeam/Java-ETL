@@ -7,8 +7,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
+import javax.xml.transform.Result;
 
 /**
  * @author SISIB
@@ -30,7 +33,7 @@ public abstract class AbstractETL {
 		this.inputFactory = XMLInputFactory.newInstance();
 		this.outputFactory = XMLOutputFactory.newInstance();
 		this.reader = this.inputFactory.createXMLStreamReader(new FileInputStream(inputFilename));
-		this.writer = this.outputFactory.createXMLStreamWriter(new FileInputStream(outputFilename));
+		this.writer = this.outputFactory.createXMLStreamWriter((Result) new FileInputStream(outputFilename));
 	}
 
 }

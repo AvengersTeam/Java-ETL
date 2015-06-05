@@ -54,7 +54,7 @@ public class PersonETL extends AbstractETL {
 			this.reader.next();
 
 			if (tagname.equals("authorityID")) {
-				id = this.reader.getText()
+				id = this.reader.getText();
 				// Write buffered element, this can be optimized
 				this.writer.writeEndElement();
 				this.writer.flush();
