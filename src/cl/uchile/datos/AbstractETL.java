@@ -26,7 +26,7 @@ public abstract class AbstractETL {
 	 * @throws FileNotFoundException 
 	 * 
 	 */
-	public AbstractETL(String filename) throws XMLStreamException, FileNotFoundException {
+	public AbstractETL(String inputFilename, String outputFilename) throws XMLStreamException, FileNotFoundException {
 		this.inputFactory = XMLInputFactory.newInstance();
 		this.outputFactory = XMLOutputFactory.newInstance();
 		this.reader = this.inputFactory.createXMLStreamReader(new FileInputStream(inputFilename));
