@@ -16,8 +16,10 @@ import javax.xml.stream.XMLStreamReader;
  */
 public abstract class AbstractETL {
 	
-	XMLInputFactory factory;
+	XMLInputFactory inputFactory;
+	XMLOutputFactory outputFactory;
 	XMLStreamReader reader;
+	XMLStreamWriter writer;
 	
 	/**
 	 * @throws XMLStreamException 
@@ -25,8 +27,10 @@ public abstract class AbstractETL {
 	 * 
 	 */
 	public AbstractETL(String filename) throws XMLStreamException, FileNotFoundException {
-		this.factory = XMLInputFactory.newInstance();
-		this.reader = factory.createXMLStreamReader(new FileInputStream(filename));
+		this.inputFactory = XMLInputFactory.newInstance();
+		this.outputFactory = XMLOutputFactory.newInstance();
+		this.reader = this.inputFactory.createXMLStreamReader(new FileInputStream(inputFilename));
+		this.writer = this.outputFactory.createXMLStreamWriter(new FileInputStream(outputFilename));
 	}
 
 }
