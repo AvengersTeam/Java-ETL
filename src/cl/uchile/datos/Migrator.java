@@ -17,7 +17,7 @@ public class Migrator {
 	 * @throws XMLStreamException 
 	 * @throws FileNotFoundException 
 	 */
-	public static void main(String[] args) throws XMLStreamException, FileNotFoundException {
+	public static void main(String[] args) throws Exception {
 		String inputFilename = "input/autoridades.xml";
 		String outputFilename = "output/autoridades-personas.rdf";
 		PersonETL p = new PersonETL(inputFilename, outputFilename);
@@ -27,5 +27,4 @@ public class Migrator {
 		EventETL e = new EventETL(inputFilename, outputFilename);
 		e.parse();
 	}
-
 }

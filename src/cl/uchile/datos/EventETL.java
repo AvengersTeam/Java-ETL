@@ -1,9 +1,23 @@
 package cl.uchile.datos;
 
+/**
+ * @author Carlo
+ * ETL de eventos.
+ *
+ */
+
 import java.io.FileNotFoundException;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
+
+import java.io.FileReader;
+import java.util.Collection;
+import java.text.Normalizer;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 public class EventETL extends AbstractETL {
 	
@@ -11,7 +25,7 @@ public class EventETL extends AbstractETL {
 		super(inputFilename, outputFilename);
 	}
 	
-	public void parse() throws XMLStreamException {
+	public void parse() throws Exception {
 		String id = "";
 		String tagname;
 		String base_uri = "http://datos.uchile.cl/";
@@ -32,6 +46,16 @@ public class EventETL extends AbstractETL {
 		this.writer.writeNamespace("schema", schemaUri);
 		
 		boolean isFirst = true;
+		
+		JSONParser jparser = new JSONParser();
+		Object cities = jparser.parse(new FileReader("localizations/ciudades_chile.json"));
+		Object countries = jparser.parse(new FileReader("localizations/paises.json"));
+		/* JSONArray de ciudades. */
+		JSONArray jCities = (JSONArray) cities;
+		JSONObject jCountries = (JSONObject) countries;
+		Collection<Object> cCountries = jCountries.values();
+		/* Array de paises. */
+		Object[] aCountries = cCountries.toArray();
 		
 		while(this.reader.hasNext()) {
 			if (this.reader.next() != XMLStreamConstants.START_ELEMENT) continue; 
@@ -92,6 +116,41 @@ public class EventETL extends AbstractETL {
 						this.writer.writeCharacters(fecha);
 						this.writer.writeEndElement();
 					}
+					/* Caso localidad */
+					if (textArray[i].substring(0,1).equals("c")) {
+						boolean found = false;
+						String location = "";
+						/* Quitar caracteres especiales */
+						textArray[i] = unidecode(textArray[i]);
+						/* Se verifica si el nombre de la localidad coincide con uno del arreglo
+						 * de ciudades o de paises */
+						for(int j = 0; j < jCities.size(); j++){
+							String aux = unidecode((String)jCities.get(j));
+							if(textArray[i].indexOf(aux) != -1){
+								location = aux;
+								found = true;
+								break;
+							}
+						}
+						if(!found){
+							for(int j = 0; j < aCountries.length; j++){
+								String aux = unidecode((String)aCountries[j]);
+								if(textArray[i].indexOf(aux) != -1){
+									location = aux;
+									found = true;
+									break;
+								}
+							}
+						}
+						/*  */
+						if(found){
+							String locationURI = base_uri + "localidad/" + location;
+							System.out.println("Localidad: " + location);
+							this.writer.setPrefix("dct", dctUri);
+							this.writer.writeEmptyElement(dctUri, "spatial");
+							this.writer.writeAttribute(rdfUri, "resource", locationURI);
+						}
+					}
 				}
 			}
 		}
@@ -102,5 +161,12 @@ public class EventETL extends AbstractETL {
 		this.writer.writeEndElement();
 		this.writer.writeEndDocument();
 		this.writer.close();
+	}
+	/* deunidecodear string */
+	public static String unidecode(String s) throws Exception{
+		String aux = Normalizer.normalize(s, Normalizer.Form.NFKD);
+		String regex = "[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+";
+		aux = new String(aux.replaceAll(regex, "").getBytes("ascii"), "ascii");
+		return aux.toLowerCase();
 	}
 }
