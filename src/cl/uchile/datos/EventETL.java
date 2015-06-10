@@ -1,22 +1,23 @@
 package cl.uchile.datos;
 
-/**
- * @author Carlo
- * ETL de eventos.
- */
-
 import java.io.FileNotFoundException;
-
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 
 import java.io.FileReader;
 import java.util.Collection;
+
+
 /* Usar json-simple-1.1.1.jar para importar las librerías que siguen */
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+/**
+ * ETL Eventos.
+ * 
+ * @author Avengers
+ */
 public class EventETL extends AbstractETL {
 	
 	public EventETL(String inputFilename, String outputFilename) throws FileNotFoundException, XMLStreamException {
@@ -26,12 +27,6 @@ public class EventETL extends AbstractETL {
 	public void parse() throws Exception {
 		String id = "";
 		String tagname;
-		String base_uri = "http://datos.uchile.cl/";
-		String owlUri = base_uri+"ontologia/";
-		String dctUri = "http://purl.org/dc/terms/";
-		String rdfUri = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";	
-		String frbrerUri = "http://iflastandards.info/ns/fr/frbr/frbrer#";
-		String schemaUri = "http://schema.org/";
 		
 		this.writer.writeStartDocument();
 		this.writer.setPrefix("rdf", rdfUri);

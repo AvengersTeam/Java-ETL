@@ -1,2 +1,6 @@
 *.class
-/bin/
+bin/
+.classpath
+input/
+output/
+

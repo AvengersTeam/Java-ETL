@@ -6,43 +6,25 @@ package cl.uchile.datos;
  */
 /* Usar json-simple-1.1.1.jar para importar las librerías que siguen */
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collection;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class LocationETL {
-	XMLOutputFactory outputFactory;
-	XMLStreamWriter writer;
+public class LocationETL extends AbstractETL{
 	JSONArray jCities;
 	Object[] aCountries;
 	
-	String base_uri = "http://datos.uchile.cl/recurso/";
-	String owlUri = "http://datos.uchile.cl/ontologia/";
-	String rdfUri = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";	
-	String dctUri = "http://purl.org/dc/terms/";
-	
-	public LocationETL(String outputFilename) throws XMLStreamException, IOException, ParseException {
+	public LocationETL(String outputFilename) throws Exception {
+		super(outputFilename);
 		this.outputFactory = XMLOutputFactory.newInstance();
 		this.writer = this.outputFactory.createXMLStreamWriter(new FileOutputStream(outputFilename), "UTF8");
-		
-		JSONParser jparser = new JSONParser();
-		Object cities = jparser.parse(new FileReader("input/localizations/ciudades_chile.json"));
-		Object countries = jparser.parse(new FileReader("input/localizations/paises.json"));
-		/* JSONArray de ciudades. */
-		jCities = (JSONArray) cities;
-		JSONObject jCountries = (JSONObject) countries;
-		Collection<Object> cCountries = jCountries.values();
-		/* Array de paises. */
-		aCountries = cCountries.toArray();
+		jCities = JsonReader.getCitiesArray();
+		aCountries = JsonReader.getCountriesArray();
 	}
 	
 	public void parse() throws Exception {
