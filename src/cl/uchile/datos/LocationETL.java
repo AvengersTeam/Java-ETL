@@ -1,10 +1,5 @@
 package cl.uchile.datos;
 
-/**
- * @author Avengers
- * ETL de localidades.
- */
-/* Usar json-simple-1.1.1.jar para importar las librerías que siguen */
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,11 +9,17 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+/* Usar json-simple-1.1.1.jar para importar las librerías que siguen */
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ * ETL de localidades
+ * 
+ * @author Avengers
+ */
 public class LocationETL {
 	XMLOutputFactory outputFactory;
 	XMLStreamWriter writer;

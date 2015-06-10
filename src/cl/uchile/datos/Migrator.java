@@ -13,8 +13,7 @@ public class Migrator {
 
 	/**
 	 * @param args
-	 * @throws XMLStreamException 
-	 * @throws FileNotFoundException 
+	 * @throws Exception Excepción lanzada en caso de error.
 	 */
 	public static void main(String[] args) throws Exception {
 		String inputFilename;

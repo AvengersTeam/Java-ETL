@@ -1,21 +1,25 @@
 package cl.uchile.datos;
 
 /**
+ * ETL Eventos.
+ * 
  * @author Carlo
- * ETL de eventos.
  */
-
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 
 import java.io.FileReader;
 import java.util.Collection;
+
+
 /* Usar json-simple-1.1.1.jar para importar las librerías que siguen */
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class EventETL extends AbstractETL {
 	
