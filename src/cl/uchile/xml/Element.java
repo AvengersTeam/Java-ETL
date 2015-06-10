@@ -43,10 +43,6 @@ public class Element {
 		this.attributes.add(attr);
 	}
 	
-	public void appendAttributes(Attribute attribute){
-		this.attributes.add(attribute);
-	}
-	
 	public void appendElement(Element child){
 		this.children.add(child);
 	}
@@ -65,5 +61,8 @@ public class Element {
 	
 	public String getElementName(){
 		return this.elementName;
+	}
+	public void export2sql() {
+		
 	}
 }

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package cl.uchile.datos;
 
 import java.io.FileNotFoundException;
@@ -9,8 +6,9 @@ import javax.xml.stream.XMLStreamException;
 
 
 /**
+ * ETL Personas.
+ * 
  * @author Avengers
- *
  */
 public class PersonETL extends AbstractETL {
 
@@ -24,8 +22,8 @@ public class PersonETL extends AbstractETL {
 	}
 
 	/**
+	 * {@inheritDoc} asdf
 	 * @throws XMLStreamException 
-	 * 
 	 */
 	public void parse() throws XMLStreamException {
 		String id = ""; String tagname;
@@ -104,7 +102,6 @@ public class PersonETL extends AbstractETL {
 		this.writer.writeEndElement();
 		this.writer.writeEndDocument();
 		this.writer.close();
-
 	}
 
 }
