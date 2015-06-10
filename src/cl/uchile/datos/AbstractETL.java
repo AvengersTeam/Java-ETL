@@ -1,6 +1,3 @@
-/**
- * 
- */
 package cl.uchile.datos;
 
 import java.io.FileInputStream;
@@ -15,7 +12,8 @@ import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
 /**
- * ETL (Extract-Transform-Load) significa extraer, transformar y cargar.
+ * ETL Abstracto. 
+ * Extract-Transform-Load significa extraer, transformar y cargar.
  * Esta clase extrae datos de alguna fuente (xml, json), los transforma
  * y los carga en algún output especificado.
  * 
@@ -40,6 +38,8 @@ public abstract class AbstractETL {
 	/**
 	 * Constructor ETL abstracto, configura el reader y writer, escribe en varios outputs.
 	 * 
+	 * @param inputFilename Path al nombre del input.
+	 * @param outputFilenames Lista de paths a los nombres de los outputs.
 	 * @throws XMLStreamException Excepción lanzada por falla de la librería StAX.
 	 * @throws FileNotFoundException Excepción lanzada al no encontrar el archivo.
 	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamReader.html">XMLStreamReader</a>
@@ -57,7 +57,9 @@ public abstract class AbstractETL {
 
 	/**
 	 * Constructor ETL abstracto, configura el reader y writer, escribe un único output.
-	 * 
+	 *
+	 * @param inputFilename Path al nombre del input.
+	 * @param outputFilename Path al nombre del output.
 	 * @throws XMLStreamException Excepción lanzada por falla de la librería StAX.
 	 * @throws FileNotFoundException Excepción lanzada al no encontrar el archivo.
 	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamReader.html">XMLStreamReader</a>
@@ -73,8 +75,9 @@ public abstract class AbstractETL {
 	/**
 	 * Constructor ETL abstracto, configura el writer, define solo el output.
 	 * 
+	 * @param outputFilename Path al nombre del output.
 	 * @throws XMLStreamException Excepción lanzada por falla de la librería StAX.
-	 * @throws Exception 
+	 * @throws Exception Excepción lanzada en caso de error.
 	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamReader.html">XMLStreamReader</a>
 	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html">XMLStreamWriter</a>
 	 */

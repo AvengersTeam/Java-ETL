@@ -102,7 +102,6 @@ public class PersonETL extends AbstractETL {
 		this.writer.writeEndElement();
 		this.writer.writeEndDocument();
 		this.writer.close();
-
 	}
 
 }

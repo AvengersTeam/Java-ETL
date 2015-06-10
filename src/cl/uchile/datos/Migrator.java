@@ -34,13 +34,17 @@ public class Migrator {
 		e.parse();
 		
 		/* RUT ETL localidades */
-		
+		/*
 		outputFilename = "output/localidades.rdf";
 		LocationETL l = new LocationETL(outputFilename);
 		l.parse();
-		
+		*/
 		
 		/* RUN ETL corporativos */
+		inputFilename = "input/autoridades-corporativos.xml";
+		outputFilename = "output/autoridades-corporativos.rdf";
+		CorporateETL c = new CorporateETL(inputFilename, outputFilename);
+		c.parse();
 		
 		
 		/* RUN ETL obras */
@@ -66,5 +70,7 @@ public class Migrator {
 		pretty.print("obra.rdf","pretty-obra.rdf");
 		pretty.print("manifestacion.rdf","pretty-expresion.rdf");
 		pretty.print("expresion.rdf","pretty-manifestacion.rdf");
+		/* Pretty Print corporativos */
+		pretty.print("autoridades-corporativos.rdf","pretty-corporativos.rdf");
 	}
 }
