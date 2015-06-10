@@ -36,11 +36,11 @@ public class Migrator {
 		e.parse();
 		
 		/* RUT ETL localidades */
-		/*
+		
 		outputFilename = "output/localidades.rdf";
 		LocationETL l = new LocationETL( outputFilename);
 		l.parse();
-		*/
+		
 		
 		/* RUN ETL corporativos */
 		
@@ -54,6 +54,6 @@ public class Migrator {
 		/* Pretty Print eventos */
         //pretty.print("autoridades-eventos.rdf","pretty-eventos.rdf");
 		/* Pretty Print locations */
-		//pretty.print("localidades.rdf","pretty-localidades");
+		pretty.print("localidades.rdf","pretty-localidades");
 	}
 }
