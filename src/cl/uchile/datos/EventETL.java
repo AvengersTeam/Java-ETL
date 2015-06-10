@@ -12,7 +12,6 @@ import javax.xml.stream.XMLStreamException;
 
 import java.io.FileReader;
 import java.util.Collection;
-import java.text.Normalizer;
 /* Usar json-simple-1.1.1.jar para importar las librerías que siguen */
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -117,14 +116,15 @@ public class EventETL extends AbstractETL {
 					}
 					/* Caso localidad */
 					if (textArray[i].substring(0,1).equals("c")) {
+						Unidecoder ud = new Unidecoder();
 						boolean found = false;
 						String location = "";
 						/* Quitar caracteres especiales */
-						textArray[i] = unidecode(textArray[i]);
+						textArray[i] = ud.unidecode(textArray[i]);
 						/* Se verifica si el nombre de la localidad coincide con uno del arreglo
 						 * de ciudades o de paises */
 						for(int j = 0; j < jCities.size(); j++){
-							String aux = unidecode((String)jCities.get(j));
+							String aux = ud.unidecode((String)jCities.get(j));
 							if(textArray[i].indexOf(aux) != -1){
 								location = aux;
 								found = true;
@@ -133,7 +133,7 @@ public class EventETL extends AbstractETL {
 						}
 						if(!found){
 							for(int j = 0; j < aCountries.length; j++){
-								String aux = unidecode((String)aCountries[j]);
+								String aux = ud.unidecode((String)aCountries[j]);
 								if(textArray[i].indexOf(aux) != -1){
 									location = aux;
 									found = true;
@@ -168,12 +168,5 @@ public class EventETL extends AbstractETL {
 		this.writer.writeEndElement();
 		this.writer.writeEndDocument();
 		this.writer.close();
-	}
-	/* deunidecodear string */
-	public static String unidecode(String s) throws Exception{
-		String aux = Normalizer.normalize(s, Normalizer.Form.NFKD);
-		String regex = "[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+";
-		aux = new String(aux.replaceAll(regex, "").getBytes("ascii"), "ascii");
-		return aux.toLowerCase();
 	}
 }
