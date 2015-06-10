@@ -143,6 +143,7 @@ public class EventETL extends AbstractETL {
 						}
 						/*  */
 						if(found){
+							location = location.replaceAll(" ", "_");
 							String locationURI = base_uri + "localidad/" + location;
 							//System.out.println("Localidad: " + location);
 							this.writer.setPrefix("dct", dctUri);
