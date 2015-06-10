@@ -6,7 +6,6 @@ package cl.uchile.datos;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
-
 import java.util.ArrayList;
 
 import javax.xml.stream.XMLInputFactory;
@@ -30,9 +29,16 @@ public abstract class AbstractETL {
 	XMLStreamWriter writer;
 	ArrayList<XMLStreamWriter> writers;
 	
+	String base_uri = "http://datos.uchile.cl/recurso/";
+	String owlUri = "http://datos.uchile.cl/ontologia/";
+	String rdfUri = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";	
+	String dctUri = "http://purl.org/dc/terms/";
+	String bioUri = "http://vocab.org/bio/0.1/";
+	String frbrerUri = "http://iflastandards.info/ns/fr/frbr/frbrer#";
+	String schemaUri = "http://schema.org/";
 
 	/**
-	 * Constructor ETL abstracto, configura el reader y writer. Escribe en varios outputs.
+	 * Constructor ETL abstracto, configura el reader y writer, escribe en varios outputs.
 	 * 
 	 * @throws XMLStreamException Excepción lanzada por falla de la librería StAX.
 	 * @throws FileNotFoundException Excepción lanzada al no encontrar el archivo.
@@ -50,7 +56,7 @@ public abstract class AbstractETL {
 	}
 
 	/**
-	 * Constructor ETL abstracto, configura el reader y writer. Escribe un único output.
+	 * Constructor ETL abstracto, configura el reader y writer, escribe un único output.
 	 * 
 	 * @throws XMLStreamException Excepción lanzada por falla de la librería StAX.
 	 * @throws FileNotFoundException Excepción lanzada al no encontrar el archivo.
@@ -60,6 +66,19 @@ public abstract class AbstractETL {
 	public AbstractETL(String inputFilename, String outputFilename) throws XMLStreamException, FileNotFoundException {
 		this.inputFactory = XMLInputFactory.newInstance();
 		this.reader = this.inputFactory.createXMLStreamReader(new FileInputStream(inputFilename), "UTF8");
+		this.outputFactory = XMLOutputFactory.newInstance();
+		this.writer = this.outputFactory.createXMLStreamWriter(new FileOutputStream(outputFilename), "UTF8");
+	}
+	
+	/**
+	 * Constructor ETL abstracto, configura el writer, define solo el output.
+	 * 
+	 * @throws XMLStreamException Excepción lanzada por falla de la librería StAX.
+	 * @throws Exception 
+	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamReader.html">XMLStreamReader</a>
+	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html">XMLStreamWriter</a>
+	 */
+	public AbstractETL(String outputFilename) throws Exception {
 		this.outputFactory = XMLOutputFactory.newInstance();
 		this.writer = this.outputFactory.createXMLStreamWriter(new FileOutputStream(outputFilename), "UTF8");
 	}

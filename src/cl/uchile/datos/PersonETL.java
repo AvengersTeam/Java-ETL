@@ -1,6 +1,3 @@
-/**
- * 
- */
 package cl.uchile.datos;
 
 import java.io.FileNotFoundException;
