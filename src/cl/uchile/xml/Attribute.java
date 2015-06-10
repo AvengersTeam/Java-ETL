@@ -1,14 +1,17 @@
 package cl.uchile.xml;
 
+import visitors.Visitor;
+
 public class Attribute {
 
 	String localname;
 	String value;
 	String nameSpaceUri;
 		
-	public Attribute(String attribute, String value) {
+	public Attribute(String attribute, String value, String nameSpaceUri) {
 		this.localname = attribute;
 		this.value = value;
+		this.nameSpaceUri = nameSpaceUri;
 	}
 	
 	public String getLocalname(){
@@ -25,6 +28,10 @@ public class Attribute {
 
 	public String getNameSpaceUri(){
 		return this.nameSpaceUri;
+	}
+	
+	public void accept(Visitor visitor){
+		visitor.visit(this);
 	}
 }
 
