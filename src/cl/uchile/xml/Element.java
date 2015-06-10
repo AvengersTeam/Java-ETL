@@ -13,11 +13,16 @@ import javax.xml.stream.XMLStreamWriter;
 public class Element {
 
 	private List<Attribute> attributes; // the set of attributes
-	private List<Element> children;     //the set of children of the 
+	private List<Element> children;     //the set of children of the element
+	private String uri;                 //the uri in wich the element belong to
+	private String elementName;         //element's name
 	private String representation;      //the string representation of the xml element with all of his attributes and children
 	
-	public void write(XMLStreamWriter writer){
-		
+	public void write(XMLStreamWriter writer) throws XMLStreamException{
+		writer.writeStartElement(uri, elementName);
+		this.writeAttributes(writer);
+		this.writeElements(writer);
+		writer.writeEndElement();
 	}
 	
 	private void writeAttributes(XMLStreamWriter writer) throws XMLStreamException{
@@ -26,13 +31,13 @@ public class Element {
 		}
 	}
 	
-	private void writeElement(XMLStreamWriter writer){
+	private void writeElements(XMLStreamWriter writer) throws XMLStreamException{
 		for(Element element : children){
 			element.write(writer);
 		}
 	}
 	
-	public void appendAttribute(String attribute, String value){
+	public void appendAttributes(String attribute, String value){
 		Attribute attr = new Attribute(attribute,value);
 		this.attributes.add(attr);
 	}
