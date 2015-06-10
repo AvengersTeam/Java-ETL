@@ -41,4 +41,8 @@ public class Element {
 		Attribute attr = new Attribute(attribute,value);
 		this.attributes.add(attr);
 	}
+	
+	public void export2sql() {
+		
+	}
 }
