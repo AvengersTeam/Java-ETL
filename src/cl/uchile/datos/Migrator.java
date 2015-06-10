@@ -40,12 +40,12 @@ public class Migrator {
 		l.parse();
 		*/
 		/* RUN ETL corporativos */
-		inputFilename = "input/autoridades-corporativos.xml";
+		/*inputFilename = "input/autoridades-corporativos.xml";
 		outputFilename = "output/autoridades-corporativos.rdf";
 		long corporateStartTime = System.currentTimeMillis();
 		CorporateETL c = new CorporateETL(inputFilename, outputFilename);
-		c.parse();
-		long corporateElapsedTime = System.currentTimeMillis() - corporateStartTime;
+
+		c.parse();*/
 		
 		/* RUN ETL obras */
 		
@@ -71,10 +71,7 @@ public class Migrator {
 		pretty.print("manifestacion.rdf","pretty-expresion.rdf");
 		pretty.print("expresion.rdf","pretty-manifestacion.rdf");
 		/* Pretty Print corporativos */
-		
-	    
-		pretty.print("autoridades-corporativos.rdf","pretty-corporativos.rdf");
-		System.out.println("Tiempo corporativo: " + corporateElapsedTime);
-		System.out.println("fin");
+
+		//pretty.print("autoridades-corporativos.rdf","pretty-corporativos.rdf");
 	}
 }
