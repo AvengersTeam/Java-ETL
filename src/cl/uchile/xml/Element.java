@@ -5,6 +5,8 @@ import java.util.List;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+import visitors.Visitor;
+
 /*
  * this are our own homebrew xml elements. Although we use some of the javax.xml , 
  * this is a different work with a diferent objective in mind (to write an rdf/xml file)
@@ -16,7 +18,6 @@ public class Element {
 	private List<Element> children;     //the set of children of the element
 	private String uri;                 //the uri in wich the element belong to
 	private String elementName;         //element's name
-	private String representation;      //the string representation of the xml element with all of his attributes and children
 	
 	public void write(XMLStreamWriter writer) throws XMLStreamException{
 		writer.writeStartElement(uri, elementName);
@@ -37,11 +38,30 @@ public class Element {
 		}
 	}
 	
-	public void appendAttributes(String attribute, String value){
-		Attribute attr = new Attribute(attribute,value);
+	public void appendAttribute(String attribute, String value, String nameSpace){
+		Attribute attr = new Attribute(attribute,value, nameSpace);
 		this.attributes.add(attr);
 	}
 	
+	public void appendElement(Element child){
+		this.children.add(child);
+	}
+	
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+
+	public void setElementName(String elementName) {
+		this.elementName = elementName;
+	}
+	
+	public void accept(Visitor visitor){
+		visitor.visit(this);
+	}
+	
+	public String getElementName(){
+		return this.elementName;
+	}
 	public void export2sql() {
 		
 	}

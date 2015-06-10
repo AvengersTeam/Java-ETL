@@ -46,10 +46,12 @@ public abstract class AbstractETL {
 	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html">XMLStreamWriter</a>
 	 */
 	public AbstractETL(String inputFilename, ArrayList<String> outputFilenames) throws XMLStreamException, FileNotFoundException {
+		this.writers = new ArrayList<>();
 		this.inputFactory = XMLInputFactory.newInstance();
 		this.reader = this.inputFactory.createXMLStreamReader(new FileInputStream(inputFilename), "UTF8");
 		this.outputFactory = XMLOutputFactory.newInstance();
 		for(String output : outputFilenames) {
+			System.out.println(output);
 			XMLStreamWriter aux = this.outputFactory.createXMLStreamWriter(new FileOutputStream(output), "UTF8");
 			this.writers.add(aux);
 		}

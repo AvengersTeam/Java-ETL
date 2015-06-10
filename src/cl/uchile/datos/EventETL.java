@@ -1,11 +1,13 @@
 package cl.uchile.datos;
 
 import java.io.FileNotFoundException;
+
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 
 import java.io.FileReader;
 import java.util.Collection;
+
 
 
 /* Usar json-simple-1.1.1.jar para importar las librerías que siguen */
@@ -40,15 +42,8 @@ public class EventETL extends AbstractETL {
 		
 		boolean isFirst = true;
 		
-		JSONParser jparser = new JSONParser();
-		Object cities = jparser.parse(new FileReader("localizations/ciudades_chile.json"));
-		Object countries = jparser.parse(new FileReader("localizations/paises.json"));
-		/* JSONArray de ciudades. */
-		JSONArray jCities = (JSONArray) cities;
-		JSONObject jCountries = (JSONObject) countries;
-		Collection<Object> cCountries = jCountries.values();
-		/* Array de paises. */
-		Object[] aCountries = cCountries.toArray();
+		JSONArray jCities = JsonReader.getCitiesArray();
+		Object[] aCountries = JsonReader.getCountriesArray();
 		
 		while(this.reader.hasNext()) {
 			if (this.reader.next() != XMLStreamConstants.START_ELEMENT) continue; 
