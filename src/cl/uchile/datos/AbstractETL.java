@@ -32,14 +32,13 @@ public abstract class AbstractETL {
 	
 
 	/**
-	 * Constructor ETL abstracto, configura el reader y writer.
+	 * Constructor ETL abstracto, configura el reader y writer. Escribe en varios outputs.
 	 * 
 	 * @throws XMLStreamException Excepción lanzada por falla de la librería StAX.
 	 * @throws FileNotFoundException Excepción lanzada al no encontrar el archivo.
 	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamReader.html">XMLStreamReader</a>
 	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html">XMLStreamWriter</a>
 	 */
-	/* Caso varios outputs */
 	public AbstractETL(String inputFilename, ArrayList<String> outputFilenames) throws XMLStreamException, FileNotFoundException {
 		this.inputFactory = XMLInputFactory.newInstance();
 		this.reader = this.inputFactory.createXMLStreamReader(new FileInputStream(inputFilename), "UTF8");
@@ -49,7 +48,15 @@ public abstract class AbstractETL {
 			this.writers.add(aux);
 		}
 	}
-	/* Caso un solo output */
+
+	/**
+	 * Constructor ETL abstracto, configura el reader y writer. Escribe un único output.
+	 * 
+	 * @throws XMLStreamException Excepción lanzada por falla de la librería StAX.
+	 * @throws FileNotFoundException Excepción lanzada al no encontrar el archivo.
+	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamReader.html">XMLStreamReader</a>
+	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html">XMLStreamWriter</a>
+	 */
 	public AbstractETL(String inputFilename, String outputFilename) throws XMLStreamException, FileNotFoundException {
 		this.inputFactory = XMLInputFactory.newInstance();
 		this.reader = this.inputFactory.createXMLStreamReader(new FileInputStream(inputFilename), "UTF8");
