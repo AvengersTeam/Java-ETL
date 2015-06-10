@@ -1,5 +1,7 @@
 package cl.uchile.datos;
 
+import java.util.ArrayList;
+
 /**
  * @author Avengers
  *
@@ -43,13 +45,13 @@ public class Migrator {
 		
 		/* RUN ETL obras */
 		
-		/*inputFilename = "Portfolio-Andres-bello.xml";
-		outputFilename = "output/obra.rdf";
-		outputFilename = "output/manifestacion.rdf";
-		outputFilename = "output/expresion.rdf";
-		
-		ObraETL o = new ObraETL(inputFilename, outputFilename, outputFilename2, outputFilename3);
-		o.parse();*/
+		inputFilename = "input/Portfolio-Andres-bello.xml";
+		ArrayList<String> outputs = new ArrayList<String>();
+		outputs.add("output/obra.rdf");
+		outputs.add("output/expresion.rdf");
+		outputs.add("output/manifestacion.rdf");
+		ObraETL o = new ObraETL(inputFilename, outputs);
+		o.parse();
 		
 		/* Inicio instancia de Pretty */
 		Pretty pretty = new Pretty();
@@ -60,5 +62,9 @@ public class Migrator {
         pretty.print("autoridades-eventos.rdf","pretty-eventos.rdf");
 		/* Pretty Print locations */
 		pretty.print("localidades.rdf","pretty-localidades.rdf");
+		/* Pretty Print obras */
+		pretty.print("obra.rdf","pretty-obra.rdf");
+		pretty.print("manifestacion.rdf","pretty-expresion.rdf");
+		pretty.print("expresion.rdf","pretty-manifestacion.rdf");
 	}
 }
