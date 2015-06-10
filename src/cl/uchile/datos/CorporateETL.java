@@ -2,6 +2,7 @@ package cl.uchile.datos;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -50,11 +51,13 @@ public class CorporateETL extends AbstractETL {
 		this.writer.writeNamespace("rdfs", rdfsUri);
 		
 		boolean isFirst = true;
-		boolean found = false;
+		boolean locationFound = false;
+		/* Arreglos de localidades leidas desde los archivos json */
 		JSONArray jCities = JsonReader.getCitiesArray();
 		Object[] aCountries = JsonReader.getCountriesArray();
 		Unidecoder ud = new Unidecoder();
 		String location = "";
+		HashMap<String, String> nameWithId = new HashMap<String, String>();
 		
 		while(this.reader.hasNext()) {
 			
@@ -92,7 +95,7 @@ public class CorporateETL extends AbstractETL {
 						corpName += textArray[i].substring(1);
 
 						/* Buscar el nombre de la localidad en el nombre */
-						found = false;
+						locationFound = false;
 						location = "";
 						/* Quitar caracteres especiales */
 						textArray[i] = ud.unidecode(textArray[i]);
@@ -102,22 +105,22 @@ public class CorporateETL extends AbstractETL {
 							String aux = ud.unidecode((String)jCities.get(j));
 							if(textArray[i].indexOf(aux) != -1){
 								location = aux;
-								found = true;
+								locationFound = true;
 								break;
 							}
 						}
-						if(!found){
+						if(!locationFound){
 							for(int j = 0; j < aCountries.length; j++){
 								String aux = ud.unidecode((String)aCountries[j]);
 								if(textArray[i].indexOf(aux) != -1){
 									location = aux;
-									found = true;
+									locationFound = true;
 									break;
 								}
 							}
 						}
-						if(!found){
-							System.out.println("Error, corporativo sin localidad id = " + id + ", nombre = " + corpName);
+						if(!locationFound){
+							//System.out.println("Error, corporativo sin localidad id = " + id + ", nombre = " + corpName);
 						}
 					}
 					/* Subcampo t, p, b */
@@ -127,7 +130,7 @@ public class CorporateETL extends AbstractETL {
 						corpName += " " + textArray[i].substring(1);
 					}
 				}
-				if(!corpName.equals("") && found) {
+				if(!corpName.equals("")) {
 					/* write type */
 					this.writer.setPrefix("rdf", rdfUri);
 					this.writer.writeEmptyElement(rdfUri, "type");
@@ -147,14 +150,16 @@ public class CorporateETL extends AbstractETL {
 					this.writer.writeStartElement(foafUri, "label");
 					this.writer.writeCharacters(corpName);
 					this.writer.writeEndElement();
+					if (locationFound) {
+						/* write location */
+						location = location.replaceAll(" ", "_");
+						String locationURI = base_uri + "localidad/" + location;
+						//System.out.println("Localidad: " + location);
+						this.writer.setPrefix("dct", dctUri);
+						this.writer.writeEmptyElement(dctUri, "spatial");
+						this.writer.writeAttribute(rdfUri, "resource", locationURI);
+					}
 					
-					/* write location */
-					location = location.replaceAll(" ", "_");
-					String locationURI = base_uri + "localidad/" + location;
-					//System.out.println("Localidad: " + location);
-					this.writer.setPrefix("dct", dctUri);
-					this.writer.writeEmptyElement(dctUri, "spatial");
-					this.writer.writeAttribute(rdfUri, "resource", locationURI);
 				}
 			}		
 		}

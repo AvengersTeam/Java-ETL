@@ -1,0 +1,884 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report>
+<title>Authority List</title>
+<dateCreated>2015-05-08T16:27:44</dateCreated>
+<dateFormat>dd/mm/yyyy</dateFormat>
+<authority>
+<authorityID>XX664031</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2015-03-09</dateCreated>
+<createdBy>ODISILVA</createdBy>
+<dateModified>2015-03-09</dateModified>
+<modifiedBy>ODISILVA</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX664031</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20150309162115.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a150309n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|a3M ESPE</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aSu: Infodent , 1996|bt.p. (3M ESPE)</marcEntry>
+<marcEntry tag="675" label="Source data not fnd." ind="  ">|aLC Internet, marzo 2015.</marcEntry>
+<marcEntry tag="856" label="Acceso electronico" ind="  ">|uhttp://solutions.3mchile.cl/wps/portal/3M/es_CL/3MESPE_LA/dental-professionals/entre-em-contato/sobre/</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">3M ESPE</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">Su: Infodent , 1996 t.p. (3M ESPE)</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX655141</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-04-02</dateCreated>
+<createdBy>ECEVALENZU</createdBy>
+<dateModified>2014-04-02</dateModified>
+<modifiedBy>ECEVALENZU</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX655141</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20140402101156.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a140402n| acnnnaabn          |a ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aA.C. Nielsen Company</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">|aNielsen (A.C.) Company</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">|aNielsen Company</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Consumer-centric category management, c2006.|bt.p. (ACNieslsen with John Karolefski and Al Heller)</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">A.C. Nielsen Company</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">Nielsen (A.C.) Company</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">Nielsen Company</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Consumer-centric category management, c2006. t.p. (ACNieslsen with John Karolefski and Al Heller)</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX660665</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-10-13</dateCreated>
+<createdBy>AQEESQUIVE</createdBy>
+<dateModified>2014-10-13</dateModified>
+<modifiedBy>AQEESQUIVE</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX660665                                                        �</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20141013193411.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a141013n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aA2 Arquitectos (Chile)</marcEntry>
+<marcEntry tag="500" label="See also from" ind="  ">|aÁvila Guerrero, Jorge</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aSobre el oficio arquitectónico y los servicios profesionales , 2014|bt.p. (Alvaro Campos Pinto ; profesor guía: María Eugenia Pallares)</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">A2 Arquitectos (Chile)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">Sobre el oficio arquitectónico y los servicios profesionales , 2014 t.p. (Alvaro Campos Pinto ; profesor guía: María Eugenia Pallares)</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX662720</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-12-17</dateCreated>
+<createdBy>DEGPULGAR</createdBy>
+<dateModified>2014-12-17</dateModified>
+<modifiedBy>DEGPULGAR</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX662720</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20141217165724.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a141217n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aAcademia Internacional de Direito e Economia</marcEntry>
+<marcEntry tag="510" label="See also from" ind="  ">|wa|aAcademia Internacional de Direito Econômico e Economia</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Seminario Jurídico Concessões de Serviços Públicos , 2001</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aLC Internet, diciembre 2014</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Academia Internacional de Direito e Economia</marcEntry>
+<marcEntry tag="510" label="See also from" ind="  ">a Academia Internacional de Direito Econômico e Economia</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Seminario Jurídico Concessões de Serviços Públicos , 2001</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">LC Internet, diciembre 2014</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX655436</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-04-09</dateCreated>
+<createdBy>ODISILVA</createdBy>
+<dateModified>2014-04-09</dateModified>
+<modifiedBy>ODISILVA</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX655436</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20140409123646.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a140409n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aAcademy of Dental Materials</marcEntry>
+<marcEntry tag="510" label="See also from" ind="  ">|aAmerican Academy for Plastics Research in Dentistry</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aSu: Dental materials, 1985-</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aLC Internet, abril 2014.</marcEntry>
+<marcEntry tag="678" label="Datos históricos" ind="  ">|aThe Academy?s official name from 1941 until 1983 was The American Academy for Plastics Research in Dentistry; has become an international academy</marcEntry>
+<marcEntry tag="856" label="Acceso electronico" ind="  ">|uhttps://academydentalmaterials.org</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Academy of Dental Materials</marcEntry>
+<marcEntry tag="510" label="See also from" ind="  ">American Academy for Plastics Research in Dentistry</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">Su: Dental materials, 1985-</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">LC Internet, abril 2014.</marcEntry>
+<marcEntry tag="678" label="Datos históricos" ind="  ">The Academy?s official name from 1941 until 1983 was The American Academy for Plastics Research in Dentistry; has become an international academy</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX664117</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2015-03-12</dateCreated>
+<createdBy>ODISILVA</createdBy>
+<dateModified>2015-03-12</dateModified>
+<modifiedBy>ODISILVA</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX664117</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20150312122316.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a150312n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aAcademy of Osseointegration (Estados Unidos)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aSu: The international journal of oral &amp; maxillofacial implants , 1986|bt.p. (Official of the Academy of Osseointegration)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aLC Internet, marzo 2015.</marcEntry>
+<marcEntry tag="856" label="Acceso electronico" ind="  ">|uhttp://www.osseo.org/</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Academy of Osseointegration (Estados Unidos)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">Su: The international journal of oral &amp; maxillofacial implants , 1986 t.p. (Official of the Academy of Osseointegration)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">LC Internet, marzo 2015.</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX654928</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-03-26</dateCreated>
+<createdBy>ECEVALENZU</createdBy>
+<dateModified>2014-03-26</dateModified>
+<modifiedBy>ECEVALENZU</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX654928</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20140326123811.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a140326n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aAcción RSE (Chile)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: RSE en acción, 2011.|bt.p. (Acción RSE)</marcEntry>
+<marcEntry tag="678" label="Datos históricos" ind="  ">|aEs una Organización sin fines de lucro, que agrupa a empresas socias que trabajan por la Responsabilidad Social Empresarial y el desarrollo sustentable en Chile. Acción RSE es el representante en Chile del World Business Council for Sustainable Development.</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Acción RSE (Chile)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: RSE en acción, 2011. t.p. (Acción RSE)</marcEntry>
+<marcEntry tag="678" label="Datos históricos" ind="  ">Es una Organización sin fines de lucro, que agrupa a empresas socias que trabajan por la Responsabilidad Social Empresarial y el desarrollo sustentable en Chile. Acción RSE es el representante en Chile del World Business Council for Sustainable Development.</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX655021</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-03-28</dateCreated>
+<createdBy>AQEESQUIVE</createdBy>
+<dateModified>2014-03-28</dateModified>
+<modifiedBy>AQEESQUIVE</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX655021                                                        �</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20140328112820.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a140328n| acnnnaabn          |a ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aAdams Kara Taylor (Firma)</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">|aAKT</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aDesign engineering AKT Adams Kara Taylor , 2008|bt.p. ([Hanif Kara] editor)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aLC internet, marzo 2014</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Adams Kara Taylor (Firma)</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">AKT</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">Design engineering AKT Adams Kara Taylor , 2008 t.p. ([Hanif Kara] editor)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">LC internet, marzo 2014</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX664780</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2015-04-13</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2015-04-13</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX664780</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20150413144950.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a150413n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aAlemania.|tCódigo penal (1987)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Código Penal alemán StGB ..., 2000</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Alemania. Código penal (1987)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Código Penal alemán StGB ..., 2000</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX664781</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2015-04-13</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2015-04-13</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX664781</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20150413145159.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a150413n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aAlemania.|tCódigo procesal penal</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Código Penal alemán StGB ..., 2000</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Alemania. Código procesal penal</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Código Penal alemán StGB ..., 2000</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX664782</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2015-04-13</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2015-04-13</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX664782</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20150413145340.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a150413n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aAlemania.|tCódigo procesal penal (1879)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Código Penal alemán StGB ..., 2000</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Alemania. Código procesal penal (1879)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Código Penal alemán StGB ..., 2000</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX654962</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-03-26</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2014-03-26</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX654962</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20140326164509.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a140326n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aAlemania.|tLeyes, etc.</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aSu: Ley de Adaptación Impositiva Alemana ..., 1964</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Alemania. Leyes, etc.</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">Su: Ley de Adaptación Impositiva Alemana ..., 1964</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX653911</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-01-27</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2014-01-27</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX653911</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20140127163029.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a140127n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aAlianza Latinoamericana para la Familia (Venezuela)</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">|aALAFA</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Cuestiones demograficas en America Latina ..., [1994]</marcEntry>
+<marcEntry tag="675" label="Source data not fnd." ind="  ">|aLC Internet, enero 2014</marcEntry>
+<marcEntry tag="678" label="Datos históricos" ind="  ">|aOrganización no gubernamental dedicada a la construcción de una sociedad mejor a través de valores universales y al fortalecimiento del papel fundamental de la familia.</marcEntry>
+<marcEntry tag="856" label="Acceso electronico" ind="  ">|uhttp://www.alafa.org/qs.htm</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Alianza Latinoamericana para la Familia (Venezuela)</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">ALAFA</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Cuestiones demograficas en America Latina ..., [1994]</marcEntry>
+<marcEntry tag="678" label="Datos históricos" ind="  ">Organización no gubernamental dedicada a la construcción de una sociedad mejor a través de valores universales y al fortalecimiento del papel fundamental de la familia.</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX655744</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-04-17</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2014-04-17</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX655744</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20140417170335.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a140417n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aAlsacia (Francia).|tCódigo civil</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Code Civil allemand promulgué le 18 août 1896, entré en vigueur le 1er janvier 1900, suivi de la Loi d'introduction du 18 août 1896, ainsi que de la Loi du 17 avril 1899, relative à l'exécution du Code civil en Alsace-Lorraine , 1929</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Alsacia (Francia). Código civil</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Code Civil allemand promulgué le 18 août 1896, entré en vigueur le 1er janvier 1900, suivi de la Loi d'introduction du 18 août 1896, ainsi que de la Loi du 17 avril 1899, relative à l'exécution du Code civil en Alsace-Lorraine , 1929</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX664001</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2015-03-09</dateCreated>
+<createdBy>ODISILVA</createdBy>
+<dateModified>2015-03-09</dateModified>
+<modifiedBy>ODISILVA</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX664001</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20150309095559.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a150309n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aAmerican Association of Oral Biologists</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aSu: Critical reviews in oral biology and medicine, 1990</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aLC Internet, marzo 2015.</marcEntry>
+<marcEntry tag="856" label="Acceso electronico" ind="  ">|uhttp://www.stonybrookmedicalcenter.org/aaob</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">American Association of Oral Biologists</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">Su: Critical reviews in oral biology and medicine, 1990</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">LC Internet, marzo 2015.</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX664187</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2015-03-17</dateCreated>
+<createdBy>ODISILVA</createdBy>
+<dateModified>2015-03-17</dateModified>
+<modifiedBy>ODISILVA</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX664187</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20150317095004.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a150317n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aAmerican Association of Orthodontists</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">|aSociety of Orthodontists</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">|aAAO</marcEntry>
+<marcEntry tag="510" label="See also from" ind="  ">|wg|aAmerican Society of Orthodontists</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aSu: American journal of orthodontics and dentofacial orthopedics, 1986-</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aLC Internet, marzo 2015.</marcEntry>
+<marcEntry tag="856" label="Acceso electronico" ind="  ">|uhttps://www.aaoinfo.org/</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">American Association of Orthodontists</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">Society of Orthodontists</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">AAO</marcEntry>
+<marcEntry tag="510" label="See also from" ind="  ">g American Society of Orthodontists</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">Su: American journal of orthodontics and dentofacial orthopedics, 1986-</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">LC Internet, marzo 2015.</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX654834</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-03-24</dateCreated>
+<createdBy>ECEVALENZU</createdBy>
+<dateModified>2014-03-24</dateModified>
+<modifiedBy>ECEVALENZU</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX654834</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20140324161715.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a140324n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aAnglo American (Chile)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: &quot;Estandarización del proceso de reclutamiento y selección para el requerimiento del nivel de mandos medios en Anglo American Chile&quot;, 2014.|bt.p. (María José Arellano Vera ; profesor guía: Pedro Leiva Neuenschwander ; director de escuela: Oscar Landerretche Moreno)</marcEntry>
+<marcEntry tag="678" label="Datos históricos" ind="  ">|aAnglo American es uno de los productores de cobre más relevantes en Chile. El Grupo Anglo American comenzó sus operaciones en Chile en 1980, adquiriendo 40% de Empresa Minera de Mantos Blancos S.A., la que explotaba el yacimiento del mismo nombre en la II Región. En 1984 se convirtió en el socio mayoritario de esta empresa.</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Anglo American (Chile)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: &quot;Estandarización del proceso de reclutamiento y selección para el requerimiento del nivel de mandos medios en Anglo American Chile&quot;, 2014. t.p. (María José Arellano Vera ; profesor guía: Pedro Leiva Neuenschwander ; director de escuela: Oscar Landerretche Moreno)</marcEntry>
+<marcEntry tag="678" label="Datos históricos" ind="  ">Anglo American es uno de los productores de cobre más relevantes en Chile. El Grupo Anglo American comenzó sus operaciones en Chile en 1980, adquiriendo 40% de Empresa Minera de Mantos Blancos S.A., la que explotaba el yacimiento del mismo nombre en la II Región. En 1984 se convirtió en el socio mayoritario de esta empresa.</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX655061</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-03-31</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2014-03-31</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX655061</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20140331151500.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a140331n| acnnnaabn          |a ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aApoyo Víctimas (Chile)</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">|aApoyo a Víctimas (Chile)</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">|aPrograma de Apoyo a Víctimas del Ministerio del Interior y Seguridad Pública</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">|aGobierno de Chile.|bMinisterio del Interior y Seguridad Pública.|bPrograma de Apoyo a Víctimas</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">|aChile.|bMinisterio del Interior y Seguridad Pública.|bPrograma de Apoyo a Víctimas</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Víctimas de delito en Chile ..., 2014</marcEntry>
+<marcEntry tag="675" label="Source data not fnd." ind="  ">|aLC Internet, marzo 2014</marcEntry>
+<marcEntry tag="678" label="Datos históricos" ind="  ">|aPrograma de Apoyo a Víctimas del Ministerio del Interior y Seguridad Pública se enmarca en el Plan Chile Seguro 2010-2014 del Gobierno de Chile, y tiene por objetivo contribuir a la reparación de los daños ocasionados por el delito a través del contacto rápido y oportuno con la víctimas, entregando una atención integral y especializada con profesionales psicólogos, abogados y trabajadores sociales.</marcEntry>
+<marcEntry tag="856" label="Acceso electronico" ind="  ">|uhttp://www.apoyovictimas.cl/apoyo-a-victimas/</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Apoyo Víctimas (Chile)</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">Apoyo a Víctimas (Chile)</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">Programa de Apoyo a Víctimas del Ministerio del Interior y Seguridad Pública</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">Gobierno de Chile. Ministerio del Interior y Seguridad Pública. Programa de Apoyo a Víctimas</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">Chile. Ministerio del Interior y Seguridad Pública. Programa de Apoyo a Víctimas</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Víctimas de delito en Chile ..., 2014</marcEntry>
+<marcEntry tag="678" label="Datos históricos" ind="  ">Programa de Apoyo a Víctimas del Ministerio del Interior y Seguridad Pública se enmarca en el Plan Chile Seguro 2010-2014 del Gobierno de Chile, y tiene por objetivo contribuir a la reparación de los daños ocasionados por el delito a través del contacto rápido y oportuno con la víctimas, entregando una atención integral y especializada con profesionales psicólogos, abogados y trabajadores sociales.</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX658588</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-07-29</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2014-07-29</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX658588</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20140729114505.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a140729n| acnnnaabn          |a ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aAracena Hermanos (Firma : Chile)</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">|aSociedad Comercial Colectiva de Aracena Hermanos</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">|aSociedad Comercial Colectiva Aracena Hermanos</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">|aSociedad Aracena Hermanos</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Juicio de Aracena Hermanos contra D. Carlos Altamirano Talavera sobre desistimiento de compraventa, 1923</marcEntry>
+<marcEntry tag="678" label="Datos históricos" ind="  ">|aConstituída por los señores Nibaldo e Ismael Aracena Calderón, por escritura otorgada en Valparaíso, ante el Notario don Santiago Godoy Prevost, el 1o. de febrero de 1918.</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Aracena Hermanos (Firma : Chile)</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">Sociedad Comercial Colectiva de Aracena Hermanos</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">Sociedad Comercial Colectiva Aracena Hermanos</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">Sociedad Aracena Hermanos</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Juicio de Aracena Hermanos contra D. Carlos Altamirano Talavera sobre desistimiento de compraventa, 1923</marcEntry>
+<marcEntry tag="678" label="Datos históricos" ind="  ">Constituída por los señores Nibaldo e Ismael Aracena Calderón, por escritura otorgada en Valparaíso, ante el Notario don Santiago Godoy Prevost, el 1o. de febrero de 1918.</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX658593</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-07-29</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2014-07-29</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX658593</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20140729120210.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a140729n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aAracena Hermanos (Firma : Chile),|edemandante</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Juicio de Aracena Hermanos contra D. Carlos Altamirano Talavera sobre desistimiento de compraventa, 1923</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Aracena Hermanos (Firma : Chile), demandante</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Juicio de Aracena Hermanos contra D. Carlos Altamirano Talavera sobre desistimiento de compraventa, 1923</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX658548</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-07-28</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2014-07-28</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX658548</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20140728113954.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a140728n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aArgentina.|tCodigo civil.|pArtículo 944</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Consideraciones sobre la naturaleza y la forma de la cesión de herencia , 1973</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Argentina. Codigo civil. Artículo 944</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Consideraciones sobre la naturaleza y la forma de la cesión de herencia , 1973</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX658504</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-07-24</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2014-07-24</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX658504</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20140724160927.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a140724n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aArgentina.|tCódigo civil.|pArtículo 3986</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Interrupción de la prescripción por interposición de demanda judicial , 1968</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Argentina. Código civil. Artículo 3986</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Interrupción de la prescripción por interposición de demanda judicial , 1968</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX665274</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2015-04-30</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2015-04-30</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX665274</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20150430163536.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a150430n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aArgentina.|tCódigo penal (1921).|pArtículo 237-281</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Delitos contra la administración pública ..., 1981</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Argentina. Código penal (1921). Artículo 237-281</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Delitos contra la administración pública ..., 1981</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX664404</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2015-03-24</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2015-03-24</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX664404</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20150324161517.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a150324n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aArgentina.|tCódigo penal.|pArtículo 173 Inciso 11</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Estudios jurídico-penales sobre insolvencia y delito, 1970</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Argentina. Código penal. Artículo 173 Inciso 11</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Estudios jurídico-penales sobre insolvencia y delito, 1970</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX664403</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2015-03-24</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2015-03-24</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX664403</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20150324161444.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a150324n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aArgentina.|tCódigo penal.|pArtículo 173 Inciso 9</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Estudios jurídico-penales sobre insolvencia y delito, 1970</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Argentina. Código penal. Artículo 173 Inciso 9</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Estudios jurídico-penales sobre insolvencia y delito, 1970</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX663528</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2015-01-23</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2015-01-23</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX663528</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20150123115830.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a150123n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aArgentina.|tCódigo penal.|pArtículo 240 bis</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: La &quot;estafa paraprocesal&quot; ... , 1981</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Argentina. Código penal. Artículo 240 bis</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: La &quot;estafa paraprocesal&quot; ... , 1981</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX664411</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2015-03-25</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2015-03-25</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX664411</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20150325111412.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a150325n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aArgentina.|tCódigo penal.|pArtículos 150 y 152</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: El delito de violación de domicilio ..., 1968</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Argentina. Código penal. Artículos 150 y 152</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: El delito de violación de domicilio ..., 1968</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX664435</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2015-03-26</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2015-03-26</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX664435</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20150326114826.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a150326n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aArgentina.|tLey de estupefacientes</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Estupefacientes ..., [1998]</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Argentina. Ley de estupefacientes</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Estupefacientes ..., [1998]</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX663529</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2015-01-23</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2015-01-23</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX663529</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20150123115928.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a150123n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aArgentina.|tLey no. 17.567</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: La &quot;estafa paraprocesal&quot; ..., 1981</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Argentina. Ley no. 17.567</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: La &quot;estafa paraprocesal&quot; ..., 1981</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX663530</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2015-01-23</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2015-01-23</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX663530</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20150123120002.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a150123n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aArgentina.|tLey no. 20.509</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: La &quot;estafa paraprocesal&quot; ..., 1981</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Argentina. Ley no. 20.509</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: La &quot;estafa paraprocesal&quot; ..., 1981</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX663531</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2015-01-23</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2015-01-23</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX663531</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20150123120038.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a150123n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aArgentina.|tLey no. 21.338</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: La &quot;estafa paraprocesal&quot; ..., 1981</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Argentina. Ley no. 21.338</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: La &quot;estafa paraprocesal&quot; ..., 1981</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX657198</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-06-09</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2014-06-09</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX657198</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20140609162901.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a140609n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aArgentina.|tLey no. 25.156</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Derechos de los consumidores y derecho de la libre competencia, 2001</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Argentina. Ley no. 25.156</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Derechos de los consumidores y derecho de la libre competencia, 2001</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX657975</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-07-03</dateCreated>
+<createdBy>DEFREYES</createdBy>
+<dateModified>2014-07-03</dateModified>
+<modifiedBy>DEFREYES</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX657975</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20140703120846.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a140703n| acnnnaabn          |a ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aArgentina.|bSubsecretaría de Defensa del Consumidor</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">|aArgentina.|bMinisterio de Economía y Finanzas Públicas.|bSecretaría de Comercio Interior.|bSubsecretaría de Defensa del Consumidor</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: Atlas Ibero-Americano de Proteção ao Consumidor = ..., 2013</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Argentina. Subsecretaría de Defensa del Consumidor</marcEntry>
+<marcEntry tag="410" label="See from" ind="  ">Argentina. Ministerio de Economía y Finanzas Públicas. Secretaría de Comercio Interior. Subsecretaría de Defensa del Consumidor</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: Atlas Ibero-Americano de Proteção ao Consumidor = ..., 2013</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX655761</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-04-21</dateCreated>
+<createdBy>DEGPULGAR</createdBy>
+<dateModified>2014-04-21</dateModified>
+<modifiedBy>DEGPULGAR</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX655761</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20140421100725.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a140421n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aArgentina.|bTribunal Fiscal de la Nación</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aEn: El procedimiento ante el Tribunal Fiscal de la Nación y sus instancias superiores , 1986</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aLC Internet, abril 2014</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Argentina. Tribunal Fiscal de la Nación</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">En: El procedimiento ante el Tribunal Fiscal de la Nación y sus instancias superiores , 1986</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">LC Internet, abril 2014</marcEntry>
+</entries>
+</authority>
+<authority>
+<authorityID>XX661114</authorityID>
+<format>CORPORATE</format>
+<authorizationLevel>AUTHORIZED</authorizationLevel>
+<dateCreated>2014-10-24</dateCreated>
+<createdBy>AQEESQUIVE</createdBy>
+<dateModified>2014-10-24</dateModified>
+<modifiedBy>AQEESQUIVE</modifiedBy>
+<dateCataloged></dateCataloged>
+<entries>
+<marcEntry tag="000" label="Leader" ind="  ">|az n  n</marcEntry>
+<marcEntry tag="001" label="Control number" ind="  ">|aXX661114                                                        �</marcEntry>
+<marcEntry tag="003" label="Control number ID" ind="  ">|aSISIB</marcEntry>
+<marcEntry tag="005" label="Date" ind="  ">|a20141024111021.0</marcEntry>
+<marcEntry tag="008" label="Fixed field data" ind="  ">|a141024n| acnnnaabn          |n ana     d</marcEntry>
+<marcEntry tag="110" label="Corporate name" ind="  ">|aArquiambiente (Chile)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">|aArquiambiente sustentabilidad, eficiencia energética y confort en la arquitectura , 2014|bt.p. (Josefina Pía Riquelme Salas ; profesor guía: Luis Goldsack Jarpa)</marcEntry>
+<marcEntry tag="678" label="Datos históricos" ind="  ">|aOficina de Arquitectura</marcEntry>
+</entries>
+<entries>
+<marcEntry tag="110" label="Corporate name" ind="  ">Arquiambiente (Chile)</marcEntry>
+<marcEntry tag="670" label="Source data found" ind="  ">Arquiambiente sustentabilidad, eficiencia energética y confort en la arquitectura , 2014 t.p. (Josefina Pía Riquelme Salas ; profesor guía: Luis Goldsack Jarpa)</marcEntry>
+<marcEntry tag="678" label="Datos históricos" ind="  ">Oficina de Arquitectura</marcEntry>
+</entries>
+</authority>
+</report>
