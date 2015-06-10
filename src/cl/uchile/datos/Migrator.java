@@ -17,9 +17,11 @@ public class Migrator {
 	 * @throws FileNotFoundException 
 	 */
 	public static void main(String[] args) throws Exception {
+		String inputFilename;
+		String outputFilename;
 		/* Run ETL personas */ 
-		String inputFilename = "input/autoridades-personas.xml";
-		String outputFilename = "output/autoridades-personas.rdf";
+		inputFilename = "input/autoridades-personas.xml";
+		outputFilename = "output/autoridades-personas.rdf";
 		PersonETL p = new PersonETL(inputFilename, outputFilename);
 		p.parse();
 		/* Run ETL eventos */ 
