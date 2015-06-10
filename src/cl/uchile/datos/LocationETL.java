@@ -1,11 +1,10 @@
 package cl.uchile.datos;
 
 /**
- * @author Caro
+ * @author Avengers
  * ETL de localidades.
  */
 /* Usar json-simple-1.1.1.jar para importar las librerías que siguen */
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -48,7 +47,6 @@ public class LocationETL {
 	
 	public void parse() throws Exception {
 		
-		
 		this.writer.writeStartDocument();
 		this.writer.setPrefix("rdf", rdfUri);
 		this.writer.writeStartElement(rdfUri, "RDF");
@@ -78,7 +76,7 @@ public class LocationETL {
 	private void writeRDFTag(String location_name) throws XMLStreamException {
 		this.writer.setPrefix("owl", owlUri);
 		this.writer.writeStartElement(owlUri, "NamedIndividual");
-		this.writer.writeAttribute(rdfUri, "about", base_uri + "localidad/" + location_name);
+		this.writer.writeAttribute(rdfUri, "about", base_uri + "localidad/" + location_name.replace(' ', '_'));
 		
 		/* type */
 		this.writer.writeEmptyElement(rdfUri, "type");
