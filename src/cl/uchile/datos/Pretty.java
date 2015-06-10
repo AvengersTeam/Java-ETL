@@ -2,9 +2,7 @@ package cl.uchile.datos;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.FileOutputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -26,17 +24,13 @@ public class Pretty {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setValidating(false);
         DocumentBuilder db = dbf.newDocumentBuilder();
-        Document doc = db.parse(new FileInputStream(new File("output/"+input)));
+        Document doc = db.parse(new FileInputStream(new File("output/"+input)), "UTF-8");
         Transformer tf = TransformerFactory.newInstance().newTransformer();
         tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
         tf.setOutputProperty(OutputKeys.INDENT, "yes");
         tf.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-        Writer out = new StringWriter();
+        FileOutputStream out = new FileOutputStream("output/"+output);
         tf.transform(new DOMSource(doc), new StreamResult(out));
-        System.out.println(out.toString());
-        PrintWriter pw = new PrintWriter("output/"+output);
-        pw.println(out.toString());
-        pw.close();
     }
 
 }

@@ -31,7 +31,7 @@ public class EventETL extends AbstractETL {
 		String dctUri = "http://purl.org/dc/terms/";
 		String rdfUri = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";	
 		String frbrerUri = "http://iflastandards.info/ns/fr/frbr/frbrer#";
-		String schemaUri = "http://schema.org";
+		String schemaUri = "http://schema.org/";
 		
 		this.writer.writeStartDocument();
 		this.writer.setPrefix("rdf", rdfUri);
@@ -143,6 +143,7 @@ public class EventETL extends AbstractETL {
 						}
 						/*  */
 						if(found){
+							location = location.replaceAll(" ", "_");
 							String locationURI = base_uri + "localidad/" + location;
 							//System.out.println("Localidad: " + location);
 							this.writer.setPrefix("dct", dctUri);
