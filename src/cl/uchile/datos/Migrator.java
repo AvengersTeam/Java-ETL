@@ -4,7 +4,6 @@
 package cl.uchile.datos;
 
 import java.io.FileNotFoundException;
-import javax.xml.stream.XMLStreamException;
 
 /**
  * @author Avengers
@@ -18,13 +17,21 @@ public class Migrator {
 	 * @throws FileNotFoundException 
 	 */
 	public static void main(String[] args) throws Exception {
-		String inputFilename = "input/autoridades.xml";
+		/* Run ETL personas */ 
+		String inputFilename = "input/autoridades-personas.xml";
 		String outputFilename = "output/autoridades-personas.rdf";
 		PersonETL p = new PersonETL(inputFilename, outputFilename);
 		p.parse();
+		/* Run ETL eventos */ 
 		inputFilename = "input/autoridades-eventos.xml";
 		outputFilename = "output/autoridades-eventos.rdf";
 		EventETL e = new EventETL(inputFilename, outputFilename);
 		e.parse();
+		/* Inicio instancia de Pretty */
+		Pretty pretty = new Pretty();
+		/* Pretty Print personas */
+        pretty.print("autoridades-personas.rdf","pretty-personas.rdf");
+		/* Pretty Print eventos */
+        pretty.print("autoridades-eventos.rdf","pretty-eventos.rdf");
 	}
 }

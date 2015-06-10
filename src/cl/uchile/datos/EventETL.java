@@ -3,7 +3,6 @@ package cl.uchile.datos;
 /**
  * @author Carlo
  * ETL de eventos.
- *
  */
 
 import java.io.FileNotFoundException;
@@ -14,7 +13,7 @@ import javax.xml.stream.XMLStreamException;
 import java.io.FileReader;
 import java.util.Collection;
 import java.text.Normalizer;
-
+/* Usar json-simple-1.1.1.jar para importar las librerías que siguen */
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -94,7 +93,7 @@ public class EventETL extends AbstractETL {
 					name = name + textArray[i].substring(1);
 				}
 				/* Creo elemento nombre como dct:title */
-				System.out.println("Nombre: " + name);
+				//System.out.println("Nombre: " + name);
 				this.writer.setPrefix("dct", dctUri);
 				this.writer.writeStartElement(dctUri, "title");
 				this.writer.writeCharacters(name);
@@ -109,7 +108,7 @@ public class EventETL extends AbstractETL {
 					if (textArray[i].substring(0,1).equals("d")) {
 						String fecha = textArray[i].substring(1);
 						fecha = fecha.replaceAll("[^0-9]", "");
-						System.out.println("Fecha: " + fecha);
+						//System.out.println("Fecha: " + fecha);
 						this.writer.setPrefix("schema", schemaUri);
 						this.writer.writeStartElement(schemaUri, "startDate");
 						this.writer.writeAttribute(rdfUri, "datatype", "http://www.w3.org/2001/XMLSchema#dateTime");
@@ -145,13 +144,21 @@ public class EventETL extends AbstractETL {
 						/*  */
 						if(found){
 							String locationURI = base_uri + "localidad/" + location;
-							System.out.println("Localidad: " + location);
+							//System.out.println("Localidad: " + location);
 							this.writer.setPrefix("dct", dctUri);
 							this.writer.writeEmptyElement(dctUri, "spatial");
 							this.writer.writeAttribute(rdfUri, "resource", locationURI);
 						}
 					}
 				}
+			}
+			if(attributeValue.equals("670") && this.reader.getText().contains("|a")) {
+				String alternate = this.reader.getText().substring(2);
+				//System.out.println("Alternativo: " + alternate);
+				this.writer.setPrefix("dct", dctUri);
+				this.writer.writeStartElement(dctUri, "alternative");
+				this.writer.writeCharacters(alternate);
+				this.writer.writeEndElement();
 			}
 		}
 		
