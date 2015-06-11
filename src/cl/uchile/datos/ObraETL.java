@@ -10,6 +10,8 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+import cl.uchile.xml.Element;
+
 
 /**
  * @author Avengers
@@ -37,7 +39,11 @@ public class ObraETL extends AbstractETL {
 		XMLStreamWriter obraWriter = this.writers.get(0);
 		XMLStreamWriter expWriter = this.writers.get(1);
 		XMLStreamWriter manifWriter = this.writers.get(2);
-
+		
+		Element obraElement = new Element();
+		Element expElement = new Element();
+		Element manifElement = new Element();
+		
 		obraWriter.writeStartDocument();
 		obraWriter.setPrefix("rdf", rdfUri);
 		obraWriter.writeStartElement(rdfUri, "RDF");
@@ -75,78 +81,131 @@ public class ObraETL extends AbstractETL {
 			tagname = this.reader.getName().toString();	
 			String attributeValueType = this.reader.getAttributeValue("", "type");
 			String attributeValueName = this.reader.getAttributeValue("", "name");
+//			System.out.println(tagname);
 			if (!tagname.equals( "asset" ) &&  !(isFirst)) continue;
-			try {if (attributeValueType.equals("FOLDER")) continue;}
-			catch(Exception e){}
+			if (attributeValueType == null) continue;
+			if (attributeValueType.equals("FOLDER")) continue;
 			w = this.reader.getAttributeCount();
-			//System.out.println(tagname);
-			//System.out.println(w);
 			
 			// we assume that CHARACTERS event comes next always, which could not be true
-			//System.out.println(attributeValueType);
+			System.out.println(attributeValueType);
 			this.reader.next();
 			
-			try {if (attributeValueType.equals("ASSET")) {	
+			if (attributeValueType.equals("ASSET")) {	
 				isFirstAsset=true;
-					if (!isFirst){
-						obraWriter.writeEndElement();
-						expWriter.writeEndElement();
-						manifWriter.writeEndElement();
-					}
+				if (!isFirst){
+					System.out.println("ENTRA");
+					obraElement.write(obraWriter);
+					expElement.write(expWriter);
+					manifElement.write(manifWriter);
 				}
-				isFirst = false;				
-			}			
-			catch(Exception e){}
+			}
+			isFirst = false;				
 			if(!isFirstAsset) continue;
 			if (tagname.equals("id")){
-				if(named){
+				/*if(named){
 					obraWriter.writeEndElement();
 					expWriter.writeEndElement();
 					manifWriter.writeEndElement();
 					System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-				}
+				}*/
 				named = true;
 				System.out.println("el id es: ");
 				id = this.reader.getText();
 				System.out.println(id);
 				//if (!isFirst) this.writer.writeEndElement();
+				
 				//crear Obra ***********************************************************************
-				obraWriter.flush();			
-				obraWriter.setPrefix("owl", owlUri);
-				obraWriter.writeStartElement(owlUri, "NamedIndividual");
-				obraWriter.writeAttribute(rdfUri, "about", base_uri + "obra/" + id);
-				obraWriter.writeEmptyElement(rdfUri, "type");
-				obraWriter.writeAttribute(rdfUri, "resource", frbrerUri + "C1001");
+				obraWriter.flush();
+				obraElement = new Element();
+				obraElement.setPrefix("owl");
+				obraElement.setUri(owlUri);
+				obraElement.setElementName("NamedIndividual");
+				obraElement.appendAttribute(rdfUri, "about", base_uri + "obra/" + id);
+				
+				Element typeObraElement = new Element();
+				typeObraElement.setPrefix("rdf");
+				typeObraElement.setUri(rdfUri);
+				typeObraElement.setElementName("type");
+				typeObraElement.appendAttribute(rdfUri, "resource", frbrerUri + "C1001");
+				obraElement.appendElement(typeObraElement);
+				
 				// Agregar link a expresion
-				obraWriter.writeEmptyElement(frbrerUri, "isRealizedThrough");
-				obraWriter.writeAttribute(rdfUri, "resource",base_uri + "expresion/" + id);
+				Element realizedElement = new Element();
+				realizedElement.setPrefix("frbrer");
+				realizedElement.setUri(frbrerUri);
+				realizedElement.setElementName("isRealizedThrough");
+				realizedElement.appendAttribute(rdfUri, "resource",base_uri + "expresion/" + id);
+				obraElement.appendElement(realizedElement);
+				
 				//crear Expresion ******************************************************************
-				expWriter.flush();			
-				expWriter.setPrefix("owl", owlUri);
-				expWriter.writeStartElement(owlUri, "NamedIndividual");
-				expWriter.writeAttribute(rdfUri, "about", base_uri + "expresion/" + id);
-				expWriter.writeEmptyElement(rdfUri, "type");
-				expWriter.writeAttribute(rdfUri, "resource", frbrerUri + "C1002");
+				expWriter.flush();
+				expElement = new Element();
+				expElement.setPrefix("owl");
+				expElement.setUri(owlUri);
+				expElement.setElementName("NamedIndividual");
+				expElement.appendAttribute(rdfUri, "about", base_uri + "expresion/" + id);
+				
+				Element typeExpElement = new Element();
+				typeExpElement.setPrefix("rdf");
+				typeExpElement.setUri(rdfUri);
+				typeExpElement.setElementName("type");
+				typeExpElement.appendAttribute(rdfUri, "resource", frbrerUri + "C1002");
+				expElement.appendElement(typeExpElement);
+				
 				// Agregar link a obra y manifestacion
-				expWriter.writeEmptyElement(frbrerUri, "isRealizationOf");
-				expWriter.writeAttribute(rdfUri, "resource",base_uri + "obra/" + id);
-				expWriter.writeEmptyElement(frbrerUri, "isEmbodiedln");
-				expWriter.writeAttribute(rdfUri, "resource",base_uri + "manifestacion/" + id);
+				Element realizationElement = new Element();
+				realizationElement.setPrefix("frbrer");
+				realizationElement.setUri(frbrerUri);
+				realizationElement.setElementName("isRealizationOf");
+				realizationElement.appendAttribute(rdfUri, "resource",base_uri + "obra/" + id);
+				expElement.appendElement(realizationElement);
+				
+				Element embodiedElement = new Element();
+				embodiedElement.setPrefix("frbrer");
+				embodiedElement.setUri(frbrerUri);
+				embodiedElement.setElementName("isEmbodiedIn");
+				embodiedElement.appendAttribute(rdfUri, "resource",base_uri + "manifestacion/" + id);
+				expElement.appendElement(embodiedElement);
+				
 				//crear Manifestacion **************************************************************
-				manifWriter.flush();			
-				manifWriter.setPrefix("owl", owlUri);
-				manifWriter.writeStartElement(owlUri, "NamedIndividual");
-				manifWriter.writeAttribute(rdfUri, "about", base_uri + "manifestacion/" + id);
-				manifWriter.writeEmptyElement(rdfUri, "type");
-				manifWriter.writeAttribute(rdfUri, "resource", frbrerUri + "C1003");
+				manifWriter.flush();
+				manifElement = new Element();
+				manifElement.setPrefix("owl");
+				manifElement.setUri(owlUri);
+				manifElement.setElementName("NamedIndividual");
+				manifElement.appendAttribute(rdfUri, "about", base_uri + "manifestacion/" + id);
+				
+				Element typeManifElement = new Element();
+				typeManifElement.setPrefix("rdf");
+				typeManifElement.setUri(rdfUri);
+				typeManifElement.setElementName("type");
+				typeManifElement.appendAttribute(rdfUri, "resource", frbrerUri + "C1003");
+				manifElement.appendElement(typeManifElement);
+				
 				// Agregar link a expresion
-				manifWriter.writeEmptyElement(frbrerUri, "isEmbodimentOf");
-				manifWriter.writeAttribute(rdfUri, "resource",base_uri + "expresion/" + id);
+				Element embodimentElement = new Element();
+				embodimentElement.setPrefix("frbrer");
+				embodimentElement.setUri(frbrerUri);
+				embodimentElement.setElementName("isEmbodimentOf");
+				embodimentElement.appendAttribute(rdfUri, "resource",base_uri + "expresion/" + id);
+				manifElement.appendElement(embodimentElement);
+				
 				// Agregar Licencia e identificador
-				manifWriter.writeEmptyElement(dctUri, "license");
-				manifWriter.writeAttribute(rdfUri, "resource", "https://creativecommons.org/publicdomain/zero/1.0/");
-				manifWriter.writeEmptyElement(dctUri, "identifier");
-				manifWriter.writeAttribute(rdfUri, "resource","http://bibliotecadigital.uchile.cl/client/sisib/search/detailnonmodal?d=ent%3A%2F%2FSD_ASSET%2F"+id.substring(0, 2)+"%2F"+id+"~ASSET~0~17");
+				Element licenseElement = new Element();
+				licenseElement.setPrefix("dct");
+				licenseElement.setUri(dctUri);
+				licenseElement.setElementName("license");
+				licenseElement.appendAttribute(rdfUri, "resource", "https://creativecommons.org/publicdomain/zero/1.0/");
+				manifElement.appendElement(licenseElement);
+				
+				Element identifierElement = new Element();
+				identifierElement.setPrefix("dct");
+				identifierElement.setUri(dctUri);
+				identifierElement.setElementName("identifier");
+				identifierElement.appendAttribute(rdfUri, "resource","http://bibliotecadigital.uchile.cl/client/sisib/search/detailnonmodal?d=ent%3A%2F%2FSD_ASSET%2F"+id.substring(0, 2)+"%2F"+id+"~ASSET~0~17");
+				manifElement.appendElement(identifierElement);
+				
 				isFirst = false;
 			}
 			if(tagname.equals("field")){
@@ -159,10 +218,13 @@ public class ObraETL extends AbstractETL {
 						String title = this.reader.getElementText();
 						System.out.println(" asdasdasd ");
 						//obraWriter.flush();
-						obraWriter.setPrefix("dc", dcUri);
-						obraWriter.writeStartElement(dcUri,"title");
-						obraWriter.writeCharacters(title);
-						obraWriter.writeEndElement();							
+						
+						Element titleElement = new Element();
+						titleElement.setPrefix("dc");
+						titleElement.setUri(dcUri);
+						titleElement.setElementName("title");
+						titleElement.setText(title);
+						obraElement.appendElement(titleElement);							
 					}
 					isFirst=false;
 				}
@@ -173,10 +235,13 @@ public class ObraETL extends AbstractETL {
 						String NAME = this.reader.getElementText();
 						System.out.println(NAME);
 						obraWriter.flush();
-						obraWriter.setPrefix("dct", dctUri);
-						obraWriter.writeStartElement(dctUri,"alternative");
-						obraWriter.writeCharacters(NAME);
-						obraWriter.writeEndElement();	
+						
+						Element alternativeElement = new Element();
+						alternativeElement.setPrefix("dct");
+						alternativeElement.setUri(dctUri);
+						alternativeElement.setElementName("alternative");
+						alternativeElement.setText(NAME);
+						obraElement.appendElement(alternativeElement);
 					}
 					isFirst=false;
 				}
@@ -197,10 +262,13 @@ public class ObraETL extends AbstractETL {
 								Date2 = Date;
 						}
 						obraWriter.flush();
-						obraWriter.setPrefix("dct", dctUri);
-						obraWriter.writeStartElement(dctUri,"issued");
-						obraWriter.writeCharacters(Date2);
-						obraWriter.writeEndElement();	
+						
+						Element issuedElement = new Element();
+						issuedElement.setPrefix("dct");
+						issuedElement.setUri(dctUri);
+						issuedElement.setElementName("issued");
+						issuedElement.setText(Date2);
+						obraElement.appendElement(issuedElement);
 					}
 					isFirst=false;
 				}
@@ -221,9 +289,13 @@ public class ObraETL extends AbstractETL {
 									Lan="";
 							}
 							expWriter.flush();
-							expWriter.setPrefix("dc", dcUri);
-							expWriter.writeEmptyElement(dcUri,"language");
-							expWriter.writeAttribute(dcUri, "resource", Lan);
+							
+							Element languageElement = new Element();
+							languageElement.setPrefix("dc");
+							languageElement.setUri(dcUri);
+							languageElement.setElementName("language");
+							languageElement.appendAttribute(dcUri, "resource", Lan);
+							expElement.appendElement(languageElement);
 						}
 						isFirst=false;
 					}
@@ -234,10 +306,13 @@ public class ObraETL extends AbstractETL {
 						String Rights = this.reader.getElementText();
 						System.out.println(Rights);
 						manifWriter.flush();
-						manifWriter.setPrefix("dc", dcUri);
-						manifWriter.writeStartElement(dcUri,"rights");
-						manifWriter.writeCharacters(Rights);
-						manifWriter.writeEndElement();								
+						
+						Element rightsElement = new Element();
+						rightsElement.setPrefix("dc");
+						rightsElement.setUri(dcUri);
+						rightsElement.setElementName("rights");
+						rightsElement.setText(Rights);
+						manifElement.appendElement(rightsElement);						
 					}
 					isFirst=false;
 				}
@@ -249,10 +324,13 @@ public class ObraETL extends AbstractETL {
 						System.out.println("el Publisher es-------------------------------------------------------------------------------------------: ");
 						System.out.println(Publisher);
 						manifWriter.flush();
-						manifWriter.setPrefix("dc", dcUri);
-						manifWriter.writeStartElement(dcUri,"publisher");
-						manifWriter.writeCharacters(Publisher);
-						manifWriter.writeEndElement();
+						
+						Element publisherElement = new Element();
+						publisherElement.setPrefix("dc");
+						publisherElement.setUri(dcUri);
+						publisherElement.setElementName("publisher");
+						publisherElement.setText(Publisher);
+						manifElement.appendElement(publisherElement);
 					}
 					isFirst=false;
 				}
@@ -264,10 +342,13 @@ public class ObraETL extends AbstractETL {
 						String Source = this.reader.getElementText();
 						System.out.println(Source);
 						manifWriter.flush();
-						manifWriter.setPrefix("dc", dcUri);
-						manifWriter.writeStartElement(dcUri,"source");
-						manifWriter.writeCharacters(Source);
-						manifWriter.writeEndElement();
+						
+						Element sourceElement = new Element();
+						sourceElement.setPrefix("dc");
+						sourceElement.setUri(dcUri);
+						sourceElement.setElementName("source");
+						sourceElement.setText(Source);
+						manifElement.appendElement(sourceElement);
 					}
 					isFirst=false;
 				}
