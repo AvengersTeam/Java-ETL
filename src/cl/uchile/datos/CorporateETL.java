@@ -11,6 +11,8 @@ import javax.xml.stream.XMLStreamException;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 
+import cl.uchile.json.JsonReader;
+
 /**
  * @author Avengers
  * ETL de Corporativo.
