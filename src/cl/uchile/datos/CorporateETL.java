@@ -11,6 +11,8 @@ import javax.xml.stream.XMLStreamException;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 
+import cl.uchile.xml.Element;
+
 /**
  * @author Avengers
  * ETL de Corporativo.
@@ -35,13 +37,6 @@ public class CorporateETL extends AbstractETL {
 		String id = ""; String tagname;
 		String base_uri = "http://datos.uchile.cl/recurso/";
 		
-		String owlUri = "http://datos.uchile.cl/ontologia/";
-		String foafUri = "http://xmlns.com/foaf/0.1/";
-		String rdfUri = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-		String dctUri = "http://purl.org.dc/terms/";
-		String orgUri = "http://www.w3.org/TR/vocab-org/";
-		String rdfsUri = "http://www.w3.org/TR/rdf-schema/";
-		
 		this.writer.writeStartDocument();
 		this.writer.setPrefix("rdf", rdfUri);
 		this.writer.writeStartElement(rdfUri, "RDF");
@@ -61,10 +56,17 @@ public class CorporateETL extends AbstractETL {
 		Unidecoder ud = new Unidecoder();
 		String location = "";
 		HashMap<String, String> nameWithId = new HashMap<String, String>();
+		boolean isReadyToWrite = false;
+		boolean doneWriting = false;
 		/* Dos iteraciones, una para llenar el diccionario, otra para crear el rdf */
-		for (int k = 0; k < 2; k++) {
-			if(k == 1) this.reader = this.inputFactory.createXMLStreamReader(new FileInputStream(inputFN), "UTF8");
+		Element corporateElement;
+		while(nameWithId.isEmpty() && !doneWriting ){
+			if(!nameWithId.isEmpty()) {
+				this.reader = this.inputFactory.createXMLStreamReader(new FileInputStream(inputFN), "UTF8");
+				isReadyToWrite = true;
+			}
 			while(this.reader.hasNext()) {
+				corporateElement = new Element();
 				if (this.reader.next() != XMLStreamConstants.START_ELEMENT) continue;
 				tagname = this.reader.getName().toString();
 				if (!tagname.equals( "marcEntry" ) && ! tagname.equals( "authorityID" )) continue;
@@ -80,9 +82,10 @@ public class CorporateETL extends AbstractETL {
 					// Write buffered element, this can be optimized
 					this.writer.flush();
 					// New guy starts here
-					this.writer.setPrefix("owl", owlUri);
-					this.writer.writeStartElement(owlUri, "NamedIndividual");
-					this.writer.writeAttribute(rdfUri, "about", base_uri + "corporativo/" + id);
+					corporateElement.setPrefix("owl");
+					corporateElement.setUri(owlUri);
+					corporateElement.setElementName("NamedIndividual");
+					corporateElement.appendAttribute(rdfUri, "about", base_uri + "corporativo/" + id);
 				}
 				
 				if(attributeValue == null) continue;
@@ -135,41 +138,63 @@ public class CorporateETL extends AbstractETL {
 						}
 					}
 					if(!corpName.equals("")) {
-						if (k == 1) {
+						if (isReadyToWrite) {
 							/* write type */
-							this.writer.setPrefix("rdf", rdfUri);
-							this.writer.writeEmptyElement(rdfUri, "type");
-							this.writer.writeAttribute(rdfUri, "resource", foafUri + "organization");
-							this.writer.setPrefix("rdf", rdfUri);
-							this.writer.writeEmptyElement(rdfUri, "type");
-							this.writer.writeAttribute(rdfUri, "resource", orgUri + "organization");
+							Element firstType = new Element();
+							firstType.setPrefix("rdf");
+							firstType.setUri(rdfUri);
+							firstType.setElementName("type");
+							firstType.appendAttribute(rdfUri, "resource",  foafUri + "organization");
+							corporateElement.appendElement(firstType);
+							
+							Element secondType = new Element();
+							secondType.setPrefix("rdf");
+							secondType.setUri(rdfUri);
+							secondType.setElementName("type");
+							secondType.appendAttribute(rdfUri, "resource",  orgUri + "organization");
+							corporateElement.appendElement(secondType);
 							
 							/* write foaf:name */
 							//System.out.println("Name: " + corpName);
-							this.writer.setPrefix("foaf", foafUri);
-							this.writer.writeStartElement(foafUri, "name");
-							this.writer.writeCharacters(corpName);
-							this.writer.writeEndElement();
+							Element nameElement = new Element();
+							nameElement.setPrefix("foaf");
+							nameElement.setUri(foafUri);
+							nameElement.setElementName("name");
+							nameElement.setText(corpName);
+							corporateElement.appendElement(nameElement);
+							
 							/* write foaf:label */
-							this.writer.setPrefix("foaf", foafUri);
-							this.writer.writeStartElement(foafUri, "label");
-							this.writer.writeCharacters(corpName);
-							this.writer.writeEndElement();
+							Element labelElement = new Element();
+							labelElement.setPrefix("foaf");
+							labelElement.setUri(foafUri);
+							labelElement.setElementName("label");
+							labelElement.setText(corpName);
+							corporateElement.appendElement(labelElement);
 							if (locationFound) {
-								/* write location */
+								/* write location */								
 								location = location.replaceAll(" ", "_");
 								String locationURI = base_uri + "localidad/" + location;
 								//System.out.println("Localidad: " + location);
-								this.writer.setPrefix("dct", dctUri);
-								this.writer.writeEmptyElement(dctUri, "spatial");
-								this.writer.writeAttribute(rdfUri, "resource", locationURI);
+								Element locationElement = new Element();
+								locationElement.setPrefix("dct");
+								locationElement.setUri(dctUri);
+								locationElement.setElementName("spatial");
+								locationElement.appendAttribute(rdfUri, "resource", locationURI);
+								corporateElement.appendElement(locationElement);
 							}
 						}
 						else {
 							nameWithId.put(ud.unidecode(corpName).replace(' ','_'), id);	
 						}
 					}
-				}		
+				}	
+
+				//escribimos en el archivo el elemento
+				corporateElement.write(writer);
+			}
+			//veo si escribi todo lo que tenia que escribir
+			if(isReadyToWrite){
+				doneWriting = true;
 			}
 		}
 		
