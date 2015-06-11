@@ -70,7 +70,8 @@ public class ObraETL extends AbstractETL {
 		this.writers.get(2).writeNamespace("owl", owlUri);		
 		this.writers.get(2).writeNamespace("rdf", rdfUri);
 		boolean isFirst = true;
-	
+		boolean named = false;
+		boolean isFirstAsset = false;
 		while(this.reader.hasNext()) {
 			if (this.reader.next() != XMLStreamConstants.START_ELEMENT) continue; 
 			tagname = this.reader.getName().toString();	
@@ -80,18 +81,33 @@ public class ObraETL extends AbstractETL {
 			try {if (attributeValueType.equals("FOLDER")) continue;}
 			catch(Exception e){}
 			w = this.reader.getAttributeCount();
-			System.out.println(tagname);
-			System.out.println(w);
+			//System.out.println(tagname);
+			//System.out.println(w);
 			
 			// we assume that CHARACTERS event comes next always, which could not be true
-			System.out.println(attributeValueType);
+			//System.out.println(attributeValueType);
 			this.reader.next();
-			try {if (attributeValueType.equals("ASSET")) {				
-				//if (!isFirst) this.writer.writeEndElement();
-				isFirst = false;
-			}}
+			
+			try {if (attributeValueType.equals("ASSET")) {	
+				isFirstAsset=true;
+					if (!isFirst){
+						this.writers.get(0).writeEndElement();
+						this.writers.get(1).writeEndElement();
+						this.writers.get(2).writeEndElement();
+					}
+				}
+				isFirst = false;				
+			}			
 			catch(Exception e){}
+			if(!isFirstAsset) continue;
 			if (tagname.equals("id")){
+				if(named){
+					this.writers.get(0).writeEndElement();
+					this.writers.get(1).writeEndElement();
+					this.writers.get(2).writeEndElement();
+					System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+				}
+				named = true;
 				System.out.println("el id es: ");
 				id = this.reader.getText();
 				System.out.println(id);
@@ -135,105 +151,151 @@ public class ObraETL extends AbstractETL {
 				this.writers.get(2).writeAttribute(rdfUri, "resource","http://bibliotecadigital.uchile.cl/client/sisib/search/detailnonmodal?d=ent%3A%2F%2FSD_ASSET%2F"+id.substring(0, 2)+"%2F"+id+"~ASSET~0~17");
 				isFirst = false;
 			}
-			try{ 
-				if(attributeValueName.equals("Title")){			
-					System.out.println("el title es: ");
-					String title = this.reader.getText();
-					System.out.println(title);
-					this.writers.get(0).flush();
-					this.writers.get(0).writeAttribute(dcUri,"title",title);
-					isFirst=false;
-				}
-			}
-			catch(Exception e){}
-			try{ 
-				if(attributeValueName.equals("NAME")){			
-					System.out.println("el NAME es: ");
-					String NAME = this.reader.getText();
-					System.out.println(NAME);
-					this.writers.get(0).flush();
-					this.writers.get(0).writeAttribute(dctUri,"alternative",NAME);
-					isFirst=false;
-				}
-			}
-			catch(Exception e){}
-			try{ 
-				if(attributeValueName.equals("Date")){			
-					System.out.println("el Date es: ");
-					String Date = this.reader.getText();
-					String Date2;
-					System.out.println(Date);
-					if(Date.substring(0, 6)=="[entre")
-						Date2 = Date.substring(7, 11)+" - "+Date.substring(14,18)+" rango estimado";
-					else{
-						if(Date.contains("?"))
-							Date2 = Date.substring(0,2)+"00 fecha estima";
-						else
-							Date2 = Date;
-					}						
-					this.writers.get(0).flush();
-					this.writers.get(0).writeAttribute(dctUri,"issued",Date2);
-					isFirst=false;
-				}
-			}
-			catch(Exception e){}			
-			try{ 
-				if(attributeValueName.equals("Language")){			
-					System.out.println("el Language es: ");
-					String Language = this.reader.getText();
-					System.out.println(Language);
-					String Lan;
-					if (Language.equals("spa") || Language.equals("Español"))
-						Lan="http://www.lexvo.org/page/iso639-3/spa";
-					else
-					{
-						if (Language.equals("eng") || Language.equals("Inglés"))
-							Lan="http://www.lexvo.org/page/iso639-3/eng";
-						else
-							Lan="";
+			if(tagname.equals("field")){
+				//System.out.println("probando");
+				try{ 
+					if(attributeValueName.equals("Title")){	
+						this.reader.next();
+						if(this.reader.getName().toString().equals("value")	){
+							System.out.println("el title es**************************: ");
+							System.out.println(this.reader.getName().toString());
+							String title = this.reader.getElementText();
+							System.out.println(" asdasdasd ");
+							//this.writers.get(0).flush();
+							this.writers.get(0).setPrefix("dc", dcUri);
+							this.writers.get(0).writeStartElement(dcUri,"title");
+							this.writers.get(0).writeCharacters(title);
+							this.writers.get(0).writeEndElement();							
+						}
+						isFirst=false;
 					}
-					this.writers.get(1).flush();
-					this.writers.get(1).writeEmptyElement(dcUri,"language");
-					this.writers.get(1).writeAttribute(rdfUri,"resource",Lan);
-					isFirst=false;
 				}
-			}
-			catch(Exception e){}
-			try{ 
-				if(attributeValueName.equals("Rights")){			
-					System.out.println("el Rights es: ");
-					String Rights = this.reader.getText();
-					System.out.println(Rights);
-					this.writers.get(2).flush();
-					this.writers.get(2).writeAttribute(dcUri,"rigths",Rights);
-					isFirst=false;
+				catch(Exception e){}
+				try{ 
+					if(attributeValueName.equals("NAME")){
+						this.reader.next();
+						if(this.reader.getName().toString().equals("value")	){
+							System.out.println("el NAME es: ");
+							String NAME = this.reader.getElementText();
+							System.out.println(NAME);
+							this.writers.get(0).flush();
+							this.writers.get(0).setPrefix("dct", dctUri);
+							this.writers.get(0).writeStartElement(dctUri,"alternative");
+							this.writers.get(0).writeCharacters(NAME);
+							this.writers.get(0).writeEndElement();	
+						}
+						isFirst=false;
+					}
 				}
-			}
-			catch(Exception e){}
-			try{ 
-				if(attributeValueName.equals("Publisher")){			
-					System.out.println("el Publisher es: ");
-					String Publisher = this.reader.getText();
-					System.out.println(Publisher);
-					this.writers.get(2).flush();
-					this.writers.get(2).writeAttribute(dcUri,"publisher",Publisher);
-					isFirst=false;
+				catch(Exception e){}
+				try{ 
+					if(attributeValueName.equals("Date")){
+						this.reader.next();
+						if(this.reader.getName().toString().equals("value")	){
+							System.out.println("el Date es: ");
+							String Date = this.reader.getElementText();
+							String Date2;
+							System.out.println(Date);
+							Date2 = Date;							
+							if(Date.length()>17 && Date.substring(0, 6)=="[entre")
+								Date2 = Date.substring(7, 11)+" - "+Date.substring(14,18)+" rango estimado";
+							else{
+								if(Date.contains("?"))
+									Date2 = Date.substring(0,2)+"00 fecha estimada";
+								else
+									Date2 = Date;
+							}
+							this.writers.get(0).flush();
+							this.writers.get(0).setPrefix("dct", dctUri);
+							this.writers.get(0).writeStartElement(dctUri,"issued");
+							this.writers.get(0).writeCharacters(Date2);
+							this.writers.get(0).writeEndElement();	
+						}
+						isFirst=false;
+					}
 				}
-			}
-			catch(Exception e){}
-			try{ 
-				if(attributeValueName.equals("Source")){			
-					System.out.println("el Source es: ");
-					String Source = this.reader.getText();
-					System.out.println(Source);
-					this.writers.get(2).flush();
-					this.writers.get(2).writeAttribute(dcUri,"source",Source);
-					isFirst=false;
+				catch(Exception e){System.out.println(e);}			
+				try{ 
+					if(attributeValueName.equals("Language")){	
+						this.reader.next();
+						if(this.reader.getName().toString().equals("value")	){
+							System.out.println("el Language es: ");
+							String Language = this.reader.getElementText();
+							System.out.println(Language);
+							String Lan;
+							if (Language.equals("spa") || Language.equals("Español"))
+								Lan="http://www.lexvo.org/page/iso639-3/spa";
+							else
+							{
+								if (Language.equals("eng") || Language.equals("Inglés"))
+									Lan="http://www.lexvo.org/page/iso639-3/eng";
+								else
+									Lan="";
+							}
+							this.writers.get(1).flush();
+							this.writers.get(1).setPrefix("dc", dcUri);
+							this.writers.get(1).writeEmptyElement(dcUri,"language");
+							this.writers.get(1).writeAttribute(dcUri, "resource", Lan);
+						}
+						isFirst=false;
+					}
 				}
+				catch(Exception e){}
+				try{ 
+					if(attributeValueName.equals("Rights")){
+						this.reader.next();
+						if(this.reader.getName().toString().equals("value")	){
+							System.out.println("el Rights es: ");
+							String Rights = this.reader.getElementText();
+							System.out.println(Rights);
+							this.writers.get(2).flush();
+							this.writers.get(2).setPrefix("dc", dcUri);
+							this.writers.get(2).writeStartElement(dcUri,"rights");
+							this.writers.get(2).writeCharacters(Rights);
+							this.writers.get(2).writeEndElement();								
+						}
+						isFirst=false;
+					}
+				}
+				catch(Exception e){}
+				try{ 
+					if(attributeValueName.equals("Publisher")){	
+						this.reader.next();
+						if(this.reader.getName().toString().equals("value")){
+							String Publisher = this.reader.getElementText();
+							if(Publisher.length() < 1) continue;
+							System.out.println("el Publisher es-------------------------------------------------------------------------------------------: ");
+							System.out.println(Publisher);
+							this.writers.get(2).flush();
+							this.writers.get(2).setPrefix("dc", dcUri);
+							this.writers.get(2).writeStartElement(dcUri,"publisher");
+							this.writers.get(2).writeCharacters(Publisher);
+							this.writers.get(2).writeEndElement();
+						}
+						isFirst=false;
+					}
+				}
+				catch(Exception e){}
+				try{ 
+					if(attributeValueName.equals("Source")){
+						this.reader.next();
+						if(this.reader.getName().toString().equals("value")	){
+							System.out.println("el Source es: ");
+							String Source = this.reader.getElementText();
+							System.out.println(Source);
+							this.writers.get(2).flush();
+							this.writers.get(2).setPrefix("dc", dcUri);
+							this.writers.get(2).writeStartElement(dcUri,"source");
+							this.writers.get(2).writeCharacters(Source);
+							this.writers.get(2).writeEndElement();
+						}
+						isFirst=false;
+					}
+				}
+				catch(Exception e){}
+				if(attributeValueName == null) continue;
 			}
-			catch(Exception e){}
-			if(attributeValueName == null) continue;
-						
+			//this.writers.get(0).writeEndElement();
 			//fin del ciclo
 			isFirst = true;
 		}
