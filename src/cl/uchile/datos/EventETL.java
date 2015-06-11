@@ -26,7 +26,7 @@ public class EventETL extends AbstractETL {
 		super(inputFilename, outputFilename);
 	}
 	
-	public void parse() throws Exception {
+	public void parseAndWrite() throws Exception {
 		String id = "";
 		String tagname;
 		

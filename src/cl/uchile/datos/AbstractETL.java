@@ -93,6 +93,6 @@ public abstract class AbstractETL {
 	 * 
 	 * @throws Exception Excepción lanzada en caso de error.
 	 */
-	public abstract void parse() throws Exception;
+	public abstract void parseAndWrite() throws Exception;
 
 }

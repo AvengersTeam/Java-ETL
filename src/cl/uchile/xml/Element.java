@@ -17,7 +17,7 @@ public class Element {
 
 	private List<Attribute> attributes; // the set of attributes
 	private List<Element> children;     //the set of children of the element
-	private String uri;                 //the uri in wich the element belong to
+	private String uri;                 //the uri in wich the element belongs
 	private String elementName;         //element's name
 	private String prefix;				//element prefix
 	private String text;				//element text

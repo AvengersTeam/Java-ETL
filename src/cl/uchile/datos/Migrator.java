@@ -25,7 +25,7 @@ public class Migrator {
 		outputsFilenames.add("output/autoridades-personas.rdf");
 		outputsFilenames.add("output/autoridades-fechas.rdf");
 		PersonETL p = new PersonETL(inputFilename, outputsFilenames);
-		p.parse();
+		p.parseAndWrite();
 		
 //		/* Run ETL eventos */ 
 //		

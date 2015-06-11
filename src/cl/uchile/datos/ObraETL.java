@@ -30,7 +30,7 @@ public class ObraETL extends AbstractETL {
 	 * @throws XMLStreamException 
 	 * 
 	 */
-	public void parse() throws XMLStreamException {
+	public void parseAndWrite() throws XMLStreamException {
 		String id = ""; String tagname; int w;
 		String base_uri = "http://datos.uchile.cl/recurso/";
 		
