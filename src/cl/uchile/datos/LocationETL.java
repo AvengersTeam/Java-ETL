@@ -15,6 +15,7 @@ import javax.xml.stream.XMLStreamWriter;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 
+import utils.Unidecoder;
 import cl.uchile.json.JsonReader;
 
 public class LocationETL extends AbstractETL{

@@ -11,6 +11,7 @@ import javax.xml.stream.XMLStreamException;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 
+import utils.Unidecoder;
 import cl.uchile.json.JsonReader;
 
 /**

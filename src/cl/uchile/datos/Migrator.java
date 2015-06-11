@@ -2,6 +2,8 @@ package cl.uchile.datos;
 
 import java.util.ArrayList;
 
+import utils.Pretty;
+
 /**
  * @author Avengers
  *
