@@ -26,14 +26,15 @@ public class Element {
 		attributes = new ArrayList<>();
 		children = new ArrayList<>();
 		prefix = "";
+		text = "";
 	}
 	
 	public void write(XMLStreamWriter writer) throws XMLStreamException{
-		if(prefix.equals("")) writer.setPrefix(prefix, uri);
+		writer.setPrefix(prefix, uri);
 		writer.writeStartElement(uri, elementName);
 		this.writeAttributes(writer);
-		this.writeElements(writer);
 		writer.writeCharacters(text);
+		this.writeElements(writer);
 		writer.writeEndElement();
 	}
 	
@@ -49,7 +50,7 @@ public class Element {
 		}
 	}
 	
-	public void appendAttribute(String attribute, String value, String nameSpace){
+	public void appendAttribute(String nameSpace, String attribute, String value){
 		Attribute attr = new Attribute(attribute,value, nameSpace);
 		this.attributes.add(attr);
 	}
@@ -70,6 +71,10 @@ public class Element {
 		this.prefix = prefix;
 	}
 	
+	public void setText(String text) {
+		this.text = text;
+	}
+	
 	public void accept(Visitor visitor){
 		visitor.visit(this);
 	}
@@ -77,6 +82,7 @@ public class Element {
 	public String getElementName(){
 		return this.elementName;
 	}
+
 	public void export2sql() {
 		
 	}
@@ -96,7 +102,4 @@ public class Element {
 		return str;
 	}
 
-	public void setText(String text) {
-		this.text = text;
-	}
 }

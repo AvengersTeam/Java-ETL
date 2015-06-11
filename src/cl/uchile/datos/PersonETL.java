@@ -60,12 +60,14 @@ public class PersonETL extends AbstractETL {
 			if (tagname.equals("authorityID")) {
 				id = this.reader.getText();
 				this.writer.flush();
+				if (!isFirst) el.write(writer);
+				isFirst = false;
 				// New guy starts here
 				el = new Element();
 				el.setPrefix("owl");
 				el.setUri(owlUri);
 				el.setElementName("NamedIndividual");
-				el.appendAttribute("about", base_uri + "autoridad/" + id, rdfUri);
+				el.appendAttribute(rdfUri, "about", base_uri + "autoridad/" + id);
 			}
 			
 			if(attributeValue == null) continue;
@@ -76,38 +78,36 @@ public class PersonETL extends AbstractETL {
 				for (int i = 0; i < textArray.length; i++) {
 					if (textArray[i].equals("")) continue;
 					if (textArray[i].substring(0,1).equals("a")) {
-						el.write(this.writer);
-						this.writer.setPrefix("foaf", foafUri);
 						Element nameElement = new Element();
 						nameElement.setPrefix("foaf");
 						nameElement.setUri(foafUri);
 						nameElement.setElementName("name");
-						//System.out.println(el);
 						nameElement.setText(textArray[i].substring(1));
 						el.appendElement(nameElement);
-						System.out.println(el);
-						//this.writer.writeCharacters(textArray[i].substring(1));
-					}/*
+					}
 					else if (textArray[i].substring(0,1).equals("d")) {
-						System.out.println("Fecha: " + textArray[i].substring(1));
+						Element birthElement = new Element();
 						String[] birthArray = textArray[i].substring(1).split("\\-");
-						this.writer.setPrefix("bio", bioUri);
-						this.writer.writeEmptyElement(bioUri, "event");
-						this.writer.writeAttribute(rdfUri, "resource", base_uri + "nacimiento/" + birthArray[0]);
+						birthElement.setPrefix("bio");
+						birthElement.setUri(bioUri);
+						birthElement.setElementName("event");
+						birthElement.appendAttribute(rdfUri, "resource",  base_uri + "nacimiento/" + birthArray[0]);
+						el.appendElement(birthElement);
 						if (birthArray.length == 2) {
-							this.writer.setPrefix("bio", bioUri);
-							this.writer.writeEmptyElement(bioUri, "event");
-							this.writer.writeAttribute(rdfUri, "resource", base_uri + "muerte/" + birthArray[1]);
+							Element deathElement = new Element();
+							deathElement.setPrefix("bio");
+							deathElement.setUri(bioUri);
+							deathElement.setElementName("event");
+							deathElement.appendAttribute(rdfUri, "resource", base_uri + "muerte/" + birthArray[1]);
+							el.appendElement(deathElement);
 						}
-					}*/
+						
+					}
 				}
 			}
 		}
-		
-		// end the last guy
-		this.writer.writeEndElement();
 		// end the rdf descriptions
-		//this.writer.writeEndElement();
+		this.writer.writeEndElement();
 		this.writer.writeEndDocument();
 		this.writer.close();
 	}

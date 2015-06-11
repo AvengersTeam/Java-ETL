@@ -55,10 +55,10 @@ public class Migrator {
 //		o.parse();
 //		
 //		/* Inicio instancia de Pretty */
-//		Pretty pretty = new Pretty();
+		Pretty pretty = new Pretty();
 //		
 //		/* Pretty Print personas */
-//        pretty.print("autoridades-personas.rdf","pretty-personas.rdf");
+        pretty.print("autoridades-personas.rdf","pretty-personas.rdf");
 //		/* Pretty Print eventos */
 //        pretty.print("autoridades-eventos.rdf","pretty-eventos.rdf");
 //		/* Pretty Print locations */
