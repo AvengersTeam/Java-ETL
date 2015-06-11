@@ -33,7 +33,7 @@ public abstract class AbstractETL {
 	String dcUri = "http://purl.org/dc/elements/1.1/";
 	String dctUri = "http://purl.org/dc/terms/";
 	String bioUri = "http://vocab.org/bio/0.1/";
-	String frbrerUri = "http://iflastandards.info/ns/fr/frbr/frbrer#";
+	String frbrerUri = "http://iflastandards.info/ns/fr/frbr/frbrer/";
 	String schemaUri = "http://schema.org/";
 
 	/**
