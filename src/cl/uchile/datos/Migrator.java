@@ -41,11 +41,11 @@ public class Migrator {
 //		LocationETL l = new LocationETL(outputFilename);
 //		l.parse();
 //		
-//		/* RUN ETL corporativos */
-//		inputFilename = "input/autoridades-corporativos.xml";
-//		outputFilename = "output/autoridades-corporativos.rdf";
-//		CorporateETL c = new CorporateETL(inputFilename, outputFilename);
-//		c.parse();
+		/* RUN ETL corporativos */
+		inputFilename = "input/autoridades-corporativos.xml";
+		outputFilename = "output/autoridades-corporativos.rdf";
+		CorporateETL c = new CorporateETL(inputFilename, outputFilename);
+		c.parseAndWrite();
 //		
 //		/* RUN ETL obras */
 //		
@@ -72,6 +72,6 @@ public class Migrator {
 //		pretty.print("expresion.rdf","pretty-expresion.rdf");
 //		pretty.print("manifestacion.rdf","pretty-manifestacion.rdf");
 //		/* Pretty Print corporativos */
-//		pretty.print("autoridades-corporativos.rdf","pretty-corporativos.rdf");
+		pretty.print("autoridades-corporativos.rdf","pretty-corporativos.rdf");
 	}
 }
