@@ -74,15 +74,17 @@ public class CorporateETL extends AbstractETL {
 				
 				if (tagname.equals("authorityID")) {
 					id = this.reader.getText();
-					// We should not close the parent element
-					if (!isFirst) this.writer.writeEndElement();
-					isFirst = false;
-					// Write buffered element, this can be optimized
-					this.writer.flush();
-					// New guy starts here
-					this.writer.setPrefix("owl", owlUri);
-					this.writer.writeStartElement(owlUri, "NamedIndividual");
-					this.writer.writeAttribute(rdfUri, "about", base_uri + "corporativo/" + id);
+					if(k == 1){
+						// We should not close the parent element
+						if (!isFirst) this.writer.writeEndElement();
+						isFirst = false;
+						// Write buffered element, this can be optimized
+						this.writer.flush();
+						// New guy starts here
+						this.writer.setPrefix("owl", owlUri);
+						this.writer.writeStartElement(owlUri, "NamedIndividual");
+						this.writer.writeAttribute(rdfUri, "about", base_uri + "corporativo/" + id);
+					}
 				}
 				
 				if(attributeValue == null) continue;
@@ -136,6 +138,7 @@ public class CorporateETL extends AbstractETL {
 					}
 					if(!corpName.equals("")) {
 						if (k == 1) {
+							//System.out.println("entraaaaaaaaaaaaaa");
 							/* write type */
 							this.writer.setPrefix("rdf", rdfUri);
 							this.writer.writeEmptyElement(rdfUri, "type");
@@ -164,12 +167,13 @@ public class CorporateETL extends AbstractETL {
 								this.writer.writeEmptyElement(dctUri, "spatial");
 								this.writer.writeAttribute(rdfUri, "resource", locationURI);
 							}
+							//this.writer.writeEndElement();
 						}
 						else {
 							nameWithId.put(ud.unidecode(corpName).replace(' ','_'), id);	
 						}
 					}
-				}		
+				}
 			}
 		}
 		

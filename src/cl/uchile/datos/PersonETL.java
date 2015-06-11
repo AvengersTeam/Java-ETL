@@ -60,8 +60,6 @@ public class PersonETL extends AbstractETL {
 		dateWriter.writeNamespace("owl", owlUri);
 		dateWriter.writeNamespace("bio", bioUri);
 		dateWriter.writeNamespace("rdf", rdfUri);
-		
-		boolean isFirst = true;
 	
 		while(this.reader.hasNext()) {
 			if (this.reader.next() != XMLStreamConstants.START_ELEMENT) continue; 

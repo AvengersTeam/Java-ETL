@@ -5,15 +5,10 @@ import java.io.FileNotFoundException;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 
-import java.io.FileReader;
-import java.util.Collection;
-
-
+import cl.uchile.xml.Element;
 
 /* Usar json-simple-1.1.1.jar para importar las librerías que siguen */
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 /**
  * ETL Eventos.
@@ -30,6 +25,8 @@ public class EventETL extends AbstractETL {
 		String id = "";
 		String tagname;
 		
+		Element eventElement = new Element();
+		
 		this.writer.writeStartDocument();
 		this.writer.setPrefix("rdf", rdfUri);
 		this.writer.writeStartElement(rdfUri, "RDF");
@@ -44,7 +41,6 @@ public class EventETL extends AbstractETL {
 		
 		JSONArray jCities = JsonReader.getCitiesArray();
 		Object[] aCountries = JsonReader.getCountriesArray();
-		
 		while(this.reader.hasNext()) {
 			if (this.reader.next() != XMLStreamConstants.START_ELEMENT) continue; 
 			tagname = this.reader.getName().toString();
@@ -55,20 +51,22 @@ public class EventETL extends AbstractETL {
 
 			if (tagname.equals("authorityID")) {
 				id = this.reader.getText();
+				System.out.println(id);
 				// We should not close the parent element
 				if (!isFirst)
-					this.writer.writeEndElement();
+					eventElement.write(this.writer);
 				isFirst = false;
 				// Write buffered element, this can be optimized
 				this.writer.flush();
 				// New guy starts here
-				this.writer.setPrefix("owl", owlUri);
-				this.writer.writeStartElement(owlUri, "NamedIndividual");
-				this.writer.writeAttribute(rdfUri, "about", base_uri + "recurso/evento/" + id);
+				eventElement = new Element();
+				eventElement.setPrefix("owl");
+				eventElement.setUri(owlUri);
+				eventElement.setElementName("NamedIndividual");
+				eventElement.appendAttribute(rdfUri, "about", base_uri + "recurso/evento/" + id);
 			}
 			
-			if(attributeValue == null)
-				continue;
+			if(attributeValue == null) continue;
 			
 			if(attributeValue.equals("111") && this.reader.getText().contains("|a")) {
 				String text = this.reader.getText();
@@ -83,13 +81,19 @@ public class EventETL extends AbstractETL {
 				}
 				/* Creo elemento nombre como dct:title */
 				//System.out.println("Nombre: " + name);
-				this.writer.setPrefix("dct", dctUri);
-				this.writer.writeStartElement(dctUri, "title");
-				this.writer.writeCharacters(name);
-				this.writer.writeEndElement();
+				Element nameElement = new Element();
+				nameElement.setPrefix("dct");
+				nameElement.setUri(dctUri);
+				nameElement.setElementName("title");
+				nameElement.setText(name);
+				eventElement.appendElement(nameElement);
 				/* Caso type */
-				this.writer.writeEmptyElement(rdfUri, "type");
-				this.writer.writeAttribute(rdfUri, "resource", "frbrer:C1009");
+				Element typeElement = new Element();
+				typeElement.setPrefix("rdf");
+				typeElement.setUri(rdfUri);
+				typeElement.setElementName("type");
+				typeElement.appendAttribute(rdfUri, "resource", frbrerUri+"C1009");
+				eventElement.appendElement(typeElement);
 				/* Según la letra luego de los pipes, creo los siguientes elementos */
 				for(int i = 0; i < textArrayLength; i++){
 					if (textArray[i].equals("")) continue;
@@ -98,11 +102,13 @@ public class EventETL extends AbstractETL {
 						String fecha = textArray[i].substring(1);
 						fecha = fecha.replaceAll("[^0-9]", "");
 						//System.out.println("Fecha: " + fecha);
-						this.writer.setPrefix("schema", schemaUri);
-						this.writer.writeStartElement(schemaUri, "startDate");
-						this.writer.writeAttribute(rdfUri, "datatype", "http://www.w3.org/2001/XMLSchema#dateTime");
-						this.writer.writeCharacters(fecha);
-						this.writer.writeEndElement();
+						Element dateElement = new Element();
+						dateElement.setPrefix("schema");
+						dateElement.setUri(schemaUri);
+						dateElement.setElementName("startDate");
+						dateElement.appendAttribute(rdfUri, "datatype", "http://www.w3.org/2001/XMLSchema#dateTime");
+						dateElement.setText(fecha);
+						eventElement.appendElement(dateElement);
 					}
 					/* Caso localidad */
 					if (textArray[i].substring(0,1).equals("c")) {
@@ -136,9 +142,12 @@ public class EventETL extends AbstractETL {
 							location = location.replaceAll(" ", "_");
 							String locationURI = base_uri + "localidad/" + location;
 							//System.out.println("Localidad: " + location);
-							this.writer.setPrefix("dct", dctUri);
-							this.writer.writeEmptyElement(dctUri, "spatial");
-							this.writer.writeAttribute(rdfUri, "resource", locationURI);
+							Element spatialElement = new Element();
+							spatialElement.setPrefix("dct");
+							spatialElement.setUri(dctUri);
+							spatialElement.setElementName("spatial");
+							spatialElement.appendAttribute(rdfUri, "resource", locationURI);
+							eventElement.appendElement(spatialElement);
 						}
 					}
 				}
@@ -146,15 +155,17 @@ public class EventETL extends AbstractETL {
 			if(attributeValue.equals("670") && this.reader.getText().contains("|a")) {
 				String alternate = this.reader.getText().substring(2);
 				//System.out.println("Alternativo: " + alternate);
-				this.writer.setPrefix("dct", dctUri);
-				this.writer.writeStartElement(dctUri, "alternative");
-				this.writer.writeCharacters(alternate);
-				this.writer.writeEndElement();
+				Element altNameElement = new Element();
+				altNameElement.setPrefix("dct");
+				altNameElement.setUri(dctUri);
+				altNameElement.setElementName("alternative");
+				altNameElement.setText(alternate);
+				eventElement.appendElement(altNameElement);
 			}
 		}
 		
 		/* end the last event */
-		this.writer.writeEndElement();
+		eventElement.write(this.writer);
 		/* end the rdf descriptions */
 		this.writer.writeEndElement();
 		this.writer.writeEndDocument();
