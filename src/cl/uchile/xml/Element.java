@@ -101,5 +101,14 @@ public class Element {
 		}
 		return str;
 	}
+	
+	public boolean isEmpty(){
+		return false;
+	}
+	
+	public List<Element> getChildren() {
+		return children;
+	}
+
 
 }
