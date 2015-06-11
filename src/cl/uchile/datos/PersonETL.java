@@ -1,9 +1,11 @@
 package cl.uchile.datos;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
 
 import cl.uchile.xml.Element;
 
@@ -19,12 +21,12 @@ public class PersonETL extends AbstractETL {
 	 * @throws FileNotFoundException
 	 * 
 	 */
-	public PersonETL(String inputFilename, String outputFilename) throws FileNotFoundException, XMLStreamException {
+	public PersonETL(String inputFilename, ArrayList<String> outputFilename) throws FileNotFoundException, XMLStreamException {
 		super(inputFilename, outputFilename);
 	}
 
 	/**
-	 * {@inheritDoc} asdf
+	 * {@inheritDoc}
 	 * @throws XMLStreamException 
 	 */
 	public void parse() throws XMLStreamException {
@@ -35,17 +37,29 @@ public class PersonETL extends AbstractETL {
 		String foafUri = "http://xmlns.com/foaf/0.1/";
 		String bioUri = "http://vocab.org/bio/0.1/";
 		String rdfUri = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-		
-		Element el = new Element();
 
-		this.writer.writeStartDocument();
-		this.writer.setPrefix("rdf", rdfUri);
-		this.writer.writeStartElement(rdfUri, "RDF");
+		Element personElement = new Element();
+		Element eventElement = new Element();
+		
+		XMLStreamWriter personWriter = this.writers.get(0);
+		XMLStreamWriter dateWriter = this.writers.get(1);
+
+		personWriter.writeStartDocument();
+		personWriter.setPrefix("rdf", rdfUri);
+		personWriter.writeStartElement(rdfUri, "RDF");
 		// XML namespaces
-		this.writer.writeNamespace("owl", owlUri);
-		this.writer.writeNamespace("foaf", foafUri);
-		this.writer.writeNamespace("bio", bioUri);
-		this.writer.writeNamespace("rdf", rdfUri);
+		personWriter.writeNamespace("owl", owlUri);
+		personWriter.writeNamespace("foaf", foafUri);
+		personWriter.writeNamespace("bio", bioUri);
+		personWriter.writeNamespace("rdf", rdfUri);
+		
+		dateWriter.writeStartDocument();
+		dateWriter.setPrefix("rdf", rdfUri);
+		dateWriter.writeStartElement(rdfUri, "RDF");
+		// XML namespaces
+		dateWriter.writeNamespace("owl", owlUri);
+		dateWriter.writeNamespace("bio", bioUri);
+		dateWriter.writeNamespace("rdf", rdfUri);
 		
 		boolean isFirst = true;
 	
@@ -59,15 +73,12 @@ public class PersonETL extends AbstractETL {
 
 			if (tagname.equals("authorityID")) {
 				id = this.reader.getText();
-				this.writer.flush();
-				if (!isFirst) el.write(writer);
-				isFirst = false;
 				// New guy starts here
-				el = new Element();
-				el.setPrefix("owl");
-				el.setUri(owlUri);
-				el.setElementName("NamedIndividual");
-				el.appendAttribute(rdfUri, "about", base_uri + "autoridad/" + id);
+				personElement = new Element();
+				personElement.setPrefix("owl");
+				personElement.setUri(owlUri);
+				personElement.setElementName("NamedIndividual");
+				personElement.appendAttribute(rdfUri, "about", base_uri + "autoridad/" + id);
 			}
 			
 			if(attributeValue == null) continue;
@@ -83,7 +94,7 @@ public class PersonETL extends AbstractETL {
 						nameElement.setUri(foafUri);
 						nameElement.setElementName("name");
 						nameElement.setText(textArray[i].substring(1));
-						el.appendElement(nameElement);
+						personElement.appendElement(nameElement);
 					}
 					else if (textArray[i].substring(0,1).equals("d")) {
 						Element birthElement = new Element();
@@ -92,24 +103,71 @@ public class PersonETL extends AbstractETL {
 						birthElement.setUri(bioUri);
 						birthElement.setElementName("event");
 						birthElement.appendAttribute(rdfUri, "resource",  base_uri + "nacimiento/" + birthArray[0]);
-						el.appendElement(birthElement);
+						personElement.appendElement(birthElement);
+						
+						eventElement = new Element();
+						eventElement.setPrefix("owl");
+						eventElement.setUri(owlUri);
+						eventElement.setElementName("NamedIndividual");
+						eventElement.appendAttribute(rdfUri, "about", base_uri + "nacimiento/" + birthArray[0]);
+						Element typeElement = new Element();
+						typeElement.setPrefix("rdf");
+						typeElement.setUri(rdfUri);
+						typeElement.setElementName("type");
+						typeElement.appendAttribute(rdfUri, "resource",  bioUri + "birth");
+						eventElement.appendElement(typeElement);
+						Element dateElement = new Element();
+						dateElement.setPrefix("bio");
+						dateElement.setUri(bioUri);
+						dateElement.setElementName("date");
+						dateElement.setText(birthArray[0]);
+						eventElement.appendElement(dateElement);
+						eventElement.write(dateWriter);
+
 						if (birthArray.length == 2) {
 							Element deathElement = new Element();
 							deathElement.setPrefix("bio");
 							deathElement.setUri(bioUri);
 							deathElement.setElementName("event");
 							deathElement.appendAttribute(rdfUri, "resource", base_uri + "muerte/" + birthArray[1]);
-							el.appendElement(deathElement);
+							personElement.appendElement(deathElement);
+							
+							eventElement = new Element();
+							eventElement.setPrefix("owl");
+							eventElement.setUri(owlUri);
+							eventElement.setElementName("NamedIndividual");
+							eventElement.appendAttribute(rdfUri, "about", base_uri + "muerte/" + birthArray[1]);
+							typeElement = new Element();
+							typeElement.setPrefix("rdf");
+							typeElement.setUri(rdfUri);
+							typeElement.setElementName("type");
+							typeElement.appendAttribute(rdfUri, "resource",  bioUri + "death");
+							eventElement.appendElement(typeElement);
+							dateElement = new Element();
+							dateElement.setPrefix("bio");
+							dateElement.setUri(bioUri);
+							dateElement.setElementName("date");
+							dateElement.setText(birthArray[1]);
+							eventElement.appendElement(dateElement);
+							eventElement.write(dateWriter);
 						}
 						
 					}
 				}
+				personElement.write(personWriter);
+				personWriter.flush();
+				dateWriter.flush();
 			}
 		}
+
 		// end the rdf descriptions
-		this.writer.writeEndElement();
-		this.writer.writeEndDocument();
-		this.writer.close();
+		personWriter.writeEndElement();
+		personWriter.writeEndDocument();
+		personWriter.close();
+		
+		dateWriter.writeEndElement();
+		dateWriter.writeEndDocument();
+		dateWriter.close();
 	}
 
 }

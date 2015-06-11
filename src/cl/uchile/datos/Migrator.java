@@ -15,13 +15,16 @@ public class Migrator {
 	public static void main(String[] args) throws Exception {
 		String inputFilename;
 		String outputFilename;
+		ArrayList<String> outputsFilenames = new ArrayList<String>();
 		
 		/* Run ETL personas */ 
 		
 		inputFilename = "input/autoridades-personas.xml";
 		outputFilename = "output/autoridades-personas.rdf";
 
-		PersonETL p = new PersonETL(inputFilename, outputFilename);
+		outputsFilenames.add("output/autoridades-personas.rdf");
+		outputsFilenames.add("output/autoridades-fechas.rdf");
+		PersonETL p = new PersonETL(inputFilename, outputsFilenames);
 		p.parse();
 		
 //		/* Run ETL eventos */ 
@@ -47,11 +50,11 @@ public class Migrator {
 //		/* RUN ETL obras */
 //		
 //		inputFilename = "input/Portfolio-Andres-bello.xml";
-//		ArrayList<String> outputs = new ArrayList<String>();
-//		outputs.add("output/obra.rdf");
-//		outputs.add("output/expresion.rdf");
-//		outputs.add("output/manifestacion.rdf");
-//		ObraETL o = new ObraETL(inputFilename, outputs);
+//		outputsFilenames = new ArrayList<String>();
+//		outputsFilenames.add("output/obra.rdf");
+//		outputsFilenames.add("output/expresion.rdf");
+//		outputsFilenames.add("output/manifestacion.rdf");
+//		ObraETL o = new ObraETL(inputFilename, outputsFilenames);
 //		o.parse();
 //		
 //		/* Inicio instancia de Pretty */
@@ -59,6 +62,7 @@ public class Migrator {
 //		
 //		/* Pretty Print personas */
         pretty.print("autoridades-personas.rdf","pretty-personas.rdf");
+        pretty.print("autoridades-fechas.rdf","pretty-fechas.rdf");
 //		/* Pretty Print eventos */
 //        pretty.print("autoridades-eventos.rdf","pretty-eventos.rdf");
 //		/* Pretty Print locations */
