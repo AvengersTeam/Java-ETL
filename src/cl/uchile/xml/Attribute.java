@@ -38,5 +38,9 @@ public class Attribute {
 	public String toString() {
 		return this.localname + ", " + this.value;
 	}
+	
+	public boolean isEmpty(){
+		return false;
+	}
 }
 
