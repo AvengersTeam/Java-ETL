@@ -29,7 +29,8 @@ public abstract class AbstractETL {
 	
 	String base_uri = "http://datos.uchile.cl/recurso/";
 	String owlUri = "http://datos.uchile.cl/ontologia/";
-	String rdfUri = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";	
+	String rdfUri = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+	String dcUri = "http://purl.org/dc/elements/1.1/";
 	String dctUri = "http://purl.org/dc/terms/";
 	String bioUri = "http://vocab.org/bio/0.1/";
 	String frbrerUri = "http://iflastandards.info/ns/fr/frbr/frbrer#";
