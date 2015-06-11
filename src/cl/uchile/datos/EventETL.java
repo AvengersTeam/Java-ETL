@@ -51,7 +51,6 @@ public class EventETL extends AbstractETL {
 
 			if (tagname.equals("authorityID")) {
 				id = this.reader.getText();
-				System.out.println(id);
 				// We should not close the parent element
 				if (!isFirst)
 					eventElement.write(this.writer);
