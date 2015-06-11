@@ -14,24 +14,29 @@ public class Attribute {
 		this.nameSpaceUri = nameSpaceUri;
 	}
 	
-	public String getLocalname(){
+	public String getLocalname() {
 		return this.localname;
 	}
 	
-	public String getValue(){
+	public String getValue() {
 		return this.value;
 	}
 	
-	public void setNameSpaceUri(String nameSpaceUri){
+	public void setNameSpaceUri(String nameSpaceUri) {
 		this.nameSpaceUri = nameSpaceUri;
 	}
 
-	public String getNameSpaceUri(){
+	public String getNameSpaceUri() {
 		return this.nameSpaceUri;
 	}
 	
-	public void accept(Visitor visitor){
+	public void accept(Visitor visitor) {
 		visitor.visit(this);
+	}
+	
+	@Override
+	public String toString() {
+		return this.localname + ", " + this.value;
 	}
 }
 

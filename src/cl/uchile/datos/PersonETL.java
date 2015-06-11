@@ -1,9 +1,11 @@
 package cl.uchile.datos;
 
 import java.io.FileNotFoundException;
+
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 
+import cl.uchile.xml.Element;
 
 /**
  * ETL Personas.
@@ -33,6 +35,8 @@ public class PersonETL extends AbstractETL {
 		String foafUri = "http://xmlns.com/foaf/0.1/";
 		String bioUri = "http://vocab.org/bio/0.1/";
 		String rdfUri = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+		
+		Element el = new Element();
 
 		this.writer.writeStartDocument();
 		this.writer.setPrefix("rdf", rdfUri);
@@ -55,15 +59,13 @@ public class PersonETL extends AbstractETL {
 
 			if (tagname.equals("authorityID")) {
 				id = this.reader.getText();
-				// We should not close the parent element
-				if (!isFirst) this.writer.writeEndElement();
-				isFirst = false;
-				// Write buffered element, this can be optimized
 				this.writer.flush();
 				// New guy starts here
-				this.writer.setPrefix("owl", owlUri);
-				this.writer.writeStartElement(owlUri, "NamedIndividual");
-				this.writer.writeAttribute(rdfUri, "about", base_uri + "autoridad/" + id);
+				el = new Element();
+				el.setPrefix("owl");
+				el.setUri(owlUri);
+				el.setElementName("NamedIndividual");
+				el.appendAttribute("about", base_uri + "autoridad/" + id, rdfUri);
 			}
 			
 			if(attributeValue == null) continue;
@@ -74,12 +76,18 @@ public class PersonETL extends AbstractETL {
 				for (int i = 0; i < textArray.length; i++) {
 					if (textArray[i].equals("")) continue;
 					if (textArray[i].substring(0,1).equals("a")) {
-						System.out.println("Nombre: " + textArray[i].substring(1));
+						el.write(this.writer);
 						this.writer.setPrefix("foaf", foafUri);
-						this.writer.writeStartElement(foafUri, "name");
-						this.writer.writeCharacters(textArray[i].substring(1));
-						this.writer.writeEndElement();
-					}
+						Element nameElement = new Element();
+						nameElement.setPrefix("foaf");
+						nameElement.setUri(foafUri);
+						nameElement.setElementName("name");
+						//System.out.println(el);
+						nameElement.setText(textArray[i].substring(1));
+						el.appendElement(nameElement);
+						System.out.println(el);
+						//this.writer.writeCharacters(textArray[i].substring(1));
+					}/*
 					else if (textArray[i].substring(0,1).equals("d")) {
 						System.out.println("Fecha: " + textArray[i].substring(1));
 						String[] birthArray = textArray[i].substring(1).split("\\-");
@@ -91,7 +99,7 @@ public class PersonETL extends AbstractETL {
 							this.writer.writeEmptyElement(bioUri, "event");
 							this.writer.writeAttribute(rdfUri, "resource", base_uri + "muerte/" + birthArray[1]);
 						}
-					}
+					}*/
 				}
 			}
 		}
@@ -99,7 +107,7 @@ public class PersonETL extends AbstractETL {
 		// end the last guy
 		this.writer.writeEndElement();
 		// end the rdf descriptions
-		this.writer.writeEndElement();
+		//this.writer.writeEndElement();
 		this.writer.writeEndDocument();
 		this.writer.close();
 	}

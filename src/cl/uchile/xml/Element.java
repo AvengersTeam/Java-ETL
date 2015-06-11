@@ -1,5 +1,6 @@
 package cl.uchile.xml;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.stream.XMLStreamException;
@@ -18,11 +19,21 @@ public class Element {
 	private List<Element> children;     //the set of children of the element
 	private String uri;                 //the uri in wich the element belong to
 	private String elementName;         //element's name
+	private String prefix;				//element prefix
+	private String text;				//element text
+	
+	public Element() {
+		attributes = new ArrayList<>();
+		children = new ArrayList<>();
+		prefix = "";
+	}
 	
 	public void write(XMLStreamWriter writer) throws XMLStreamException{
+		if(prefix.equals("")) writer.setPrefix(prefix, uri);
 		writer.writeStartElement(uri, elementName);
 		this.writeAttributes(writer);
 		this.writeElements(writer);
+		writer.writeCharacters(text);
 		writer.writeEndElement();
 	}
 	
@@ -55,6 +66,10 @@ public class Element {
 		this.elementName = elementName;
 	}
 	
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+	
 	public void accept(Visitor visitor){
 		visitor.visit(this);
 	}
@@ -64,5 +79,24 @@ public class Element {
 	}
 	public void export2sql() {
 		
+	}
+	
+	@Override
+	public String toString(){
+		String str = "";
+		str += this.prefix + ":" + this.elementName + " attr:";
+		for(Attribute attribute : attributes){
+			str += " " + attribute.toString() + "\n";
+		}
+		str += " text: " + this.text + "\n";
+		str += " child:";
+		for(Element element : children){
+			str += " " + element.toString() + "\n";
+		}
+		return str;
+	}
+
+	public void setText(String text) {
+		this.text = text;
 	}
 }
