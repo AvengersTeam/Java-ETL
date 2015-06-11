@@ -32,7 +32,7 @@ public class ObraETL extends AbstractETL {
 	 * 
 	 */
 	public void parseAndWrite() throws XMLStreamException {
-		String id = ""; String tagname; int w;
+		String id = ""; String tagname;
 		
 		XMLStreamWriter obraWriter = this.writers.get(0);
 		XMLStreamWriter expWriter = this.writers.get(1);
@@ -78,7 +78,6 @@ public class ObraETL extends AbstractETL {
 			if (!tagname.equals( "asset" ) &&  !(isFirst)) continue;
 			try {if (attributeValueType.equals("FOLDER")) continue;}
 			catch(Exception e){}
-			w = this.reader.getAttributeCount();
 			//System.out.println(tagname);
 			//System.out.println(w);
 			
@@ -272,7 +271,8 @@ public class ObraETL extends AbstractETL {
 					isFirst=false;
 				}
 
-				if(attributeValueName == null) continue;
+				//dead code
+				//if(attributeValueName == null) continue;
 			}
 			//obraWriter.writeEndElement();
 			//fin del ciclo
