@@ -31,7 +31,7 @@ public class CorporateETL extends AbstractETL {
 	 * @throws Exception 
 	 * 
 	 */
-	public void parse() throws Exception {
+	public void parseAndWrite() throws Exception {
 		String id = ""; String tagname;
 		String base_uri = "http://datos.uchile.cl/recurso/";
 		

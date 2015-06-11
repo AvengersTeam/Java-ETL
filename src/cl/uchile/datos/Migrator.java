@@ -22,7 +22,7 @@ public class Migrator {
 		outputFilename = "output/autoridades-personas.rdf";
 
 		PersonETL p = new PersonETL(inputFilename, outputFilename);
-		p.parse();
+		p.parseAndWrite();
 		
 //		/* Run ETL eventos */ 
 //		

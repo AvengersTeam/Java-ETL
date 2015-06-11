@@ -27,7 +27,7 @@ public class LocationETL extends AbstractETL{
 		aCountries = JsonReader.getCountriesArray();
 	}
 	
-	public void parse() throws Exception {
+	public void parseAndWrite() throws Exception {
 		
 		this.writer.writeStartDocument();
 		this.writer.setPrefix("rdf", rdfUri);

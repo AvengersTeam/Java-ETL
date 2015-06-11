@@ -27,7 +27,7 @@ public class PersonETL extends AbstractETL {
 	 * {@inheritDoc} asdf
 	 * @throws XMLStreamException 
 	 */
-	public void parse() throws XMLStreamException {
+	public void parseAndWrite() throws XMLStreamException {
 		String id = ""; String tagname;
 		String base_uri = "http://datos.uchile.cl/recurso/";
 		
@@ -106,10 +106,10 @@ public class PersonETL extends AbstractETL {
 				}
 			}
 		}
+		el.write(writer);
 		// end the rdf descriptions
 		this.writer.writeEndElement();
 		this.writer.writeEndDocument();
 		this.writer.close();
 	}
-
 }
