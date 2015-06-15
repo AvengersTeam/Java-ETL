@@ -10,7 +10,7 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import cl.uchile.xml.Element;
+import main.java.cl.uchile.xml.Element;
 
 
 /**
@@ -74,7 +74,6 @@ public class ObraETL extends AbstractETL {
 		manifWriter.writeNamespace("owl", owlUri);		
 		manifWriter.writeNamespace("rdf", rdfUri);
 		boolean isFirst = true;
-		boolean named = false;
 		boolean isFirstAsset = false;
 		while(this.reader.hasNext()) {
 			if (this.reader.next() != XMLStreamConstants.START_ELEMENT) continue; 
@@ -83,16 +82,8 @@ public class ObraETL extends AbstractETL {
 			String attributeValueName = this.reader.getAttributeValue("", "name");
 //			System.out.println(tagname);
 			if (!tagname.equals( "asset" ) &&  !(isFirst)) continue;
-<<<<<<< HEAD
 			if (attributeValueType == null) continue;
 			if (attributeValueType.equals("FOLDER")) continue;
-			w = this.reader.getAttributeCount();
-=======
-			try {if (attributeValueType.equals("FOLDER")) continue;}
-			catch(Exception e){}
-			//System.out.println(tagname);
-			//System.out.println(w);
->>>>>>> 3490e939d22650b39bb5c32c9ece25d3ec7b25bd
 			
 			// we assume that CHARACTERS event comes next always, which could not be true
 			System.out.println(attributeValueType);
@@ -110,13 +101,6 @@ public class ObraETL extends AbstractETL {
 			isFirst = false;				
 			if(!isFirstAsset) continue;
 			if (tagname.equals("id")){
-				/*if(named){
-					obraWriter.writeEndElement();
-					expWriter.writeEndElement();
-					manifWriter.writeEndElement();
-					System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-				}*/
-				named = true;
 				System.out.println("el id es: ");
 				id = this.reader.getText();
 				System.out.println(id);
