@@ -1,4 +1,4 @@
-package cl.uchile.datos;
+package main.java.cl.uchile.datos;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,9 +7,10 @@ import java.util.HashMap;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 
+import main.java.cl.uchile.json.JsonReader;
+import main.java.utils.Unidecoder;
+
 import org.json.simple.JSONArray;
-import utils.Unidecoder;
-import cl.uchile.json.JsonReader;
 
 /**
  * @author Avengers

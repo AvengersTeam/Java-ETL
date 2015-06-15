@@ -1,6 +1,6 @@
-package visitors;
+package main.java.visitors;
 
-import cl.uchile.xml.*;
+import main.java.cl.uchile.xml.*;
 
 public class SqlVisitor extends Visitor{
 	

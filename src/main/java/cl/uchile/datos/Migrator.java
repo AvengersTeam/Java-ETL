@@ -1,8 +1,8 @@
-package cl.uchile.datos;
+package main.java.cl.uchile.datos;
 
 import java.util.ArrayList;
 
-import utils.Pretty;
+import main.java.utils.Pretty;
 
 /**
  * @author Avengers
@@ -12,7 +12,7 @@ public class Migrator {
 
 	/**
 	 * @param args
-	 * @throws Exception Excepción lanzada en caso de error.
+	 * @throws Exception Excepciï¿½n lanzada en caso de error.
 	 */
 	public static void main(String[] args) throws Exception {
 		String inputFilename;

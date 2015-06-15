@@ -1,4 +1,4 @@
-package cl.uchile.datos;
+package main.java.cl.uchile.datos;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import cl.uchile.xml.Element;
+import main.java.cl.uchile.xml.Element;
 
 /**
  * ETL Personas.

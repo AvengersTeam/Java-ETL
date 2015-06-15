@@ -1,4 +1,4 @@
-package cl.uchile.xml;
+package main.java.cl.uchile.xml;
 
 public class EmptyAttribute extends Attribute{
 

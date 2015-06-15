@@ -1,4 +1,4 @@
-package utils;
+package main.java.utils;
 
 import java.io.FileWriter;
 import java.util.HashMap;
@@ -86,7 +86,7 @@ public class PrimitiveWork {
 		if( a.equals( "language" ) ) {
 			String val = attrsVal.get( a );
 			String ini = "<" + attrs.get( a ) + " rdf:resource=\"http://www.lexvo.org/page/iso639-3/";
-			if( val.equals( "spa" ) || val.equals( "Español" ) ) return ini + "spa\"/>";
+			if( val.equals( "spa" ) || val.equals( "Espaï¿½ol" ) ) return ini + "spa\"/>";
 			else if( val.equals( "eng" ) || val.equals( "English" ) ) return ini + "eng\"/>";
 			else return "";
 		}

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cl.uchile.datos;
+package main.java.cl.uchile.datos;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -210,11 +210,11 @@ public class ObraETL extends AbstractETL {
 							String Language = this.reader.getElementText();
 							System.out.println(Language);
 							String Lan;
-							if (Language.equals("spa") || Language.equals("Español"))
+							if (Language.equals("spa") || Language.equals("Espaï¿½ol"))
 								Lan="http://www.lexvo.org/page/iso639-3/spa";
 							else
 							{
-								if (Language.equals("eng") || Language.equals("Inglés"))
+								if (Language.equals("eng") || Language.equals("Inglï¿½s"))
 									Lan="http://www.lexvo.org/page/iso639-3/eng";
 								else
 									Lan="";

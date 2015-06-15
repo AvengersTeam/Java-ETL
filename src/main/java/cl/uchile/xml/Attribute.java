@@ -1,6 +1,6 @@
-package cl.uchile.xml;
+package main.java.cl.uchile.xml;
 
-import visitors.Visitor;
+import main.java.visitors.Visitor;
 
 public class Attribute {
 

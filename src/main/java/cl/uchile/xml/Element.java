@@ -1,4 +1,4 @@
-package cl.uchile.xml;
+package main.java.cl.uchile.xml;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import visitors.Visitor;
+import main.java.visitors.Visitor;
 
 /*
  * this are our own homebrew xml elements. Although we use some of the javax.xml , 

@@ -1,4 +1,4 @@
-package cl.uchile.sqllite;
+package main.java.cl.uchile.sqllite;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

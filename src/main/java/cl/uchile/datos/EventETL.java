@@ -1,19 +1,22 @@
-package cl.uchile.datos;
+package main.java.cl.uchile.datos;
 
 import java.io.FileNotFoundException;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 
-import cl.uchile.json.JsonReader;
-import cl.uchile.xml.Element;
 
 
 
-/* Usar json-simple-1.1.1.jar para importar las librerías que siguen */
+
+import main.java.cl.uchile.json.JsonReader;
+import main.java.cl.uchile.xml.Element;
+
+
+import main.java.utils.Unidecoder;
+
+/* Usar json-simple-1.1.1.jar para importar las librerï¿½as que siguen */
 import org.json.simple.JSONArray;
-
-import utils.Unidecoder;
 
 /**
  * ETL Eventos.
@@ -98,7 +101,7 @@ public class EventETL extends AbstractETL {
 				typeElement.setElementName("type");
 				typeElement.appendAttribute(rdfUri, "resource", frbrerUri+"C1009");
 				eventElement.appendElement(typeElement);
-				/* Según la letra luego de los pipes, creo los siguientes elementos */
+				/* Segï¿½n la letra luego de los pipes, creo los siguientes elementos */
 				for(int i = 0; i < textArrayLength; i++){
 					if (textArray[i].equals("")) continue;
 					/* Caso fechas */

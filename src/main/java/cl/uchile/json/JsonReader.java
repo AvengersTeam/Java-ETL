@@ -1,4 +1,4 @@
-package cl.uchile.json;
+package main.java.cl.uchile.json;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package utils;
+package main.java.utils;
 
 import java.text.Normalizer;
 

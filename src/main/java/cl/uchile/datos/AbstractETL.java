@@ -1,4 +1,4 @@
-package cl.uchile.datos;
+package main.java.cl.uchile.datos;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,7 +15,7 @@ import javax.xml.stream.XMLStreamWriter;
  * ETL Abstracto. 
  * Extract-Transform-Load significa extraer, transformar y cargar.
  * Esta clase extrae datos de alguna fuente (xml, json), los transforma
- * y los carga en algún output especificado.
+ * y los carga en algï¿½n output especificado.
  * 
  * @author Avengers
  */
@@ -41,8 +41,8 @@ public abstract class AbstractETL {
 	 * 
 	 * @param inputFilename Path al nombre del input.
 	 * @param outputFilenames Lista de paths a los nombres de los outputs.
-	 * @throws XMLStreamException Excepción lanzada por falla de la librería StAX.
-	 * @throws FileNotFoundException Excepción lanzada al no encontrar el archivo.
+	 * @throws XMLStreamException Excepciï¿½n lanzada por falla de la librerï¿½a StAX.
+	 * @throws FileNotFoundException Excepciï¿½n lanzada al no encontrar el archivo.
 	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamReader.html">XMLStreamReader</a>
 	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html">XMLStreamWriter</a>
 	 */
@@ -59,12 +59,12 @@ public abstract class AbstractETL {
 	}
 
 	/**
-	 * Constructor ETL abstracto, configura el reader y writer, escribe un único output.
+	 * Constructor ETL abstracto, configura el reader y writer, escribe un ï¿½nico output.
 	 *
 	 * @param inputFilename Path al nombre del input.
 	 * @param outputFilename Path al nombre del output.
-	 * @throws XMLStreamException Excepción lanzada por falla de la librería StAX.
-	 * @throws FileNotFoundException Excepción lanzada al no encontrar el archivo.
+	 * @throws XMLStreamException Excepciï¿½n lanzada por falla de la librerï¿½a StAX.
+	 * @throws FileNotFoundException Excepciï¿½n lanzada al no encontrar el archivo.
 	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamReader.html">XMLStreamReader</a>
 	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html">XMLStreamWriter</a>
 	 */
@@ -79,8 +79,8 @@ public abstract class AbstractETL {
 	 * Constructor ETL abstracto, configura el writer, define solo el output.
 	 * 
 	 * @param outputFilename Path al nombre del output.
-	 * @throws XMLStreamException Excepción lanzada por falla de la librería StAX.
-	 * @throws Exception Excepción lanzada en caso de error.
+	 * @throws XMLStreamException Excepciï¿½n lanzada por falla de la librerï¿½a StAX.
+	 * @throws Exception Excepciï¿½n lanzada en caso de error.
 	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamReader.html">XMLStreamReader</a>
 	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html">XMLStreamWriter</a>
 	 */
@@ -92,7 +92,7 @@ public abstract class AbstractETL {
 	/**
 	 * Lee y extrae los datos del input al output especificado.
 	 * 
-	 * @throws Exception Excepción lanzada en caso de error.
+	 * @throws Exception Excepciï¿½n lanzada en caso de error.
 	 */
 	public abstract void parseAndWrite() throws Exception;
 
