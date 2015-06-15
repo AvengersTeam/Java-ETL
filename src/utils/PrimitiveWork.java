@@ -1,4 +1,4 @@
-package cl.uchile.datos;
+package utils;
 
 import java.io.FileWriter;
 import java.util.HashMap;

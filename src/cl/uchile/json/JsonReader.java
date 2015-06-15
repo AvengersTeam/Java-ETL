@@ -1,7 +1,8 @@
-package cl.uchile.datos;
+package cl.uchile.json;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.json.simple.JSONArray;
@@ -23,7 +24,9 @@ public class JsonReader {
 		JSONParser jparser = new JSONParser();
 		Object countries = jparser.parse(new FileReader("input/localizations/paises.json"));		
 		JSONObject jCountries = (JSONObject) countries;
-		Collection<Object> cCountries = jCountries.values();
+		Collection<Object> cCountries = new ArrayList<>(jCountries.size());
+	    for(Object o: jCountries.values())
+	    	cCountries.add(o);
 		/* Array de paises. */
 		Object[] aCountries = cCountries.toArray();
 		return aCountries;

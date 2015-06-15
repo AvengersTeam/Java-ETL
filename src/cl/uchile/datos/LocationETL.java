@@ -6,14 +6,11 @@ package cl.uchile.datos;
  */
 /* Usar json-simple-1.1.1.jar para importar las librerías que siguen */
 import java.io.FileOutputStream;
-import java.io.IOException;
-
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
-
 import org.json.simple.JSONArray;
-import org.json.simple.parser.ParseException;
+import utils.Unidecoder;
+import cl.uchile.json.JsonReader;
 
 public class LocationETL extends AbstractETL{
 	JSONArray jCities;

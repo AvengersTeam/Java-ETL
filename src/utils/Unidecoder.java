@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cl.uchile.datos;
+package utils;
 
 import java.text.Normalizer;
 

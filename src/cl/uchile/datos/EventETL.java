@@ -5,10 +5,15 @@ import java.io.FileNotFoundException;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 
+import cl.uchile.json.JsonReader;
 import cl.uchile.xml.Element;
+
+
 
 /* Usar json-simple-1.1.1.jar para importar las librerías que siguen */
 import org.json.simple.JSONArray;
+
+import utils.Unidecoder;
 
 /**
  * ETL Eventos.
