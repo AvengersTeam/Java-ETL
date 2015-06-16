@@ -15,14 +15,14 @@ En la carpeta padre ejecutar:
 Tutorial ejecución
 ------------------
 
-1. Con maven:
+* Con maven:
 
 ```bash
 > mvn compile <-- nose si esto va
 > mvn exec:java -Dexec.mainClass="main.java.cl.uchile.datos.Migrator"
 ```
 
-2. Con eclipse:
+* Con eclipse:
 
 Run As -> Java Application
 
