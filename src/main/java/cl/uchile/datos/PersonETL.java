@@ -61,6 +61,8 @@ public class PersonETL extends AbstractETL {
 		dateWriter.writeNamespace("owl", owlUri);
 		dateWriter.writeNamespace("bio", bioUri);
 		dateWriter.writeNamespace("rdf", rdfUri);
+		
+		boolean personHasName = false;
 	
 		while(this.reader.hasNext()) {
 			if (this.reader.next() != XMLStreamConstants.START_ELEMENT) continue; 
@@ -71,6 +73,12 @@ public class PersonETL extends AbstractETL {
 			this.reader.next();
 
 			if (tagname.equals("authorityID")) {
+				//write previous person if it atleast got a name
+				if( personHasName ){
+					personElement.write(personWriter);
+					personWriter.flush();
+					dateWriter.flush();
+				}
 				id = this.reader.getText();
 				// New guy starts here
 				personElement = new Element();
@@ -78,13 +86,13 @@ public class PersonETL extends AbstractETL {
 				personElement.setUri(owlUri);
 				personElement.setElementName("NamedIndividual");
 				personElement.appendAttribute(rdfUri, "about", base_uri + "autoridad/" + id);
+				personHasName = false;
 			}
 			
 			if(attributeValue == null) continue;
 			
 			//alternative names
 			if(attributeValue.equals("400")) {
-				System.out.println("hola");
 				String text = this.reader.getText();
 				Element alternativeNameElement = new Element();
 				alternativeNameElement.setPrefix("rdfs");
@@ -165,9 +173,7 @@ public class PersonETL extends AbstractETL {
 						
 					}
 				}
-				personElement.write(personWriter);
-				personWriter.flush();
-				dateWriter.flush();
+				personHasName = true;
 			}
 		}
 
