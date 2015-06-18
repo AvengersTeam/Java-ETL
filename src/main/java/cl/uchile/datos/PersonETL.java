@@ -176,6 +176,13 @@ public class PersonETL extends AbstractETL {
 				personHasName = true;
 			}
 		}
+		//write the last person
+		if( personHasName ){
+			personElement.write(personWriter);
+			personWriter.flush();
+			dateWriter.flush();
+			personHasName = false;
+		}
 
 		// end the rdf descriptions
 		personWriter.writeEndElement();
