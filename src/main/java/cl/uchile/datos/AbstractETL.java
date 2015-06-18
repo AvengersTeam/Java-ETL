@@ -35,6 +35,7 @@ public abstract class AbstractETL {
 	String bioUri = "http://vocab.org/bio/0.1/";
 	String frbrerUri = "http://iflastandards.info/ns/fr/frbr/frbrer/";
 	String schemaUri = "http://schema.org/";
+	String rdfsUri = "http://www.w3.org/2000/01/rdf-schema#";
 
 	/**
 	 * Constructor ETL abstracto, configura el reader y writer, escribe en varios outputs.

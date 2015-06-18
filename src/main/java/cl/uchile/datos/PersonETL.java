@@ -52,6 +52,7 @@ public class PersonETL extends AbstractETL {
 		personWriter.writeNamespace("foaf", foafUri);
 		personWriter.writeNamespace("bio", bioUri);
 		personWriter.writeNamespace("rdf", rdfUri);
+		personWriter.writeNamespace("rdfs", rdfsUri);
 		
 		dateWriter.writeStartDocument();
 		dateWriter.setPrefix("rdf", rdfUri);
@@ -81,6 +82,18 @@ public class PersonETL extends AbstractETL {
 			
 			if(attributeValue == null) continue;
 			
+			//alternative names
+			if(attributeValue.equals("400")) {
+				System.out.println("hola");
+				String text = this.reader.getText();
+				Element alternativeNameElement = new Element();
+				alternativeNameElement.setPrefix("rdfs");
+				alternativeNameElement.setUri(rdfsUri);
+				alternativeNameElement.setElementName("label");
+				alternativeNameElement.setText(text);
+				personElement.appendElement(alternativeNameElement);
+			}
+
 			if(attributeValue.equals("100") && this.reader.getText().contains("|a")) {
 				String text = this.reader.getText();
 				String[] textArray = text.split("\\|");
