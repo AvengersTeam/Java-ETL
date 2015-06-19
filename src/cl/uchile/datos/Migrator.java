@@ -14,7 +14,7 @@ public class Migrator {
 	 */
 	public static void main(String[] args) throws Exception {
 		String inputFilename;
-		String outputFilename;
+//		String outputFilename;
 		ArrayList<String> outputsFilenames = new ArrayList<String>();
 		
 //		/* Run ETL personas */ 
