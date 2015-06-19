@@ -5,12 +5,15 @@ package main.java.cl.uchile.datos;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
 import main.java.cl.uchile.xml.Element;
+import main.java.utils.NameParser;
+import main.java.utils.PersonSearch;
 
 
 /**
@@ -23,18 +26,17 @@ public class ObraETL extends AbstractETL {
 	 * @throws XMLStreamException
 	 * @throws FileNotFoundException
 	 * 
-	 */
-	//ArrayList<String> outputFilenames=new ArrayList<String>(){{add(outputFilename);add(outputFilename2);add(outputFilename3);}};
+	 */	
 	public ObraETL(String inputFilename, ArrayList<String> outputFilenames) throws FileNotFoundException, XMLStreamException {
 		super(inputFilename, outputFilenames);
 	}
-
 	/**
 	 * @throws XMLStreamException 
+	 * @throws FileNotFoundException 
 	 * 
 	 */
-	public void parseAndWrite() throws XMLStreamException {
-		String id = ""; String tagname;
+	public void parseAndWrite() throws XMLStreamException, FileNotFoundException {
+		String id = ""; String tagname; 
 		
 		XMLStreamWriter obraWriter = this.writers.get(0);
 		XMLStreamWriter expWriter = this.writers.get(1);
@@ -73,39 +75,46 @@ public class ObraETL extends AbstractETL {
 		manifWriter.writeNamespace("frbrer",frbrerUri);
 		manifWriter.writeNamespace("owl", owlUri);		
 		manifWriter.writeNamespace("rdf", rdfUri);
-		boolean isFirst = true;
-		boolean isFirstAsset = false;
+		
+		boolean isFirst = true;	
+		boolean isAsset = false;
+		
+		//crear diccionario para Autoridades
+		//falta agregar Autoridades eventos, etc
+		
+		PersonSearch p= new PersonSearch("output/personas_pretty.rdf","about","{http://xmlns.com/foaf/0.1/}name");
+		Map<String, String> Personas_map=p.getMap();
+		
+		NameParser nameParser = new NameParser();
+		
 		while(this.reader.hasNext()) {
 			if (this.reader.next() != XMLStreamConstants.START_ELEMENT) continue; 
 			tagname = this.reader.getName().toString();	
 			String attributeValueType = this.reader.getAttributeValue("", "type");
 			String attributeValueName = this.reader.getAttributeValue("", "name");
-//			System.out.println(tagname);
-			if (!tagname.equals( "asset" ) &&  !(isFirst)) continue;
-			if (attributeValueType == null) continue;
-			if (attributeValueType.equals("FOLDER")) continue;
-			
-			// we assume that CHARACTERS event comes next always, which could not be true
-			System.out.println(attributeValueType);
-			this.reader.next();
-			
-			if (attributeValueType.equals("ASSET")) {	
-				isFirstAsset=true;
-				if (!isFirst){
-					System.out.println("ENTRA");
+			if (tagname.equals("asset") && attributeValueType.equals("FOLDER")){
+				isAsset = false;
+				continue;
+			}						
+			this.reader.next();			
+			if (tagname.equals("asset") && attributeValueType.equals("ASSET")) {	
+				isAsset=true;				
+				if (!isFirst){					
 					obraElement.write(obraWriter);
 					expElement.write(expWriter);
 					manifElement.write(manifWriter);
 				}
+				else{
+					isFirst = false;					
+				}
+				continue; 
 			}
-			isFirst = false;				
-			if(!isFirstAsset) continue;
-			if (tagname.equals("id")){
-				System.out.println("el id es: ");
-				id = this.reader.getText();
-				System.out.println(id);
-				//if (!isFirst) this.writer.writeEndElement();
-				
+						
+			if(!isAsset){				
+				continue;
+			}						
+			if (tagname.equals("id")){	
+				id = this.reader.getText();	
 				//crear Obra ***********************************************************************
 				obraWriter.flush();
 				obraElement = new Element();
@@ -113,7 +122,6 @@ public class ObraETL extends AbstractETL {
 				obraElement.setUri(owlUri);
 				obraElement.setElementName("NamedIndividual");
 				obraElement.appendAttribute(rdfUri, "about", base_uri + "obra/" + id);
-				
 				Element typeObraElement = new Element();
 				typeObraElement.setPrefix("rdf");
 				typeObraElement.setUri(rdfUri);
@@ -128,7 +136,6 @@ public class ObraETL extends AbstractETL {
 				realizedElement.setElementName("isRealizedThrough");
 				realizedElement.appendAttribute(rdfUri, "resource",base_uri + "expresion/" + id);
 				obraElement.appendElement(realizedElement);
-				
 				//crear Expresion ******************************************************************
 				expWriter.flush();
 				expElement = new Element();
@@ -136,7 +143,6 @@ public class ObraETL extends AbstractETL {
 				expElement.setUri(owlUri);
 				expElement.setElementName("NamedIndividual");
 				expElement.appendAttribute(rdfUri, "about", base_uri + "expresion/" + id);
-				
 				Element typeExpElement = new Element();
 				typeExpElement.setPrefix("rdf");
 				typeExpElement.setUri(rdfUri);
@@ -151,14 +157,12 @@ public class ObraETL extends AbstractETL {
 				realizationElement.setElementName("isRealizationOf");
 				realizationElement.appendAttribute(rdfUri, "resource",base_uri + "obra/" + id);
 				expElement.appendElement(realizationElement);
-				
 				Element embodiedElement = new Element();
 				embodiedElement.setPrefix("frbrer");
 				embodiedElement.setUri(frbrerUri);
 				embodiedElement.setElementName("isEmbodiedIn");
 				embodiedElement.appendAttribute(rdfUri, "resource",base_uri + "manifestacion/" + id);
 				expElement.appendElement(embodiedElement);
-				
 				//crear Manifestacion **************************************************************
 				manifWriter.flush();
 				manifElement = new Element();
@@ -166,7 +170,6 @@ public class ObraETL extends AbstractETL {
 				manifElement.setUri(owlUri);
 				manifElement.setElementName("NamedIndividual");
 				manifElement.appendAttribute(rdfUri, "about", base_uri + "manifestacion/" + id);
-				
 				Element typeManifElement = new Element();
 				typeManifElement.setPrefix("rdf");
 				typeManifElement.setUri(rdfUri);
@@ -189,27 +192,19 @@ public class ObraETL extends AbstractETL {
 				licenseElement.setElementName("license");
 				licenseElement.appendAttribute(rdfUri, "resource", "https://creativecommons.org/publicdomain/zero/1.0/");
 				manifElement.appendElement(licenseElement);
-				
 				Element identifierElement = new Element();
 				identifierElement.setPrefix("dct");
 				identifierElement.setUri(dctUri);
 				identifierElement.setElementName("identifier");
 				identifierElement.appendAttribute(rdfUri, "resource","http://bibliotecadigital.uchile.cl/client/sisib/search/detailnonmodal?d=ent%3A%2F%2FSD_ASSET%2F"+id.substring(0, 2)+"%2F"+id+"~ASSET~0~17");
 				manifElement.appendElement(identifierElement);
-				
 				isFirst = false;
 			}
-			if(tagname.equals("field")){
-				//System.out.println("probando");
+			if(tagname.equals("field")){				
 				if(attributeValueName.equals("Title")){	
 					this.reader.next();
-					if(this.reader.getName().toString().equals("value")	){
-						System.out.println("el title es**************************: ");
-						System.out.println(this.reader.getName().toString());
+					if(this.reader.getName().toString().equals("value")	){						
 						String title = this.reader.getElementText();
-						System.out.println(" asdasdasd ");
-						//obraWriter.flush();
-						
 						Element titleElement = new Element();
 						titleElement.setPrefix("dc");
 						titleElement.setUri(dcUri);
@@ -222,11 +217,8 @@ public class ObraETL extends AbstractETL {
 				if(attributeValueName.equals("NAME")){
 					this.reader.next();
 					if(this.reader.getName().toString().equals("value")	){
-						System.out.println("el NAME es: ");
-						String NAME = this.reader.getElementText();
-						System.out.println(NAME);
+						String NAME = this.reader.getElementText();						
 						obraWriter.flush();
-						
 						Element alternativeElement = new Element();
 						alternativeElement.setPrefix("dct");
 						alternativeElement.setUri(dctUri);
@@ -236,15 +228,28 @@ public class ObraETL extends AbstractETL {
 					}
 					isFirst=false;
 				}
+				if(attributeValueName.equals("Creator")){	
+					this.reader.next();
+					if(this.reader.getName().toString().equals("value")	){						
+						String creator = this.reader.getElementText();
+						//buscar creador en el Map, si está colocar uri, si no existe dejar texto plano
+						creator= nameParser.ParserName(creator);
+						Element titleElement = new Element();
+						titleElement.setPrefix("dct");
+						titleElement.setUri(dctUri);
+						titleElement.setElementName("creator");
+						titleElement.setText(creator);
+						obraElement.appendElement(titleElement);							
+					}
+					isFirst=false;
+				}
 				if(attributeValueName.equals("Date")){
 					this.reader.next();
-					if(this.reader.getName().toString().equals("value")	){
-						System.out.println("el Date es: ");
+					if(this.reader.getName().toString().equals("value")	){						
 						String Date = this.reader.getElementText();
-						String Date2;
-						System.out.println(Date);
+						String Date2;						
 						Date2 = Date;							
-						if(Date.length()>17 && Date.substring(0, 6)=="[entre")
+						if(Date.length()>17 && Date.contains("["))
 							Date2 = Date.substring(7, 11)+" - "+Date.substring(14,18)+" rango estimado";
 						else{
 							if(Date.contains("?"))
@@ -252,8 +257,7 @@ public class ObraETL extends AbstractETL {
 							else
 								Date2 = Date;
 						}
-						obraWriter.flush();
-						
+						obraWriter.flush();						
 						Element issuedElement = new Element();
 						issuedElement.setPrefix("dct");
 						issuedElement.setUri(dctUri);
@@ -265,10 +269,8 @@ public class ObraETL extends AbstractETL {
 				}
 					if(attributeValueName.equals("Language")){	
 						this.reader.next();
-						if(this.reader.getName().toString().equals("value")	){
-							System.out.println("el Language es: ");
+						if(this.reader.getName().toString().equals("value")	){							
 							String Language = this.reader.getElementText();
-							System.out.println(Language);
 							String Lan;
 							if (Language.equals("spa") || Language.equals("Espaï¿½ol"))
 								Lan="http://www.lexvo.org/page/iso639-3/spa";
@@ -280,7 +282,6 @@ public class ObraETL extends AbstractETL {
 									Lan="";
 							}
 							expWriter.flush();
-							
 							Element languageElement = new Element();
 							languageElement.setPrefix("dc");
 							languageElement.setUri(dcUri);
@@ -292,10 +293,8 @@ public class ObraETL extends AbstractETL {
 					}
 				if(attributeValueName.equals("Rights")){
 					this.reader.next();
-					if(this.reader.getName().toString().equals("value")	){
-						System.out.println("el Rights es: ");
-						String Rights = this.reader.getElementText();
-						System.out.println(Rights);
+					if(this.reader.getName().toString().equals("value")	){						
+						String Rights = this.reader.getElementText();						
 						manifWriter.flush();
 						
 						Element rightsElement = new Element();
@@ -311,9 +310,7 @@ public class ObraETL extends AbstractETL {
 					this.reader.next();
 					if(this.reader.getName().toString().equals("value")){
 						String Publisher = this.reader.getElementText();
-						if(Publisher.length() < 1) continue;
-						System.out.println("el Publisher es-------------------------------------------------------------------------------------------: ");
-						System.out.println(Publisher);
+						if(Publisher.length() < 1) continue;						
 						manifWriter.flush();
 						
 						Element publisherElement = new Element();
@@ -325,13 +322,10 @@ public class ObraETL extends AbstractETL {
 					}
 					isFirst=false;
 				}
-
 				if(attributeValueName.equals("Source")){
 					this.reader.next();
-					if(this.reader.getName().toString().equals("value")	){
-						System.out.println("el Source es: ");
-						String Source = this.reader.getElementText();
-						System.out.println(Source);
+					if(this.reader.getName().toString().equals("value")	){						
+						String Source = this.reader.getElementText();						
 						manifWriter.flush();
 						
 						Element sourceElement = new Element();
@@ -342,22 +336,14 @@ public class ObraETL extends AbstractETL {
 						manifElement.appendElement(sourceElement);
 					}
 					isFirst=false;
-				}
-
-				//dead code
-				//if(attributeValueName == null) continue;
-			}
-			//obraWriter.writeEndElement();
-			//fin del ciclo
-			isFirst = true;
-		}
-		
-		// end the last guy
+				}				
+			}//fin del ciclo			
+		}		
+		// terminar último elemento
 		obraWriter.writeEndElement();
 		expWriter.writeEndElement();
 		manifWriter.writeEndElement();
-		// end the rdf descriptions
-		//this.writer.writeEndElement();
+		// cerrar archivos
 		obraWriter.writeEndDocument();
 		obraWriter.close();
 		expWriter.writeEndDocument();
