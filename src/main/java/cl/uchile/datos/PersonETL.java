@@ -8,6 +8,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
 import main.java.cl.uchile.xml.Element;
+import main.java.utils.NameParser;
 
 /**
  * ETL Personas.
@@ -63,6 +64,8 @@ public class PersonETL extends AbstractETL {
 		dateWriter.writeNamespace("rdf", rdfUri);
 		
 		boolean personHasName = false;
+		
+		NameParser parser = new NameParser();
 	
 		while(this.reader.hasNext()) {
 			if (this.reader.next() != XMLStreamConstants.START_ELEMENT) continue; 
@@ -94,6 +97,7 @@ public class PersonETL extends AbstractETL {
 			//alternative names
 			if(attributeValue.equals("400")) {
 				String text = this.reader.getText();
+				text = parser.labelNameParse(text);
 				Element alternativeNameElement = new Element();
 				alternativeNameElement.setPrefix("rdfs");
 				alternativeNameElement.setUri(rdfsUri);
