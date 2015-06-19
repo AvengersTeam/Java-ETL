@@ -8,6 +8,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
 import main.java.cl.uchile.xml.Element;
+import main.java.utils.NameParser;
 
 /**
  * ETL Personas.
@@ -52,6 +53,7 @@ public class PersonETL extends AbstractETL {
 		personWriter.writeNamespace("foaf", foafUri);
 		personWriter.writeNamespace("bio", bioUri);
 		personWriter.writeNamespace("rdf", rdfUri);
+		personWriter.writeNamespace("rdfs", rdfsUri);
 		
 		dateWriter.writeStartDocument();
 		dateWriter.setPrefix("rdf", rdfUri);
@@ -60,6 +62,10 @@ public class PersonETL extends AbstractETL {
 		dateWriter.writeNamespace("owl", owlUri);
 		dateWriter.writeNamespace("bio", bioUri);
 		dateWriter.writeNamespace("rdf", rdfUri);
+		
+		boolean personHasName = false;
+		
+		NameParser parser = new NameParser();
 	
 		while(this.reader.hasNext()) {
 			if (this.reader.next() != XMLStreamConstants.START_ELEMENT) continue; 
@@ -70,6 +76,12 @@ public class PersonETL extends AbstractETL {
 			this.reader.next();
 
 			if (tagname.equals("authorityID")) {
+				//write previous person if it atleast got a name
+				if( personHasName ){
+					personElement.write(personWriter);
+					personWriter.flush();
+					dateWriter.flush();
+				}
 				id = this.reader.getText();
 				// New guy starts here
 				personElement = new Element();
@@ -77,10 +89,23 @@ public class PersonETL extends AbstractETL {
 				personElement.setUri(owlUri);
 				personElement.setElementName("NamedIndividual");
 				personElement.appendAttribute(rdfUri, "about", base_uri + "autoridad/" + id);
+				personHasName = false;
 			}
 			
 			if(attributeValue == null) continue;
 			
+			//alternative names
+			if(attributeValue.equals("400")) {
+				String text = this.reader.getText();
+				text = parser.labelNameParse(text);
+				Element alternativeNameElement = new Element();
+				alternativeNameElement.setPrefix("rdfs");
+				alternativeNameElement.setUri(rdfsUri);
+				alternativeNameElement.setElementName("label");
+				alternativeNameElement.setText(text);
+				personElement.appendElement(alternativeNameElement);
+			}
+
 			if(attributeValue.equals("100") && this.reader.getText().contains("|a")) {
 				String text = this.reader.getText();
 				String[] textArray = text.split("\\|");
@@ -152,10 +177,15 @@ public class PersonETL extends AbstractETL {
 						
 					}
 				}
-				personElement.write(personWriter);
-				personWriter.flush();
-				dateWriter.flush();
+				personHasName = true;
 			}
+		}
+		//write the last person
+		if( personHasName ){
+			personElement.write(personWriter);
+			personWriter.flush();
+			dateWriter.flush();
+			personHasName = false;
 		}
 
 		// end the rdf descriptions
