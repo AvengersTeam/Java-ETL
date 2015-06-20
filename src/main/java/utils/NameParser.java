@@ -3,8 +3,12 @@
  */
 package main.java.utils;
 
+
+import java.text.Normalizer;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * @author Avengers
@@ -15,10 +19,8 @@ public class NameParser {
 	public String ParserName(String input){
 		String[] Name;
 		String N="";
-		//separar por comas
-		
+		//separar por comas		
 		Name=input.trim().split(",");
-		//System.out.println(Name[0]);
 		//ver si tiene una fecha asociada
 		if(hasDigit(Name[Name.length-1])){
 			for(int i= 0; i<Name.length-2;i++){
@@ -32,7 +34,6 @@ public class NameParser {
 			}
 			N+=Name[Name.length-1];
 		}
-		System.out.println(N);
 		return N;
 	}
 	public boolean hasDigit(String x){
@@ -41,6 +42,12 @@ public class NameParser {
 				return true;
 		}
 		return false;
+	}
+	public String stripAccents(String s) 
+	{
+	    s = Normalizer.normalize(s, Normalizer.Form.NFD);
+	    s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+	    return s;
 	}
 	
 	private String unPiper(String input){

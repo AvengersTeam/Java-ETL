@@ -24,39 +24,39 @@ public class PersonSearch {
 	
 	public PersonSearch(String inputFilename, String Path, String Keyword) throws FileNotFoundException, XMLStreamException{
 		map = new HashMap<String, String>();
+		NameParser nameParser = new NameParser();
 		String tagname; int count;
 		String Uri_person,Name;
 		Uri_person=Name="";
 		this.inputFactory = XMLInputFactory.newInstance();
 		this.reader = this.inputFactory.createXMLStreamReader(new FileInputStream(inputFilename),"UTF8");
+		count=0;
 		while(this.reader.hasNext()) {
 			if (this.reader.next() != XMLStreamConstants.START_ELEMENT) continue; 
 			tagname = this.reader.getName().toString();
-			count=0;
-			String attributeValue = this.reader.getAttributeLocalName(0);			
-			//System.out.println("tag= "+tagname);
+			
+			String attributeValue = this.reader.getAttributeLocalName(0);
 			try{
-				if(attributeValue.equals(Path)){
-					Uri_person = this.reader.getAttributeValue(0);
-					count++;
-					//String title = this.reader.getNamespaceURI();
-					//System.out.println("text= "+title);
-					// es cero porque puedo, gg					
-					//System.out.println("Uri_person= "+Uri_person);				
-					//System.out.println("name= "+attributeValue);
+				if(attributeValue.equals(Path)){					
+					Uri_person = this.reader.getAttributeValue(0);					
+					count++;										
 				}
 			}
 			catch(Exception e){}
 			try{
-				if(tagname.equals(Keyword)){					
+				if(tagname.equals(Keyword)){
 					Name=this.reader.getElementText();
+					Name = nameParser.ParserName(Name).toUpperCase();
 					count++;
-					//System.out.println("Name = "+Name);
 				}
 			}
-			catch(Exception e){}
-			if(count>=2){
+			catch(Exception e){}			
+			if(count==2){
 				map.put(Name,Uri_person);
+				/*if(Name.contains("KARLLA")){
+					System.out.println("Person= "+Name);
+				}*/				
+				//System.out.println("Person= "+Name+" Uri= "+map.get(Name));
 				count=0;
 			}
 		}

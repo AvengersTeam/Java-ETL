@@ -13,6 +13,7 @@ import main.java.utils.CorporateMemberInfo;
 import main.java.utils.CorporateMemberList;
 import main.java.utils.Unidecoder;
 import main.java.cl.uchile.json.JsonReader;
+import main.java.cl.uchile.xml.Element;
 
 /**
  * @author Avengers
@@ -45,6 +46,8 @@ public class CorporateETL extends AbstractETL {
 		String orgUri = "http://www.w3.org/TR/vocab-org/";
 		String rdfsUri = "http://www.w3.org/TR/rdf-schema/";
 		
+		Element corporateElement = new Element();
+		
 		this.writer.writeStartDocument();
 		this.writer.setPrefix("rdf", rdfUri);
 		this.writer.writeStartElement(rdfUri, "RDF");
@@ -64,12 +67,17 @@ public class CorporateETL extends AbstractETL {
 		Unidecoder ud = new Unidecoder();
 		String location = "";
 		CorporateMemberList corpList = new CorporateMemberList();
-		boolean corpListFull = false;
+		boolean corpListLinked = false;
+		
+		boolean corporateFinished = false;
 		
 		/* Dos iteraciones, una para llenar el HashMap, otra para crear el rdf */
-		for (int k = 0; k < 2; k++) {
-			if(k == 1) this.reader = this.inputFactory.createXMLStreamReader(new FileInputStream(inputFN), "UTF8");
+		for (int k = 0; k < 3; k++) {
+			
+			if(k == 2 || k == 1) this.reader = this.inputFactory.createXMLStreamReader(new FileInputStream(inputFN), "UTF8");
+			
 			while(this.reader.hasNext()) {
+				
 				if (this.reader.next() != XMLStreamConstants.START_ELEMENT) continue;
 				tagname = this.reader.getName().toString();
 				if (!tagname.equals( "marcEntry" ) && ! tagname.equals( "authorityID" )) continue;
@@ -79,48 +87,89 @@ public class CorporateETL extends AbstractETL {
 				
 				if (tagname.equals("authorityID")) {
 					id = this.reader.getText();
-					if(k == 1){
-						// We should not close the parent element
-						if (!isFirst) this.writer.writeEndElement();
-						isFirst = false;
-						// Write buffered element, this can be optimized
-						this.writer.flush();
+					if(k == 2){
+						//faltara escribir el ultimo elemento
+						if( corporateFinished ){
+							corporateElement.write(this.writer);
+							this.writer.flush();
+						}
+						corporateFinished = true;
+						corporateElement = new Element();
 						// New guy starts here
-						this.writer.setPrefix("owl", owlUri);
-						this.writer.writeStartElement(owlUri, "NamedIndividual");
-						this.writer.writeAttribute(rdfUri, "about", base_uri + "corporativo/" + id);
+						corporateElement.setPrefix("owl");
+						corporateElement.setUri(owlUri);
+						corporateElement.setElementName("NamedIndividual");
+						corporateElement.appendAttribute(rdfUri, "about", base_uri + "corporativo/" + id);
+						
 					}
 				}
 				
 				if(attributeValue == null) continue;
+				
+				if(attributeValue.equals("510")) {
+					
+					CorporateMemberInfo thisCorp = corpList.getMember(id);
+					/**lee y agrega los predecesores y sucesores al hashmap*/
+					if (k == 0) {
+						
+					}
+					
+					/** Agrega al elemento los predecesores y sucesores */
+					else if(k == 1){
+						
+						
+						if (this.reader.getText().contains("|wa") || this.reader.getText().contains("|wb")) { 
+							String referenceText = this.reader.getText();
+							String referenceType = referenceText.substring(0, 3); 
+							String referenceTextNormalized = CorporateMemberList.normalizeFullNameString(referenceText);
+							try {
+								corpList.setMemberReference(id, referenceType, referenceTextNormalized);
+							}
+							catch(Exception e) {
+								System.out.println("Advertencia: " + e.toString());
+							}
+							
+							
+						}
+					}
+				}
 				
 				if(attributeValue.equals("110") && this.reader.getText().contains("|a")) {
 					String nameText = this.reader.getText();
 					String[] nameTextArray = nameText.split("\\|");
 					/* corpName guarda corporation name */
 					String corpName = "";
+					/* Buscar el nombre de la localidad en el nombre */
+					locationFound = false;
+					location = "";
+					
 					for (int i = 0; i < nameTextArray.length; i++) {
 						if (nameTextArray [i].equals("")) continue;
 						
-						/* Subcampo a = nombre de corporativo */
-						if (nameTextArray [i].substring(0,1).equals("a")) {
+						
+						
+						if (nameTextArray [i].substring(0,1).equals("a") ||
+								nameTextArray [i].substring(0,1).equals("t") ||
+								nameTextArray [i].substring(0,1).equals("p") ||
+								nameTextArray [i].substring(0,1).equals("v") ||
+								nameTextArray [i].substring(0,1).equals("b")) {
 							corpName += nameTextArray [i].substring(1);
 
-							/* Buscar el nombre de la localidad en el nombre */
-							locationFound = false;
-							location = "";
 							/* Quitar caracteres especiales */
 							nameTextArray [i] = ud.unidecode(nameTextArray [i]);
 							/* Se verifica si el nombre de la localidad coincide con uno del arreglo
 							 * de ciudades o de paises */
-							for(int j = 0; j < jCities.size(); j++){
-								String aux = ud.unidecode((String)jCities.get(j));
-								if(nameTextArray [i].indexOf(aux) != -1){
-									location = aux;
-									locationFound = true;
-									break;
+							if(!locationFound) {
+								for(int j = 0; j < jCities.size(); j++){
+									String aux = ud.unidecode((String)jCities.get(j));
+									if(nameTextArray [i].indexOf(aux) != -1){
+										location = aux;
+										locationFound = true;
+										break;
+									}
 								}
 							}
+							
 							if(!locationFound){
 								for(int j = 0; j < aCountries.length; j++){
 									String aux = ud.unidecode((String)aCountries[j]);
@@ -131,15 +180,9 @@ public class CorporateETL extends AbstractETL {
 									}
 								}
 							}
-							if(!locationFound){
-								//System.out.println("Error, corporativo sin localidad id = " + id + ", nombre = " + corpName);
-							}
 						}
-						/* Subcampo t, p, b */
-						if (nameTextArray [i].substring(0,1).equals("t") ||
-							nameTextArray [i].substring(0,1).equals("p") ||
-							nameTextArray [i].substring(0,1).equals("b")) {
-							corpName += " " + nameTextArray [i].substring(1);
+						if(!locationFound){
+							System.out.println("Advertencia, corporativo sin localidad id = " + id + ", nombre = " + corpName);
 						}
 					}
 					
@@ -156,9 +199,9 @@ public class CorporateETL extends AbstractETL {
 							corpList.addMember(id, corpFullName);
 						}
 						/* k != 0 => es la segunda iteracion */
-						else {
-							if(! corpListFull ){
-								corpListFull = true;
+						else if(k == 2){
+							if(! corpListLinked ){
+								corpListLinked = true;
 								try {
 									corpList.linkMembers();
 								}
@@ -166,50 +209,100 @@ public class CorporateETL extends AbstractETL {
 									System.out.println("Excepcion de linkMembers!! " + e.toString());
 								}
 							}
+							//corporateElement
 							/* write type */
-							this.writer.setPrefix("rdf", rdfUri);
-							this.writer.writeEmptyElement(rdfUri, "type");
-							this.writer.writeAttribute(rdfUri, "resource", foafUri + "organization");
-							this.writer.setPrefix("rdf", rdfUri);
-							this.writer.writeEmptyElement(rdfUri, "type");
-							this.writer.writeAttribute(rdfUri, "resource", orgUri + "organization");
+							Element typeElement = new Element();
+							typeElement.setPrefix("rdf");
+							typeElement.setUri(rdfUri);
+							typeElement.setElementName("type");
+							typeElement.appendAttribute(rdfUri, "resource", foafUri + "organization");
+							corporateElement.appendElement(typeElement);
+							Element typeElement2 = new Element();
+							typeElement2.setPrefix("rdf");
+							typeElement2.setUri(rdfUri);
+							typeElement2.setElementName("type");
+							typeElement2.appendAttribute(rdfUri, "resource", orgUri + "organization");
+							corporateElement.appendElement(typeElement2);
 							
 							/* write foaf:name */
 							//System.out.println("Name: " + corpName);
-							this.writer.setPrefix("foaf", foafUri);
-							this.writer.writeStartElement(foafUri, "name");
-							this.writer.writeCharacters(corpName);
-							this.writer.writeEndElement();
+							Element nameElement = new Element();
+							nameElement.setPrefix("foaf");
+							nameElement.setUri(foafUri);
+							nameElement.setElementName("name");
+							nameElement.setText(corpName);
+							corporateElement.appendElement(nameElement);
+
 							/* write foaf:label */
-							this.writer.setPrefix("foaf", foafUri);
-							this.writer.writeStartElement(foafUri, "label");
-							this.writer.writeCharacters(corpName);
-							this.writer.writeEndElement();
+							Element labelElement = new Element();
+							labelElement.setPrefix("foaf");
+							labelElement.setUri(foafUri);
+							labelElement.setElementName("label");
+							labelElement.setText(corpName);
+							corporateElement.appendElement(labelElement);
+
 							if (locationFound) {
 								/* write location */
 								location = location.replaceAll(" ", "_");
 								String locationURI = base_uri + "localidad/" + location;
 								//System.out.println("Localidad: " + location);
-								this.writer.setPrefix("dct", dctUri);
-								this.writer.writeEmptyElement(dctUri, "spatial");
-								this.writer.writeAttribute(rdfUri, "resource", locationURI);
+								Element locationElement = new Element();
+								locationElement.setPrefix("dct");
+								locationElement.setUri(dctUri);
+								locationElement.setElementName("spatial");
+								locationElement.appendAttribute(rdfUri, "resource", locationURI);
+								corporateElement.appendElement(locationElement);
 							}
 							CorporateMemberInfo thisCorp = corpList.getMember(id);
 							//write org:subOrganizationOf
 							String fatherID = thisCorp.getParentID();
 							if (!fatherID.equals("")) {
-								this.writer.setPrefix("org", orgUri);
-								this.writer.writeEmptyElement(orgUri, "subOrganizationOf");
-								this.writer.writeAttribute(rdfUri, "resource", base_uri + "corporativo/" + fatherID);
+								Element fatherElement = new Element();
+								fatherElement.setPrefix("org");
+								fatherElement.setUri(orgUri);
+								fatherElement.setElementName("subOrganizationOf");
+								fatherElement.appendAttribute(rdfUri, "resource", base_uri + "corporativo/" + fatherID);
+								corporateElement.appendElement(fatherElement);
 							}
 							//write org:hasSubOrganization
 							ArrayList<String> childrenIDs = thisCorp.getChildrenIDs();
 							for (int l = 0; l < childrenIDs.size(); l++) {
-								
-								this.writer.setPrefix("org", orgUri);
-								this.writer.writeEmptyElement(orgUri, "hasSubOrganization");
-								this.writer.writeAttribute(rdfUri, "resource", base_uri + "corporativo/" + childrenIDs.get(l));
+								Element childElement = new Element();
+								childElement.setPrefix("org");
+								childElement.setUri(orgUri);
+								childElement.setElementName("hasSubOrganization");
+								childElement.appendAttribute(rdfUri, "resource", base_uri + "corporativo/" + childrenIDs.get(l));
+								corporateElement.appendElement(childElement);
 							}
+							
+							//write predecessors
+							ArrayList<String> predecessorIDs = thisCorp.getPrevious_id();
+							if (predecessorIDs != null) {
+								for (int l = 0; l < predecessorIDs.size(); l++) {
+									Element predElement = new Element();
+									predElement.setPrefix("org");
+									predElement.setUri(orgUri);
+									predElement.setElementName("Antecesor");
+									predElement.appendAttribute(rdfUri, "resource", base_uri + "corporativo/" + predecessorIDs.get(l));
+									corporateElement.appendElement(predElement);
+								}
+							}
+						
+							//write sucessors
+							ArrayList<String> succesorIDs = thisCorp.getNext_id();
+							if (succesorIDs != null) {
+								for (int l = 0; l < succesorIDs.size(); l++) {
+									Element succElement = new Element();
+									succElement.setPrefix("org");
+									succElement.setUri(orgUri);
+									succElement.setElementName("Sucesor");
+									succElement.appendAttribute(rdfUri, "resource", base_uri + "corporativo/" + succesorIDs.get(l));
+									corporateElement.appendElement(succElement);
+								}
+							}
+							
+							//corporateFinished = true;
+							
 							//this.writer.writeEndElement();
 						}
 					}
@@ -217,41 +310,18 @@ public class CorporateETL extends AbstractETL {
 			}
 		}
 		
+		if( corporateFinished ){
+			corporateElement.write(this.writer);
+			this.writer.flush();
+			corporateFinished = false;
+		}
 		
 		// end the last guy
-		this.writer.writeEndElement();
+		//this.writer.writeEndElement();
 		// end the rdf descriptions
 		this.writer.writeEndElement();
 		this.writer.writeEndDocument();
 		this.writer.close();
 	}
-	
-	private String parseCorporationName(String originalName) throws Exception {
-		
-		String[] nameTextArray = originalName.split("\\|");
-		/* corpName guarda corporation name */
-		String corpName, newName = "";
-		Unidecoder ud = new Unidecoder();
-		
-		for (int i = 0; i < nameTextArray.length; i++) {
-			if (nameTextArray [i].equals("")) continue;
-			String subFieldChar = nameTextArray[i].substring(0, 1);
-			if (!subFieldChar.equals("a") && !subFieldChar.equals("b") && !subFieldChar.equals("p") && !subFieldChar.equals("t") && !subFieldChar.equals("v")) continue;
-			String namePart = nameTextArray [i].substring(1);
-			namePart = namePart.trim();
-			if(namePart.substring(namePart.length() - 1).equals(".")) {
-				namePart = namePart.substring(0, namePart.length() - 1);
-			}
-			namePart = namePart.trim();
-		  newName += "|" + nameTextArray[i].substring(0, 1) + ud.unidecode(namePart);
-		}
-		return newName;
-	}
-	
-	private String getFathersParsedName(String corporationFullName) throws Exception {
-	  corporationFullName = parseCorporationName(corporationFullName);
-		String [] corpNameArray = corporationFullName.split("\\|");
-		return corporationFullName.substring(0, corporationFullName.length() - corpNameArray[corpNameArray.length - 1].length() - 1);
-	}
-	
+
 }
