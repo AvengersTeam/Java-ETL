@@ -1,12 +1,18 @@
 package main.java.cl.uchile.xml;
 
+import java.io.FileWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-
 import main.java.visitors.Visitor;
+import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.transport.InetSocketTransportAddress;
 
 /*
  * this are our own homebrew xml elements. Although we use some of the javax.xml , 
@@ -83,8 +89,46 @@ public class Element {
 		return this.elementName;
 	}
 
-	public void export2sql() {
+	
+	@SuppressWarnings( "resource" )
+	public void index2elastic() {
+		String url = "";
+		for( Attribute a : this.attributes ) {
+			if( a.getLocalname() == "about" ) {
+				url = a.getValue();
+				break;
+			}
+		}
+		if( url == "" ) return;
 		
+		Client c = new TransportClient().addTransportAddress( new InetSocketTransportAddress( "localhost", 9300 ) );
+		IndexResponse r; String log = "";
+		for( Element e : this.children ) {
+			if( e.elementName == "label" || e.elementName == "name" || e.elementName == "alternative" ) {
+				r = c.prepareIndex( "repo", "nombre" )
+						.setSource( "{ 'url': '"+url+"', 'name': '"+e.text+"' }" )
+						.execute()
+						.actionGet();
+				log += url+" "+e.text+" "+ r.getId() + " " + r.isCreated() + "\n";
+			}
+		}
+		if( log != "" ) saveLog( log );
+		
+		c.close();
+	}
+	
+	//Esto deberia estar en una clase aparte, please hacer refactoring despues
+	private void saveLog( String s ) {
+		FileWriter fw = null;
+		DateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss");
+		try {
+			fw = new FileWriter( "index_" + df.format( new Date() ) + ".log" );
+			fw.write( s );
+			fw.close();
+		}
+		catch( Exception e ) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
