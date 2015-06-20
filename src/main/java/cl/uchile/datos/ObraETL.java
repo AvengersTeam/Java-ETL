@@ -361,6 +361,7 @@ public class ObraETL extends AbstractETL {
 	private String getCreator( String name ) {
 		if( name == ""  ) return "";
 		Client c = new TransportClient().addTransportAddress( new InetSocketTransportAddress( "localhost", 9300 ) );
+		//if c has a error?
 		SearchResponse searchRes = c.prepareSearch( "repo" )
 				.setIndices( "nombre" )
 				.setQuery( QueryBuilders.fuzzyQuery( "name", name ) )

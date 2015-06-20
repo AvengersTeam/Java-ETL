@@ -101,6 +101,7 @@ public class Element {
 		}
 		if( url == "" ) return;
 		
+		//if c has a error, what would I do?
 		Client c = new TransportClient().addTransportAddress( new InetSocketTransportAddress( "localhost", 9300 ) );
 		IndexResponse r; String log = "";
 		for( Element e : this.children ) {
