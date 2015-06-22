@@ -57,6 +57,7 @@ public class NameParser {
 		return s;
 	}
 
+	/** Removes pipe strings from input */
 	private String unPiper( String input ) {
 		List<String> pipePosibilites = new ArrayList<>();
 		pipePosibilites.add( "|a" );
@@ -68,6 +69,7 @@ public class NameParser {
 		return result;
 	}
 
+	/** Removes dates strings from input */
 	private String soLongDates( String input ) {
 		String[] words;
 		words = input.split( "," );
