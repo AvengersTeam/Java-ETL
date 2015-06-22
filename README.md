@@ -18,7 +18,7 @@ Tutorial ejecución
 * Con maven:
 
 ```bash
-> mvn compile <-- nose si esto va
+> mvn package
 > mvn exec:java -Dexec.mainClass="main.java.cl.uchile.datos.Migrator"
 ```
 
