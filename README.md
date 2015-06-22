@@ -21,10 +21,9 @@ Tutorial ejecución
 > mvn package
 > mvn exec:java -Dexec.mainClass="main.java.cl.uchile.datos.Migrator"
 ```
-En caso de correr manualmente solo algunos ETL, se comenta en la clase Migrator las secciones que no se requieren. Cabe mencionar que para correr el ETL de Obras, es necesario haber generado previamente el RDF de Personas obtenido por PersonETL. 
 
 * Con eclipse:
 
 Run As -> Java Application
 
-
+En caso de correr manualmente solo algunos ETL, se comenta en la clase Migrator las secciones que no se requieren. Cabe mencionar que para correr el ETL de Obras, es necesario haber generado previamente el RDF de Personas obtenido por PersonETL.
