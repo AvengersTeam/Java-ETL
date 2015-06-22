@@ -83,21 +83,23 @@ public class ObraETL extends AbstractETL {
 
 		boolean isFirst = true;
 		boolean isAsset = false;
-
-		// crear diccionario para Autoridades
-		// falta agregar Autoridades eventos, etc
-
-		PersonSearch p = new PersonSearch( "output/personas_pretty.rdf", "about", "{http://xmlns.com/foaf/0.1/}name" );
-		Map<String, String> Personas_map = p.getMap();
-
+		
+		//crear diccionario para Autoridades
+		//falta agregar Autoridades eventos, etc
+		
+		PersonSearch p= new PersonSearch("output/pretty-personas.rdf","about","{http://xmlns.com/foaf/0.1/}name");
+		Map<String, String> Personas_map=p.getMap();
+		//System.out.println(Personas_map.size());
+		
 		NameParser nameParser = new NameParser();
-
-		while( this.reader.hasNext() ) {
-			if( this.reader.next() != XMLStreamConstants.START_ELEMENT ) continue;
-			tagname = this.reader.getName().toString();
-			String attributeValueType = this.reader.getAttributeValue( "", "type" );
-			String attributeValueName = this.reader.getAttributeValue( "", "name" );
-			if( tagname.equals( "asset" ) && attributeValueType.equals( "FOLDER" ) ) {
+		
+		while(this.reader.hasNext()) {
+			if (this.reader.next() != XMLStreamConstants.START_ELEMENT) continue; 
+			tagname = this.reader.getName().toString();	
+			String attributeValueType = this.reader.getAttributeValue("", "type");
+			String attributeValueName = this.reader.getAttributeValue("", "name");
+			//ignorar información de la carpeta
+			if (tagname.equals("asset") && attributeValueType.equals("FOLDER")){
 				isAsset = false;
 				continue;
 			}
@@ -112,10 +114,9 @@ public class ObraETL extends AbstractETL {
 				else {
 					isFirst = false;
 				}
-				continue;
-			}
-
-			if( !isAsset ) {
+				continue; 
+			}						
+			if(!isAsset){				
 				continue;
 			}
 			if( tagname.equals( "id" ) ) {
@@ -239,18 +240,26 @@ public class ObraETL extends AbstractETL {
 				}
 				if( attributeValueName.equals( "Creator" ) ) {
 					this.reader.next();
-					if( this.reader.getName().toString().equals( "value" ) ) {
-						String creator = nameParser.ParserName( this.reader.getElementText() );
-						String srch = getCreator( creator );
-						if( srch != "" ) {
-							//Todos estos se puede refactorizar, ¡¡se hace lo mismo siempre!!
-							Element creatorElement = new Element();
-							creatorElement.setPrefix( "dct" );
-							creatorElement.setUri( dctUri );
-							creatorElement.setElementName( "creator" );
-							creatorElement.setText( srch );
-							obraElement.appendElement( creatorElement );
+					if(this.reader.getName().toString().equals("value")	){						
+						String creator = this.reader.getElementText();
+						String c2="";
+						//buscar creador en el Map, si está colocar uri, si no existe dejar texto plano
+						creator= nameParser.ParserName(nameParser.stripAccents(creator)).toUpperCase();
+						c2=creator;
+						//System.out.println(creator);
+						if(Personas_map.containsKey(creator)){
+							creator=Personas_map.get(creator);
+							//System.out.println(c2);
 						}
+						else{
+							System.out.println("Creator Not Found: "+c2);
+						}
+						Element titleElement = new Element();
+						titleElement.setPrefix("dct");
+						titleElement.setUri(dctUri);
+						titleElement.setElementName("creator");
+						titleElement.setText(creator);
+						obraElement.appendElement(titleElement);							
 					}
 					isFirst = false;
 				}
