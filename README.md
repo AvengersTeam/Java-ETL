@@ -15,10 +15,13 @@ En la carpeta padre ejecutar:
 Tutorial ejecución
 ------------------
 
+```bash
+> mkdir output # carpeta donde se encontraran los output del ETL
+```
+
 * Con maven:
 
 ```bash
-> mkdir output # carpeta donde se encontraran los output del ETL
 > mvn package
 > mvn exec:java -Dexec.mainClass="main.java.cl.uchile.datos.Migrator"
 ```
