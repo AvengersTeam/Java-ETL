@@ -15,10 +15,15 @@ En la carpeta padre ejecutar:
 Tutorial ejecución
 ------------------
 
+```bash
+> mkdir output # carpeta donde se encontraran los output del ETL
+```
+
 * Con maven:
 
 ```bash
-> mvn package
+> mvn clean
+> mvn install
 > mvn exec:java -Dexec.mainClass="main.java.cl.uchile.datos.Migrator"
 ```
 
@@ -26,6 +31,4 @@ Tutorial ejecución
 
 Run As -> Java Application
 
-* Precaución:
-
-En caso de correr manualmente solo algunos ETL, se comenta en la clase Migrator las secciones que no se requieren. Cabe mencionar que para correr el ETL de Obras, es necesario haber generado previamente el RDF de Personas obtenido por PersonETL.
+Precaución: En caso de correr manualmente solo algunos ETL, se comenta en la clase Migrator las secciones que no se requieren. Cabe mencionar que para correr el ETL de Obras, es necesario haber generado previamente el RDF de Personas obtenido por PersonETL.
