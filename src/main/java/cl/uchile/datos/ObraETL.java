@@ -84,13 +84,6 @@ public class ObraETL extends AbstractETL {
 		boolean isFirst = true;
 		boolean isAsset = false;
 		
-		//crear diccionario para Autoridades
-		//falta agregar Autoridades eventos, etc
-		
-		PersonSearch p= new PersonSearch("output/pretty-personas.rdf","about","{http://xmlns.com/foaf/0.1/}name");
-		Map<String, String> Personas_map=p.getMap();
-		//System.out.println(Personas_map.size());
-		
 		NameParser nameParser = new NameParser();
 		
 		while(this.reader.hasNext()) {
@@ -98,7 +91,7 @@ public class ObraETL extends AbstractETL {
 			tagname = this.reader.getName().toString();	
 			String attributeValueType = this.reader.getAttributeValue("", "type");
 			String attributeValueName = this.reader.getAttributeValue("", "name");
-			//ignorar información de la carpeta
+			//ignorar informaciï¿½n de la carpeta
 			if (tagname.equals("asset") && attributeValueType.equals("FOLDER")){
 				isAsset = false;
 				continue;
@@ -241,19 +234,8 @@ public class ObraETL extends AbstractETL {
 				if( attributeValueName.equals( "Creator" ) ) {
 					this.reader.next();
 					if(this.reader.getName().toString().equals("value")	){						
-						String creator = this.reader.getElementText();
-						String c2="";
-						//buscar creador en el Map, si está colocar uri, si no existe dejar texto plano
-						creator= nameParser.ParserName(nameParser.stripAccents(creator)).toUpperCase();
-						c2=creator;
-						//System.out.println(creator);
-						if(Personas_map.containsKey(creator)){
-							creator=Personas_map.get(creator);
-							//System.out.println(c2);
-						}
-						else{
-							System.out.println("Creator Not Found: "+c2);
-						}
+						String creator = getCreator( nameParser.ParserName( this.reader.getElementText() ) );
+						if( creator == null || creator == "" ) continue;
 						Element titleElement = new Element();
 						titleElement.setPrefix("dct");
 						titleElement.setUri(dctUri);
@@ -352,7 +334,7 @@ public class ObraETL extends AbstractETL {
 				}
 			}// fin del ciclo
 		}
-		// terminar último elemento
+		// terminar ï¿½ltimo elemento
 		obraWriter.writeEndElement();
 		expWriter.writeEndElement();
 		manifWriter.writeEndElement();
@@ -370,15 +352,20 @@ public class ObraETL extends AbstractETL {
 	private String getCreator( String name ) {
 		if( name == ""  ) return "";
 		Client c = new TransportClient().addTransportAddress( new InetSocketTransportAddress( "localhost", 9300 ) );
+		SearchResponse searchRes = null;
 		//if c has a error?
-		SearchResponse searchRes = c.prepareSearch( "repo" )
-				.setIndices( "nombre" )
-				.setQuery( QueryBuilders.fuzzyQuery( "name", name ) )
-				.setSize( 1 )
-				.execute()
-				.actionGet();
+		try {
+			searchRes = c.prepareSearch( "repo" )
+					.setIndices( "nombre" )
+					.setQuery( QueryBuilders.fuzzyQuery( "name", name ) )
+					.setSize( 1 )
+					.execute()
+					.actionGet();
+		} catch( Exception ex ) {
+			//Dejar log del error
+		}
 		c.close();
-		return searchRes.getHits().getTotalHits() < 1 ? "" : (String) searchRes.getHits().getAt( 0 ).getSource().get( "url" );
+		return searchRes == null || searchRes.getHits().getTotalHits() < 1 ? "" : (String) searchRes.getHits().getAt( 0 ).getSource().get( "url" );
 	}
 
 }

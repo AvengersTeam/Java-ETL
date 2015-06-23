@@ -66,11 +66,12 @@ public class PersonETL extends AbstractETL {
 		boolean personHasName = false;
 		
 		NameParser parser = new NameParser();
-	
+		
 		while(this.reader.hasNext()) {
 			if (this.reader.next() != XMLStreamConstants.START_ELEMENT) continue; 
 			tagname = this.reader.getName().toString();
 			if (!tagname.equals( "marcEntry" ) && ! tagname.equals( "authorityID" )) continue;
+			
 			String attributeValue = this.reader.getAttributeValue("", "tag");
 			// we assume that CHARACTERS event comes next always, which could not be true
 			this.reader.next();

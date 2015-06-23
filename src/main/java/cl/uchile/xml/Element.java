@@ -1,14 +1,19 @@
 package main.java.cl.uchile.xml;
 
 import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+
 import main.java.visitors.Visitor;
+
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
@@ -106,11 +111,18 @@ public class Element {
 		IndexResponse r; String log = "";
 		for( Element e : this.children ) {
 			if( e.elementName == "label" || e.elementName == "name" || e.elementName == "alternative" ) {
-				r = c.prepareIndex( "repo", "nombre" )
-						.setSource( "{ 'url': '"+url+"', 'name': '"+e.text+"' }" )
-						.execute()
-						.actionGet();
-				log += url+" "+e.text+" "+ r.getId() + " " + r.isCreated() + "\n";
+				try {
+					r = c.prepareIndex( "repo", "nombre" )
+							.setSource( "{ 'url': '"+url+"', 'name': '"+e.text+"' }" )
+							.execute()
+							.actionGet();
+					log += url+" "+e.text+" "+ r.getId() + " " + r.isCreated() + "\n";
+				} catch( Exception ex ) {
+					StringWriter sw = new StringWriter();
+					ex.printStackTrace( new PrintWriter( sw ) );
+					log += "Ha ocurrido una excepcion: " + sw.toString() + "\n";
+					break;
+				}
 			}
 		}
 		if( log != "" ) saveLog( log );
@@ -121,9 +133,9 @@ public class Element {
 	//Esto deberia estar en una clase aparte, please hacer refactoring despues
 	private void saveLog( String s ) {
 		FileWriter fw = null;
-		DateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss");
+		DateFormat df = new SimpleDateFormat("yyyyMMdd");
 		try {
-			fw = new FileWriter( "index_" + df.format( new Date() ) + ".log" );
+			fw = new FileWriter( "output/index_" + df.format( new Date() ) + ".log", true );
 			fw.write( s );
 			fw.close();
 		}
