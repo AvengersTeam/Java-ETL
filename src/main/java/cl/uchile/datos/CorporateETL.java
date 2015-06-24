@@ -3,6 +3,7 @@ package main.java.cl.uchile.datos;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -14,21 +15,25 @@ import main.java.utils.CorporateMemberList;
 import main.java.utils.Unidecoder;
 import main.java.cl.uchile.json.JsonReader;
 import main.java.cl.uchile.xml.Element;
-
+import main.java.utils.ETLLogger;
 /**
  * @author Avengers
  * ETL de Corporativo.
  */
 public class CorporateETL extends AbstractETL {
+	Logger log;
+	String inputFN = "";
+	
 	/**
 	 * @throws XMLStreamException
 	 * @throws FileNotFoundException
 	 * 
 	 */
-	String inputFN = "";
+	
 	public CorporateETL(String inputFilename, String outputFilename) throws FileNotFoundException, XMLStreamException {
 		super(inputFilename, outputFilename);
 		inputFN = inputFilename;
+		log = ETLLogger.getLog("log/corporate.txt");
 	}
 	
 	/**
@@ -36,9 +41,9 @@ public class CorporateETL extends AbstractETL {
 	 * 
 	 */
 	public void parseAndWrite() throws Exception {
+		
 		String id = ""; String tagname;
 		String base_uri = "http://datos.uchile.cl/recurso/";
-		
 		String owlUri = "http://datos.uchile.cl/ontologia/";
 		String foafUri = "http://xmlns.com/foaf/0.1/";
 		String rdfUri = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
@@ -126,10 +131,8 @@ public class CorporateETL extends AbstractETL {
 								corpList.setMemberReference(id, referenceType, referenceTextNormalized);
 							}
 							catch(Exception e) {
-								System.out.println("Advertencia: " + e.toString());
+								log.info(e.toString());
 							}
-							
-							
 						}
 					}
 				}
@@ -182,7 +185,7 @@ public class CorporateETL extends AbstractETL {
 							}
 						}
 						if(!locationFound){
-							System.out.println("Advertencia, corporativo sin localidad id = " + id + ", nombre = " + corpName);
+							log.info("Advertencia corporativo ID='" + id + "': sin localidad en el nombre (campo 110)");
 						}
 					}
 					
@@ -192,10 +195,6 @@ public class CorporateETL extends AbstractETL {
 							/* Incorporar el corporativo al HashMap */
 							String corpFullName = "";
 							corpFullName = nameText;
-							//System.out.println("FULL\t" + corpFullName);
-							//System.out.println("PARS\t" + parseCorporationName(corpFullName));
-							//System.out.println("FATH\t'" + getFathersParsedName(corpFullName)+"'");
-							//System.out.println("ME\t" + getRealName(corpFullName));
 							corpList.addMember(id, corpFullName);
 						}
 						/* k != 0 => es la segunda iteracion */
@@ -206,7 +205,8 @@ public class CorporateETL extends AbstractETL {
 									corpList.linkMembers();
 								}
 								catch(Exception e) {
-									System.out.println("Excepcion de linkMembers!! " + e.toString());
+									log.info("ERROR FATAL en función CorporateMemberList.linkMembers(): " + e.toString() + "Las referencias de padres e hijos no han sido establecidas correctamente");
+									
 								}
 							}
 							//corporateElement
@@ -225,7 +225,6 @@ public class CorporateETL extends AbstractETL {
 							corporateElement.appendElement(typeElement2);
 							
 							/* write foaf:name */
-							//System.out.println("Name: " + corpName);
 							Element nameElement = new Element();
 							nameElement.setPrefix("foaf");
 							nameElement.setUri(foafUri);
@@ -245,7 +244,6 @@ public class CorporateETL extends AbstractETL {
 								/* write location */
 								location = location.replaceAll(" ", "_");
 								String locationURI = base_uri + "localidad/" + location;
-								//System.out.println("Localidad: " + location);
 								Element locationElement = new Element();
 								locationElement.setPrefix("dct");
 								locationElement.setUri(dctUri);
@@ -302,7 +300,6 @@ public class CorporateETL extends AbstractETL {
 							}
 							
 							//corporateFinished = true;
-							
 							//this.writer.writeEndElement();
 						}
 					}

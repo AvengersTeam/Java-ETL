@@ -47,7 +47,7 @@ public class CorporateMemberList {
 				referenced_element.addPredecessor(corp_element.getID());
 			}
 			else {
-				throw new Exception("Error: typo de referencia inválido");
+				throw new Exception("Error corporativo ID='" + member_ID + "': referencia sucesor/antecesor inválida (no es |wb ni |wa) en campo 510");
 			}
 		}
 	}
