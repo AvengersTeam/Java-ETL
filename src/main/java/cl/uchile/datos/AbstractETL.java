@@ -64,8 +64,8 @@ public abstract class AbstractETL {
 	 *
 	 * @param inputFilename Path al nombre del input.
 	 * @param outputFilename Path al nombre del output.
-	 * @throws XMLStreamException Excepci�n lanzada por falla de la librer�a StAX.
-	 * @throws FileNotFoundException Excepci�n lanzada al no encontrar el archivo.
+	 * @throws XMLStreamException Excepcion lanzada por falla de la biblioteca StAX.
+	 * @throws FileNotFoundException Excepcion lanzada al no encontrar el archivo.
 	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamReader.html">XMLStreamReader</a>
 	 * @see <a href="http://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html">XMLStreamWriter</a>
 	 */
