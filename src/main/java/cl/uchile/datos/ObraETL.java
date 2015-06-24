@@ -5,18 +5,12 @@ package main.java.cl.uchile.datos;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Map;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.index.query.QueryBuilders;
+import main.java.cl.uchile.elasticsearch.Elastic;
 import main.java.cl.uchile.xml.Element;
 import main.java.utils.NameParser;
-import main.java.utils.PersonSearch;
 
 
 /**
@@ -84,6 +78,7 @@ public class ObraETL extends AbstractETL {
 		boolean isFirst = true;
 		boolean isAsset = false;
 		
+		Elastic elastic = new Elastic();
 		NameParser nameParser = new NameParser();
 		
 		while(this.reader.hasNext()) {
@@ -100,6 +95,7 @@ public class ObraETL extends AbstractETL {
 			if( tagname.equals( "asset" ) && attributeValueType.equals( "ASSET" ) ) {
 				isAsset = true;
 				if( !isFirst ) {
+					elastic.index( obraElement );
 					obraElement.write( obraWriter );
 					expElement.write( expWriter );
 					manifElement.write( manifWriter );
@@ -234,7 +230,7 @@ public class ObraETL extends AbstractETL {
 				if( attributeValueName.equals( "Creator" ) ) {
 					this.reader.next();
 					if(this.reader.getName().toString().equals("value")	){						
-						String creator = getCreator( nameParser.ParserName( this.reader.getElementText() ) );
+						String creator = elastic.getCreator( nameParser.ParserName( this.reader.getElementText() ) );
 						if( creator == null || creator == "" ) continue;
 						Element titleElement = new Element();
 						titleElement.setPrefix("dct");
@@ -334,6 +330,8 @@ public class ObraETL extends AbstractETL {
 				}
 			}// fin del ciclo
 		}
+		
+		elastic.close();
 		// terminar �ltimo elemento
 		obraWriter.writeEndElement();
 		expWriter.writeEndElement();
@@ -346,26 +344,6 @@ public class ObraETL extends AbstractETL {
 		manifWriter.writeEndDocument();
 		manifWriter.close();
 
-	}
-
-	@SuppressWarnings( "resource" )
-	private String getCreator( String name ) {
-		if( name == ""  ) return "";
-		Client c = new TransportClient().addTransportAddress( new InetSocketTransportAddress( "localhost", 9300 ) );
-		SearchResponse searchRes = null;
-		//if c has a error?
-		try {
-			searchRes = c.prepareSearch( "repo" )
-					.setIndices( "nombre" )
-					.setQuery( QueryBuilders.fuzzyQuery( "name", name ) )
-					.setSize( 1 )
-					.execute()
-					.actionGet();
-		} catch( Exception ex ) {
-			//Dejar log del error
-		}
-		c.close();
-		return searchRes == null || searchRes.getHits().getTotalHits() < 1 ? "" : (String) searchRes.getHits().getAt( 0 ).getSource().get( "url" );
 	}
 
 }

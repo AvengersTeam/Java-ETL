@@ -14,27 +14,6 @@ import java.util.List;
  */
 public class NameParser {
 
-	//What!? this is a joke!?
-	/*public String ParserName( String input ) {
-		String[] Name;
-		String N = "";
-		// separar por comas
-		Name = input.trim().split( "," );
-		// ver si tiene una fecha asociada
-		if( hasDigit( Name[Name.length - 1] ) ) {
-			for( int i = 0; i < Name.length - 2; i++ ) {
-				N += Name[i].trim() + "";
-			}
-			N += Name[Name.length - 2];
-		}
-		else {
-			for( int i = 0; i < Name.length - 1; i++ ) {
-				N += Name[i].trim() + "";
-			}
-			N += Name[Name.length - 1];
-		}
-		return N;
-	}*/
 	public String ParserName( String s ) {
 		if( s == null || s.trim() == "" ) return s; 
 		String[] name = s.split( "," ); String out = "";

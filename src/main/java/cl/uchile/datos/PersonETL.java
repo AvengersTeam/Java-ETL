@@ -2,11 +2,10 @@ package main.java.cl.uchile.datos;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-
+import main.java.cl.uchile.elasticsearch.Elastic;
 import main.java.cl.uchile.xml.Element;
 import main.java.utils.NameParser;
 
@@ -64,7 +63,7 @@ public class PersonETL extends AbstractETL {
 		dateWriter.writeNamespace("rdf", rdfUri);
 		
 		boolean personHasName = false;
-		
+		Elastic elastic = new Elastic();
 		NameParser parser = new NameParser();
 		
 		while(this.reader.hasNext()) {
@@ -80,7 +79,7 @@ public class PersonETL extends AbstractETL {
 				//write previous person if it atleast got a name
 				if( personHasName ){
 					personElement.write(personWriter);
-					personElement.index2elastic(); //se puede caer y agregara mas tiempo, testear
+					elastic.index( personElement );
 					personWriter.flush();
 					dateWriter.flush();
 				}
@@ -185,12 +184,13 @@ public class PersonETL extends AbstractETL {
 		//write the last person
 		if( personHasName ){
 			personElement.write(personWriter);
-			personElement.index2elastic();
+			elastic.index( personElement );
 			personWriter.flush();
 			dateWriter.flush();
 			personHasName = false;
 		}
 
+		elastic.close();
 		// end the rdf descriptions
 		personWriter.writeEndElement();
 		personWriter.writeEndDocument();
