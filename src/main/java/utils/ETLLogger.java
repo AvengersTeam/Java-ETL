@@ -15,7 +15,7 @@ public class ETLLogger {
 	    try {  
 
 	        // This block configure the logger with handler and formatter  
-	        fh = new FileHandler(path);  
+	        fh = new FileHandler(path, true);  
 	        logger.addHandler(fh);
 	        SimpleFormatter formatter = new SimpleFormatter();  
 	        fh.setFormatter(formatter);  
