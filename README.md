@@ -14,11 +14,6 @@ En la carpeta padre ejecutar:
 
 Tutorial ejecución
 ------------------
-
-```bash
-> mkdir output # carpeta donde se encontraran los output del ETL
-```
-
 * Con maven:
 
 ```bash
