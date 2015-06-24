@@ -95,7 +95,7 @@ public class ObraETL extends AbstractETL {
 			if( tagname.equals( "asset" ) && attributeValueType.equals( "ASSET" ) ) {
 				isAsset = true;
 				if( !isFirst ) {
-					elastic.index( obraElement );
+					elastic.index( obraElement, "obra" );
 					obraElement.write( obraWriter );
 					expElement.write( expWriter );
 					manifElement.write( manifWriter );

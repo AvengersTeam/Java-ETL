@@ -51,7 +51,6 @@ public class Migrator {
 		c.parseAndWrite();
 		*/
 		/* RUN ETL obras */
-		/*
 		inputFilename = "input/Portfolio-Andres-bello.xml";
 		outputsFilenames = new ArrayList<String>();
 		outputsFilenames.add("output/obra.rdf");
@@ -59,21 +58,20 @@ public class Migrator {
 		outputsFilenames.add("output/manifestacion.rdf");
 		ObraETL o = new ObraETL(inputFilename, outputsFilenames);
 		o.parseAndWrite();
-		*/
 		/* Inicio instancia de Pretty */
 		Pretty pretty = new Pretty();
 		
 		/* Pretty Print personas */
-        pretty.print("autoridades-personas.rdf","pretty-personas.rdf");
-        pretty.print("autoridades-fechas.rdf","pretty-fechas.rdf");
+    pretty.print("autoridades-personas.rdf","pretty-personas.rdf");
+    pretty.print("autoridades-fechas.rdf","pretty-fechas.rdf");
 		/* Pretty Print eventos */
-        //pretty.print("autoridades-eventos.rdf","pretty-eventos.rdf");
+    //pretty.print("autoridades-eventos.rdf","pretty-eventos.rdf");
 		/* Pretty Print locations */
 		//pretty.print("localidades.rdf","pretty-localidades.rdf");
 		/* Pretty Print obras */
-		//pretty.print("obra.rdf","pretty-obra.rdf");
-		//pretty.print("expresion.rdf","pretty-expresion.rdf");
-		//pretty.print("manifestacion.rdf","pretty-manifestacion.rdf");
+		pretty.print("obra.rdf","pretty-obra.rdf");
+		pretty.print("expresion.rdf","pretty-expresion.rdf");
+		pretty.print("manifestacion.rdf","pretty-manifestacion.rdf");
 		/* Pretty Print corporativos */
 		//pretty.print("autoridades-corporativos.rdf","pretty-corporativos.rdf");
 	}

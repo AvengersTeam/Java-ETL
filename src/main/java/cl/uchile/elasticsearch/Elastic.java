@@ -29,7 +29,7 @@ public class Elastic {
 		this.c.close();
 	}
 
-	public void index( Element el ) {
+	public void index( Element el, String type ) {
 		String url = "";
 		for( Attribute a : el.getAttributes() ) {
 			if( a.getLocalname() == "about" ) {
@@ -37,7 +37,7 @@ public class Elastic {
 				break;
 			}
 		}
-		if( url == "" ) return;
+		if( url == "" || type == "" ) return;
 
 		IndexResponse r;
 		String log = "";
@@ -45,13 +45,16 @@ public class Elastic {
 			String ename = e.getElementName();
 			if( ename == "label" || ename == "name" || ename == "alternative" ) {
 				try {
-					r = c.prepareIndex( "repo", "nombre" ).setSource( "{ \"url\": \"" + url + "\", \"name\": \"" + e.getText() + "\" }" ).execute().actionGet();
-					log += url + " " + e.getText() + " " + r.getId() + " " + r.isCreated() + "\n";
+					r = c.prepareIndex( "repo", type )
+							.setSource( "{ \"url\": \"" + url + "\", \"name\": \"" + clean( e.getText() ) + "\" }" )
+							.execute()
+							.actionGet();
+					log += url + " " + clean( e.getText() ) + " " + r.getId() + " " + r.isCreated() + "\n";
 				}
 				catch( Exception ex ) {
 					StringWriter sw = new StringWriter();
 					ex.printStackTrace( new PrintWriter( sw ) );
-					log += "Ha ocurrido una excepcion: " + sw.toString() + "\n";
+					log += "Ha ocurrido una excepcion con "+ clean( e.getText() ) +": " + sw.toString() + "\n";
 					break;
 				}
 			}
@@ -61,22 +64,29 @@ public class Elastic {
 
 	public String getCreator( String name ) {
 		if( name == "" ) return "";
-		SearchResponse searchRes = null;
+		SearchResponse searchRes = null; String log = "";
 		try {
 			searchRes = this.c.prepareSearch( "repo" )
-					.setIndices( "nombre" )
-					.setQuery( QueryBuilders.fuzzyQuery( "name", name ) )
+					.setTypes( "autoridad" )
+					.setQuery( QueryBuilders.matchQuery( "name", clean( name ) ) )
+					.setMinScore( 1.0f )
 					.setSize( 1 )
 					.execute()
 					.actionGet();
+			log += clean( name )+" => "+searchRes.toString();
 		}
 		catch( Exception ex ) {
 			StringWriter sw = new StringWriter();
 			ex.printStackTrace( new PrintWriter( sw ) );
-			saveLog( "Excepcion al buscar: " + sw.toString() + "\n" );
+			log += "Excepcion al buscar: " + sw.toString() + "\n";
 		}
+		if( log != "" ) saveLog( log );
 
 		return searchRes == null || searchRes.getHits().getTotalHits() < 1 ? "" : (String) searchRes.getHits().getAt( 0 ).getSource().get( "url" );
+	}
+	
+	private String clean( String s ) {
+		return s.replaceAll( "(\\\\|\\\")", "\\$1" );
 	}
 
 	private void saveLog( String s ) {

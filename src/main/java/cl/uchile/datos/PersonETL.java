@@ -79,7 +79,7 @@ public class PersonETL extends AbstractETL {
 				//write previous person if it atleast got a name
 				if( personHasName ){
 					personElement.write(personWriter);
-					elastic.index( personElement );
+					elastic.index( personElement, "autoridad" );
 					personWriter.flush();
 					dateWriter.flush();
 				}
@@ -184,7 +184,7 @@ public class PersonETL extends AbstractETL {
 		//write the last person
 		if( personHasName ){
 			personElement.write(personWriter);
-			elastic.index( personElement );
+			elastic.index( personElement, "autoridad" );
 			personWriter.flush();
 			dateWriter.flush();
 			personHasName = false;
