@@ -262,6 +262,7 @@ public class ObraETL extends AbstractETL {
 					}
 					isFirst = false;
 				}
+				/* Acepta lenguajes español e inglés, modificar en caso de necesitar agregar más idiomas */
 				if( attributeValueName.equals( "Language" ) ) {
 					this.reader.next();
 					if( this.reader.getName().toString().equals( "value" ) ) {

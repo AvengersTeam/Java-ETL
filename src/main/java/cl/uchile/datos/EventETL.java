@@ -46,7 +46,7 @@ public class EventETL extends AbstractETL {
 		this.writer.writeNamespace("schema", schemaUri);
 		
 		boolean isFirst = true;
-		
+		/* Se obtienen los arreglos de ciudades y de paises para luego validar los que vienen del RDF. */
 		JSONArray jCities = JsonReader.getCitiesArray();
 		Object[] aCountries = JsonReader.getCountriesArray();
 		while(this.reader.hasNext()) {
@@ -65,16 +65,16 @@ public class EventETL extends AbstractETL {
 				isFirst = false;
 				// Write buffered element, this can be optimized
 				this.writer.flush();
-				// New guy starts here
+				/* El nuevo evento comienza a crearse aquí. */
 				eventElement = new Element();
 				eventElement.setPrefix("owl");
 				eventElement.setUri(owlUri);
 				eventElement.setElementName("NamedIndividual");
 				eventElement.appendAttribute(rdfUri, "about", base_uri + "recurso/evento/" + id);
 			}
-			
+			/* Si el valor del atributo tag no está, salto al siguiente elemento. */
 			if(attributeValue == null) continue;
-			
+			/* Si el atributo tag es 111, hay que sacar de su texto, elementos para guardar en el RDF. */
 			if(attributeValue.equals("111") && this.reader.getText().contains("|a")) {
 				String text = this.reader.getText();
 				String[] textArray = text.split("\\|");
@@ -87,7 +87,6 @@ public class EventETL extends AbstractETL {
 					name = name + textArray[i].substring(1);
 				}
 				/* Creo elemento nombre como dct:title */
-				//System.out.println("Nombre: " + name);
 				Element nameElement = new Element();
 				nameElement.setPrefix("dct");
 				nameElement.setUri(dctUri);
@@ -134,6 +133,7 @@ public class EventETL extends AbstractETL {
 								break;
 							}
 						}
+						/* Si no hay ciudad válida en el texto del xml, se busca por país. */
 						if(!found){
 							for(int j = 0; j < aCountries.length; j++){
 								String aux = ud.unidecode((String)aCountries[j]);
@@ -144,7 +144,8 @@ public class EventETL extends AbstractETL {
 								}
 							}
 						}
-						/*  */
+						/* Si finalmente se encuentra una ciudad o país, esta se agrega como URI en un nuevo 
+						 * subelemento del evento. */
 						if(found){
 							location = location.replaceAll(" ", "_");
 							String locationURI = base_uri + "localidad/" + location;
@@ -159,9 +160,9 @@ public class EventETL extends AbstractETL {
 					}
 				}
 			}
+			/* Si existe el valor de tag igual a 670, este se considera como nombre alternativo del presente evento. */
 			if(attributeValue.equals("670") && this.reader.getText().contains("|a")) {
 				String alternate = this.reader.getText().substring(2);
-				//System.out.println("Alternativo: " + alternate);
 				Element altNameElement = new Element();
 				altNameElement.setPrefix("dct");
 				altNameElement.setUri(dctUri);
