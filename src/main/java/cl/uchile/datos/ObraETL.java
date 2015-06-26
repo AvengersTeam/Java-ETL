@@ -194,6 +194,8 @@ public class ObraETL extends AbstractETL {
 				identifierElement.setPrefix( "dct" );
 				identifierElement.setUri( dctUri );
 				identifierElement.setElementName( "identifier" );
+				/* esta url es válida para dato en alojados en Biblioteca Digital, en caso de utilizar
+				 * otra base de datos esta url debe ser modificada */
 				identifierElement.appendAttribute( rdfUri, "resource", "http://bibliotecadigital.uchile.cl/client/sisib/search/detailnonmodal?d=ent%3A%2F%2FSD_ASSET%2F" + id.substring( 0, 2 ) + "%2F" + id
 						+ "~ASSET~0~17" );
 				manifElement.appendElement( identifierElement );
