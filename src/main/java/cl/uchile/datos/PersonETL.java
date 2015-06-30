@@ -79,7 +79,7 @@ public class PersonETL extends AbstractETL {
 				//write previous person if it atleast got a name
 				if( personHasName ){
 					personElement.write(personWriter);
-					elastic.index( personElement, "autoridad" );
+					//elastic.index( personElement, "autoridad" );
 					personWriter.flush();
 					dateWriter.flush();
 				}
@@ -121,34 +121,36 @@ public class PersonETL extends AbstractETL {
 						personElement.appendElement(nameElement);
 					}
 					else if (textArray[i].substring(0,1).equals("d")) {
-						Element birthElement = new Element();
-						String[] birthArray = textArray[i].substring(1).split("\\-");
-						birthElement.setPrefix("bio");
-						birthElement.setUri(bioUri);
-						birthElement.setElementName("event");
-						birthElement.appendAttribute(rdfUri, "resource",  base_uri + "nacimiento/" + birthArray[0]);
-						personElement.appendElement(birthElement);
-						
-						eventElement = new Element();
-						eventElement.setPrefix("owl");
-						eventElement.setUri(owlUri);
-						eventElement.setElementName("NamedIndividual");
-						eventElement.appendAttribute(rdfUri, "about", base_uri + "nacimiento/" + birthArray[0]);
-						Element typeElement = new Element();
-						typeElement.setPrefix("rdf");
-						typeElement.setUri(rdfUri);
-						typeElement.setElementName("type");
-						typeElement.appendAttribute(rdfUri, "resource",  bioUri + "birth");
-						eventElement.appendElement(typeElement);
-						Element dateElement = new Element();
-						dateElement.setPrefix("bio");
-						dateElement.setUri(bioUri);
-						dateElement.setElementName("date");
-						dateElement.setText(birthArray[0]);
-						eventElement.appendElement(dateElement);
-						eventElement.write(dateWriter);
-
-						if (birthArray.length == 2) {
+						Element typeElement, dateElement;
+						String[] birthArray = parseDate( textArray[i].substring(1) );
+						if( birthArray[0] != "" ) {
+							Element birthElement = new Element();
+							birthElement.setPrefix("bio");
+							birthElement.setUri(bioUri);
+							birthElement.setElementName("event");
+							birthElement.appendAttribute(rdfUri, "resource",  base_uri + "nacimiento/" + birthArray[0]);
+							personElement.appendElement(birthElement);
+							
+							eventElement = new Element();
+							eventElement.setPrefix("owl");
+							eventElement.setUri(owlUri);
+							eventElement.setElementName("NamedIndividual");
+							eventElement.appendAttribute(rdfUri, "about", base_uri + "nacimiento/" + birthArray[0]);
+							typeElement = new Element();
+							typeElement.setPrefix("rdf");
+							typeElement.setUri(rdfUri);
+							typeElement.setElementName("type");
+							typeElement.appendAttribute(rdfUri, "resource",  bioUri + "birth");
+							eventElement.appendElement(typeElement);
+							dateElement = new Element();
+							dateElement.setPrefix("bio");
+							dateElement.setUri(bioUri);
+							dateElement.setElementName("date");
+							dateElement.setText(birthArray[0]);
+							eventElement.appendElement(dateElement);
+							eventElement.write(dateWriter);
+							}
+						if( birthArray[1] != "" ) {
 							Element deathElement = new Element();
 							deathElement.setPrefix("bio");
 							deathElement.setUri(bioUri);
@@ -174,8 +176,7 @@ public class PersonETL extends AbstractETL {
 							dateElement.setText(birthArray[1]);
 							eventElement.appendElement(dateElement);
 							eventElement.write(dateWriter);
-						}
-						
+						}				
 					}
 				}
 				personHasName = true;
@@ -184,7 +185,7 @@ public class PersonETL extends AbstractETL {
 		//write the last person
 		if( personHasName ){
 			personElement.write(personWriter);
-			elastic.index( personElement, "autoridad" );
+			//elastic.index( personElement, "autoridad" );
 			personWriter.flush();
 			dateWriter.flush();
 			personHasName = false;
@@ -199,5 +200,37 @@ public class PersonETL extends AbstractETL {
 		dateWriter.writeEndElement();
 		dateWriter.writeEndDocument();
 		dateWriter.close();
+	}
+	
+	//Estructura fea, lo sé, pero mañana es la presentación :(
+	private String[] parseDate( String str ) {
+		String[] res = new String[2]; res[0] = res[1] = "";
+		String[] aux = str.split("\\-");
+		if( aux.length == 1 ) {
+			if( aux[0].startsWith( "n" ) ) {
+				res[0] = getNumbers( aux[0] );
+			}
+			else if( aux[0].startsWith( "m" ) ) {
+				res[1] = getNumbers( aux[0] );
+			}
+		}
+		else if( aux.length > 1 ) {
+			//supuesto de que son 2 elementos (o tomo los 2 primeros)
+			res[0] = getNumbers( aux[0] );
+			res[1] = getNumbers( aux[1] );
+		}
+		return res;
+	}
+	
+	private String getNumbers( String str ) {
+		String num = ""; boolean ini = false; boolean isDigit;
+		for( Character c : str.toCharArray() ) {
+			isDigit = Character.isDigit( c );
+			if( ! isDigit && ini ) break;
+			if( ! isDigit && ! ini ) continue;
+			ini = true;
+			num += c;
+		}
+		return num;
 	}
 }
