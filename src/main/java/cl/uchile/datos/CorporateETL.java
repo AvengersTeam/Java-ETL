@@ -3,7 +3,6 @@ package main.java.cl.uchile.datos;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -15,7 +14,10 @@ import main.java.utils.CorporateMemberList;
 import main.java.utils.Unidecoder;
 import main.java.cl.uchile.json.JsonReader;
 import main.java.cl.uchile.xml.Element;
+import java.util.logging.Logger;
 import main.java.utils.ETLLogger;
+
+
 /**
  * @author Avengers
  * ETL de Corporativo.

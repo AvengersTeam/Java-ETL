@@ -8,6 +8,9 @@ import javax.xml.stream.XMLStreamWriter;
 import main.java.cl.uchile.elasticsearch.Elastic;
 import main.java.cl.uchile.xml.Element;
 import main.java.utils.NameParser;
+import java.util.logging.Logger;
+import main.java.utils.ETLLogger;
+
 
 /**
  * ETL Personas.
@@ -15,7 +18,7 @@ import main.java.utils.NameParser;
  * @author Avengers
  */
 public class PersonETL extends AbstractETL {
-
+	Logger log;
 	/**
 	 * @throws XMLStreamException
 	 * @throws FileNotFoundException
@@ -23,6 +26,7 @@ public class PersonETL extends AbstractETL {
 	 */
 	public PersonETL(String inputFilename, ArrayList<String> outputFilename) throws FileNotFoundException, XMLStreamException {
 		super(inputFilename, outputFilename);
+		log = ETLLogger.getLog("log/person.txt");
 	}
 
 	/**
@@ -178,6 +182,7 @@ public class PersonETL extends AbstractETL {
 							eventElement.write(dateWriter);
 						}				
 					}
+					log.warning("Problema con autoridad:" + id + "," + text);
 				}
 				personHasName = true;
 			}
@@ -202,7 +207,7 @@ public class PersonETL extends AbstractETL {
 		dateWriter.close();
 	}
 	
-	//Estructura fea, lo sé, pero mañana es la presentación :(
+	
 	private String[] parseDate( String str ) {
 		String[] res = new String[2]; res[0] = res[1] = "";
 		String[] aux = str.split("\\-");

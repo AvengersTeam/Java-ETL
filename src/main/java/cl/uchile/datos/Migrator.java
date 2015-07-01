@@ -45,7 +45,7 @@ public class Migrator {
 			log.warning(error);
 			System.out.println(error);
 		}
-		/* Run ETL eventos 
+		/* Run ETL eventos */
 		
 		inputFilename = "input/autoridades-eventos.xml";
 		outputFilename = "output/autoridades-eventos.rdf";
@@ -61,8 +61,8 @@ public class Migrator {
 			log.warning(error);
 			System.out.println(error);
 		}
-		*/
-		/* RUT ETL localidades 
+		
+		/* RUT ETL localidades */
 	
 		outputFilename = "output/localidades.rdf";
 		try{
@@ -77,8 +77,8 @@ public class Migrator {
 			log.warning(error);
 			System.out.println(error);
 		}
-		*/
-		/* RUN ETL corporativos 
+		
+		/* RUN ETL corporativos */
 		
 		inputFilename = "input/autoridades-corporativos.xml";
 		outputFilename = "output/autoridades-corporativos.rdf";
@@ -94,7 +94,7 @@ public class Migrator {
 			log.warning(error);
 			System.out.println(error);
 		}
-		*/
+		
 		/* RUN ETL obras */
 		inputFilename = "input/Portfolio-Andres-bello.xml";
 		outputsFilenames = new ArrayList<String>();
@@ -125,7 +125,7 @@ public class Migrator {
 			log.warning(error);
 			System.out.println(error);
 		}
-		/* Pretty Print eventos 
+		/* Pretty Print eventos */
 		try{
     		pretty.print("autoridades-eventos.rdf","pretty-eventos.rdf");
 		}catch(Exception e){
@@ -133,8 +133,8 @@ public class Migrator {
 			log.warning(error);
 			System.out.println(error);
 		}
-		*/
-		/* Pretty Print locations 
+		
+		/* Pretty Print locations */
 		try{
 			pretty.print("localidades.rdf","pretty-localidades.rdf");
 		}catch(Exception e){
@@ -142,7 +142,7 @@ public class Migrator {
 			log.warning(error);
 			System.out.println(error);
 		}
-		*/
+		
 		/* Pretty Print obras */
 		try{
 			pretty.print("obra.rdf","pretty-obra.rdf");
@@ -153,7 +153,7 @@ public class Migrator {
 			log.warning(error);
 			System.out.println(error);
 		}
-		/* Pretty Print corporativos 
+		/* Pretty Print corporativos */
 		try{
 			pretty.print("autoridades-corporativos.rdf","pretty-corporativos.rdf");
 		}catch(Exception e){
@@ -161,6 +161,6 @@ public class Migrator {
 			log.warning(error);
 			System.out.println(error);
 		}
-		*/
+		
 	}
 }
